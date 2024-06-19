@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForms", "WinForms\WinForms.csproj", "{CC5E3A58-8F83-4746-AF29-AAF082E349E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nardnob.AlgorithmComparison.WinForms", "WinForms\nardnob.AlgorithmComparison.WinForms.csproj", "{CC5E3A58-8F83-4746-AF29-AAF082E349E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
