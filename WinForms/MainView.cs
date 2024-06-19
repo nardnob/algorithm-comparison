@@ -7,7 +7,7 @@ namespace WinForms
         private Random _rand = new Random();
         private List<int> _unsortedNums = new List<int>();
         private List<int> _sortedNums = new List<int>();
-        private bool _focusSet = false;
+        private bool _initialFocusSet = false;
 
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
@@ -111,7 +111,20 @@ namespace WinForms
 
         #region " Get List "
 
-        private async void tsbtnGetList_Click(object sender, EventArgs e)
+        private void tsbtnGetList_Click(object sender, EventArgs e)
+        {
+            GetList();
+        }
+
+        private void tstxt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GetList();
+            }
+        }
+
+        private async void GetList()
         {
             int items, beginRange, endRange;
 
@@ -166,6 +179,7 @@ namespace WinForms
             txtUnsortedNums.Text = sb.ToString();
 
             _mode = Mode.Ready;
+            tstxtItems.Focus();
         }
 
         #endregion
@@ -188,10 +202,10 @@ namespace WinForms
 
         private void MainView_Shown(object sender, EventArgs e)
         {
-            if (!_focusSet)
+            if (!_initialFocusSet)
             {
                 tstxtItems.Focus();
-                _focusSet = true;
+                _initialFocusSet = true;
             }
         }
 

@@ -96,6 +96,7 @@
             // 
             tstxtItems.Name = "tstxtItems";
             tstxtItems.Size = new Size(100, 25);
+            tstxtItems.KeyDown += tstxt_KeyDown;
             // 
             // toolStripLabel4
             // 
@@ -113,6 +114,7 @@
             // 
             tstxtBeginRange.Name = "tstxtBeginRange";
             tstxtBeginRange.Size = new Size(100, 25);
+            tstxtBeginRange.KeyDown += tstxt_KeyDown;
             // 
             // toolStripLabel5
             // 
@@ -130,6 +132,7 @@
             // 
             tstxtEndRange.Name = "tstxtEndRange";
             tstxtEndRange.Size = new Size(100, 25);
+            tstxtEndRange.KeyDown += tstxt_KeyDown;
             // 
             // toolStripLabel7
             // 
