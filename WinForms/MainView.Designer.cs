@@ -385,7 +385,7 @@
             // btnClearLog
             // 
             btnClearLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnClearLog.Location = new Point(964, 409);
+            btnClearLog.Location = new Point(964, 412);
             btnClearLog.Name = "btnClearLog";
             btnClearLog.Size = new Size(75, 23);
             btnClearLog.TabIndex = 17;
