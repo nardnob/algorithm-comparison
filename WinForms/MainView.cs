@@ -45,6 +45,8 @@ namespace WinForms
                         tsbtnClearSortedList.Enabled = false;
                         tsbtnVerifySort.Enabled = false;
 
+                        btnClearLog.Enabled = false;
+
                         break;
 
                     case Mode.Ready:
@@ -65,6 +67,8 @@ namespace WinForms
                         tsbtnClearLog.Enabled = true;
                         tsbtnClearSortedList.Enabled = true;
                         tsbtnVerifySort.Enabled = true;
+
+                        btnClearLog.Enabled = true;
 
                         break;
                 }
