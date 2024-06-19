@@ -62,7 +62,12 @@
             btnStupidSort = new Button();
             label3 = new Label();
             txtResults = new TextBox();
+            splitContainer1 = new SplitContainer();
             toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
             SuspendLayout();
             // 
             // toolStrip1
@@ -195,19 +200,19 @@
             // 
             // txtUnsortedNums
             // 
-            txtUnsortedNums.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtUnsortedNums.Location = new Point(12, 50);
+            txtUnsortedNums.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtUnsortedNums.Location = new Point(3, 18);
             txtUnsortedNums.Multiline = true;
             txtUnsortedNums.Name = "txtUnsortedNums";
             txtUnsortedNums.ReadOnly = true;
             txtUnsortedNums.ScrollBars = ScrollBars.Vertical;
-            txtUnsortedNums.Size = new Size(1027, 161);
+            txtUnsortedNums.Size = new Size(1021, 165);
             txtUnsortedNums.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 32);
+            label1.Location = new Point(3, 0);
             label1.Name = "label1";
             label1.Size = new Size(76, 15);
             label1.TabIndex = 2;
@@ -216,7 +221,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 221);
+            label2.Location = new Point(3, 0);
             label2.Name = "label2";
             label2.Size = new Size(62, 15);
             label2.TabIndex = 4;
@@ -224,17 +229,18 @@
             // 
             // txtSortedNums
             // 
-            txtSortedNums.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtSortedNums.Location = new Point(12, 239);
+            txtSortedNums.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtSortedNums.Location = new Point(3, 18);
             txtSortedNums.Multiline = true;
             txtSortedNums.Name = "txtSortedNums";
             txtSortedNums.ReadOnly = true;
             txtSortedNums.ScrollBars = ScrollBars.Vertical;
-            txtSortedNums.Size = new Size(1027, 161);
+            txtSortedNums.Size = new Size(1021, 164);
             txtSortedNums.TabIndex = 3;
             // 
             // btnBubbleSort
             // 
+            btnBubbleSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnBubbleSort.Location = new Point(12, 409);
             btnBubbleSort.Name = "btnBubbleSort";
             btnBubbleSort.Size = new Size(140, 50);
@@ -245,6 +251,7 @@
             // 
             // btnMergeSort
             // 
+            btnMergeSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnMergeSort.Location = new Point(158, 409);
             btnMergeSort.Name = "btnMergeSort";
             btnMergeSort.Size = new Size(140, 50);
@@ -255,6 +262,7 @@
             // 
             // btnQuickSort
             // 
+            btnQuickSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnQuickSort.Location = new Point(304, 409);
             btnQuickSort.Name = "btnQuickSort";
             btnQuickSort.Size = new Size(140, 50);
@@ -265,6 +273,7 @@
             // 
             // btnInsertionSort
             // 
+            btnInsertionSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnInsertionSort.Location = new Point(12, 465);
             btnInsertionSort.Name = "btnInsertionSort";
             btnInsertionSort.Size = new Size(140, 50);
@@ -275,6 +284,7 @@
             // 
             // btnSelectionSort
             // 
+            btnSelectionSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnSelectionSort.Location = new Point(158, 465);
             btnSelectionSort.Name = "btnSelectionSort";
             btnSelectionSort.Size = new Size(140, 50);
@@ -285,6 +295,7 @@
             // 
             // btnHeapSort
             // 
+            btnHeapSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnHeapSort.Location = new Point(304, 465);
             btnHeapSort.Name = "btnHeapSort";
             btnHeapSort.Size = new Size(140, 50);
@@ -295,6 +306,7 @@
             // 
             // btnCombSort
             // 
+            btnCombSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnCombSort.Location = new Point(12, 521);
             btnCombSort.Name = "btnCombSort";
             btnCombSort.Size = new Size(140, 50);
@@ -305,6 +317,7 @@
             // 
             // btnStoogeSort
             // 
+            btnStoogeSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnStoogeSort.Location = new Point(158, 521);
             btnStoogeSort.Name = "btnStoogeSort";
             btnStoogeSort.Size = new Size(140, 50);
@@ -315,6 +328,7 @@
             // 
             // btnStupidSort
             // 
+            btnStupidSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnStupidSort.Location = new Point(304, 521);
             btnStupidSort.Name = "btnStupidSort";
             btnStupidSort.Size = new Size(140, 50);
@@ -325,6 +339,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Location = new Point(450, 409);
             label3.Name = "label3";
@@ -334,7 +349,7 @@
             // 
             // txtResults
             // 
-            txtResults.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtResults.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtResults.Location = new Point(450, 427);
             txtResults.Multiline = true;
             txtResults.Name = "txtResults";
@@ -342,6 +357,26 @@
             txtResults.ScrollBars = ScrollBars.Vertical;
             txtResults.Size = new Size(589, 144);
             txtResults.TabIndex = 15;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            splitContainer1.Location = new Point(12, 28);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(label1);
+            splitContainer1.Panel1.Controls.Add(txtUnsortedNums);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(label2);
+            splitContainer1.Panel2.Controls.Add(txtSortedNums);
+            splitContainer1.Size = new Size(1027, 375);
+            splitContainer1.SplitterDistance = 186;
+            splitContainer1.TabIndex = 16;
             // 
             // MainView
             // 
@@ -359,16 +394,19 @@
             Controls.Add(btnQuickSort);
             Controls.Add(btnMergeSort);
             Controls.Add(btnBubbleSort);
-            Controls.Add(label2);
-            Controls.Add(txtSortedNums);
-            Controls.Add(label1);
-            Controls.Add(txtUnsortedNums);
             Controls.Add(toolStrip1);
-            MinimumSize = new Size(656, 621);
+            Controls.Add(splitContainer1);
+            MinimumSize = new Size(1067, 621);
             Name = "MainView";
             Text = "Algorithm Comparison";
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -408,5 +446,6 @@
         private Button btnStupidSort;
         private Label label3;
         private TextBox txtResults;
+        private SplitContainer splitContainer1;
     }
 }
