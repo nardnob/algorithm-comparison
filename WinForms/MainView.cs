@@ -7,6 +7,7 @@ namespace WinForms
         private Random _rand = new Random();
         private List<int> _unsortedNums = new List<int>();
         private List<int> _sortedNums = new List<int>();
+        private bool _focusSet = false;
 
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
@@ -120,7 +121,7 @@ namespace WinForms
                 beginRange = Convert.ToInt32(tstxtBeginRange.Text);
                 endRange = Convert.ToInt32(tstxtEndRange.Text);
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 MessageBox.Show("Invalid input entered.", "Invalid Input");
                 return;
@@ -183,6 +184,15 @@ namespace WinForms
             tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
 
             await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
+        }
+
+        private void MainView_Shown(object sender, EventArgs e)
+        {
+            if (!_focusSet)
+            {
+                tstxtItems.Focus();
+                _focusSet = true;
+            }
         }
 
         #endregion

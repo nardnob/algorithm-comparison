@@ -77,7 +77,7 @@
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1051, 25);
-            toolStrip1.TabIndex = 0;
+            toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel6
@@ -244,7 +244,7 @@
             btnBubbleSort.Location = new Point(12, 409);
             btnBubbleSort.Name = "btnBubbleSort";
             btnBubbleSort.Size = new Size(140, 50);
-            btnBubbleSort.TabIndex = 5;
+            btnBubbleSort.TabIndex = 2;
             btnBubbleSort.Text = "Bubble Sort";
             btnBubbleSort.UseVisualStyleBackColor = true;
             btnBubbleSort.Click += btnBubbleSort_Click;
@@ -255,7 +255,7 @@
             btnMergeSort.Location = new Point(158, 409);
             btnMergeSort.Name = "btnMergeSort";
             btnMergeSort.Size = new Size(140, 50);
-            btnMergeSort.TabIndex = 6;
+            btnMergeSort.TabIndex = 3;
             btnMergeSort.Text = "Top-Down Merge Sort";
             btnMergeSort.UseVisualStyleBackColor = true;
             btnMergeSort.Click += btnMergeSort_Click;
@@ -266,7 +266,7 @@
             btnQuickSort.Location = new Point(304, 409);
             btnQuickSort.Name = "btnQuickSort";
             btnQuickSort.Size = new Size(140, 50);
-            btnQuickSort.TabIndex = 7;
+            btnQuickSort.TabIndex = 4;
             btnQuickSort.Text = "Quick Sort";
             btnQuickSort.UseVisualStyleBackColor = true;
             btnQuickSort.Click += btnQuickSort_Click;
@@ -277,7 +277,7 @@
             btnInsertionSort.Location = new Point(12, 465);
             btnInsertionSort.Name = "btnInsertionSort";
             btnInsertionSort.Size = new Size(140, 50);
-            btnInsertionSort.TabIndex = 8;
+            btnInsertionSort.TabIndex = 5;
             btnInsertionSort.Text = "Insertion Sort";
             btnInsertionSort.UseVisualStyleBackColor = true;
             btnInsertionSort.Click += btnInsertionSort_Click;
@@ -288,7 +288,7 @@
             btnSelectionSort.Location = new Point(158, 465);
             btnSelectionSort.Name = "btnSelectionSort";
             btnSelectionSort.Size = new Size(140, 50);
-            btnSelectionSort.TabIndex = 9;
+            btnSelectionSort.TabIndex = 6;
             btnSelectionSort.Text = "Selection Sort";
             btnSelectionSort.UseVisualStyleBackColor = true;
             btnSelectionSort.Click += btnSelectionSort_Click;
@@ -299,7 +299,7 @@
             btnHeapSort.Location = new Point(304, 465);
             btnHeapSort.Name = "btnHeapSort";
             btnHeapSort.Size = new Size(140, 50);
-            btnHeapSort.TabIndex = 10;
+            btnHeapSort.TabIndex = 7;
             btnHeapSort.Text = "Heap Sort";
             btnHeapSort.UseVisualStyleBackColor = true;
             btnHeapSort.Click += btnHeapSort_Click;
@@ -310,7 +310,7 @@
             btnCombSort.Location = new Point(12, 521);
             btnCombSort.Name = "btnCombSort";
             btnCombSort.Size = new Size(140, 50);
-            btnCombSort.TabIndex = 11;
+            btnCombSort.TabIndex = 8;
             btnCombSort.Text = "Insertion Sort";
             btnCombSort.UseVisualStyleBackColor = true;
             btnCombSort.Click += btnInsertionSort_Click;
@@ -321,7 +321,7 @@
             btnStoogeSort.Location = new Point(158, 521);
             btnStoogeSort.Name = "btnStoogeSort";
             btnStoogeSort.Size = new Size(140, 50);
-            btnStoogeSort.TabIndex = 12;
+            btnStoogeSort.TabIndex = 9;
             btnStoogeSort.Text = "Stooge Sort";
             btnStoogeSort.UseVisualStyleBackColor = true;
             btnStoogeSort.Click += btnStoogeSort_Click;
@@ -332,7 +332,7 @@
             btnStupidSort.Location = new Point(304, 521);
             btnStupidSort.Name = "btnStupidSort";
             btnStupidSort.Size = new Size(140, 50);
-            btnStupidSort.TabIndex = 13;
+            btnStupidSort.TabIndex = 10;
             btnStupidSort.Text = "Stupid Sort";
             btnStupidSort.UseVisualStyleBackColor = true;
             btnStupidSort.Click += btnStupidSort_Click;
@@ -356,7 +356,7 @@
             txtResults.ReadOnly = true;
             txtResults.ScrollBars = ScrollBars.Vertical;
             txtResults.Size = new Size(589, 144);
-            txtResults.TabIndex = 15;
+            txtResults.TabIndex = 11;
             // 
             // splitContainer1
             // 
@@ -399,6 +399,7 @@
             MinimumSize = new Size(1067, 621);
             Name = "MainView";
             Text = "Algorithm Comparison";
+            Shown += MainView_Shown;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
