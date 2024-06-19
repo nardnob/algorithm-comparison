@@ -402,6 +402,7 @@
             MinimumSize = new Size(1067, 621);
             Name = "MainView";
             Text = "Algorithm Comparison";
+            Load += MainView_Load;
             Shown += MainView_Shown;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
