@@ -394,6 +394,7 @@
             btnClearLog.Text = "Clear Log";
             btnClearLog.TextAlign = ContentAlignment.MiddleLeft;
             btnClearLog.UseVisualStyleBackColor = true;
+            btnClearLog.Click += btnClearLog_Click;
             // 
             // MainView
             // 

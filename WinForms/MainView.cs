@@ -96,9 +96,18 @@ namespace WinForms
 
         #region " Clear "
 
-        private void tsbtnClearLog_Click(object sender, EventArgs e)
+        private void ClearLog()
         {
             txtResults.Text = String.Empty;
+        }
+
+        private void btnClearLog_Click(object sender, EventArgs e)
+        {
+            ClearLog();
+        }
+        private void tsbtnClearLog_Click(object sender, EventArgs e)
+        {
+            ClearLog();
         }
 
         private void tsbtnClearSortedList_Click(object sender, EventArgs e)
