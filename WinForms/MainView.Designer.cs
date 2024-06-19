@@ -63,6 +63,7 @@
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
+            btnClearLog = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -344,7 +345,7 @@
             // 
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(450, 409);
+            label3.Location = new Point(450, 417);
             label3.Name = "label3";
             label3.Size = new Size(67, 15);
             label3.TabIndex = 14;
@@ -353,12 +354,12 @@
             // txtResults
             // 
             txtResults.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtResults.Location = new Point(450, 427);
+            txtResults.Location = new Point(450, 438);
             txtResults.Multiline = true;
             txtResults.Name = "txtResults";
             txtResults.ReadOnly = true;
             txtResults.ScrollBars = ScrollBars.Vertical;
-            txtResults.Size = new Size(589, 144);
+            txtResults.Size = new Size(589, 133);
             txtResults.TabIndex = 11;
             // 
             // splitContainer1
@@ -381,11 +382,22 @@
             splitContainer1.SplitterDistance = 186;
             splitContainer1.TabIndex = 16;
             // 
+            // btnClearLog
+            // 
+            btnClearLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearLog.Location = new Point(964, 409);
+            btnClearLog.Name = "btnClearLog";
+            btnClearLog.Size = new Size(75, 23);
+            btnClearLog.TabIndex = 17;
+            btnClearLog.Text = "Clear Log";
+            btnClearLog.UseVisualStyleBackColor = true;
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1051, 582);
+            Controls.Add(btnClearLog);
             Controls.Add(txtResults);
             Controls.Add(label3);
             Controls.Add(btnStupidSort);
@@ -452,5 +464,6 @@
         private Label label3;
         private TextBox txtResults;
         private SplitContainer splitContainer1;
+        private Button btnClearLog;
     }
 }
