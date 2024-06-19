@@ -385,11 +385,14 @@
             // btnClearLog
             // 
             btnClearLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnClearLog.Location = new Point(964, 412);
+            btnClearLog.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
+            btnClearLog.ImageAlign = ContentAlignment.MiddleRight;
+            btnClearLog.Location = new Point(951, 412);
             btnClearLog.Name = "btnClearLog";
-            btnClearLog.Size = new Size(75, 23);
+            btnClearLog.Size = new Size(88, 23);
             btnClearLog.TabIndex = 17;
             btnClearLog.Text = "Clear Log";
+            btnClearLog.TextAlign = ContentAlignment.MiddleLeft;
             btnClearLog.UseVisualStyleBackColor = true;
             // 
             // MainView
