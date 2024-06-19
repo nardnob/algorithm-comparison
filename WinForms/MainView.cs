@@ -7,6 +7,7 @@ namespace WinForms
         private Random _rand = new Random();
         private List<int> _unsortedNums = new List<int>();
         private List<int> _sortedNums = new List<int>();
+        private bool _initialFocusSet = false;
 
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
@@ -95,9 +96,18 @@ namespace WinForms
 
         #region " Clear "
 
-        private void tsbtnClearLog_Click(object sender, EventArgs e)
+        private void ClearLog()
         {
             txtResults.Text = String.Empty;
+        }
+
+        private void btnClearLog_Click(object sender, EventArgs e)
+        {
+            ClearLog();
+        }
+        private void tsbtnClearLog_Click(object sender, EventArgs e)
+        {
+            ClearLog();
         }
 
         private void tsbtnClearSortedList_Click(object sender, EventArgs e)
@@ -110,7 +120,20 @@ namespace WinForms
 
         #region " Get List "
 
-        private async void tsbtnGetList_Click(object sender, EventArgs e)
+        private void tsbtnGetList_Click(object sender, EventArgs e)
+        {
+            GetList();
+        }
+
+        private void tstxt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GetList();
+            }
+        }
+
+        private async void GetList()
         {
             int items, beginRange, endRange;
 
@@ -120,7 +143,7 @@ namespace WinForms
                 beginRange = Convert.ToInt32(tstxtBeginRange.Text);
                 endRange = Convert.ToInt32(tstxtEndRange.Text);
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 MessageBox.Show("Invalid input entered.", "Invalid Input");
                 return;
@@ -165,6 +188,7 @@ namespace WinForms
             txtUnsortedNums.Text = sb.ToString();
 
             _mode = Mode.Ready;
+            tstxtItems.Focus();
         }
 
         #endregion
@@ -183,6 +207,15 @@ namespace WinForms
             tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
 
             await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
+        }
+
+        private void MainView_Shown(object sender, EventArgs e)
+        {
+            if (!_initialFocusSet)
+            {
+                tstxtItems.Focus();
+                _initialFocusSet = true;
+            }
         }
 
         #endregion

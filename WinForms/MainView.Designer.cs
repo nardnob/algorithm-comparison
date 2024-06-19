@@ -63,6 +63,7 @@
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
+            btnClearLog = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -77,7 +78,7 @@
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1051, 25);
-            toolStrip1.TabIndex = 0;
+            toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel6
@@ -96,6 +97,7 @@
             // 
             tstxtItems.Name = "tstxtItems";
             tstxtItems.Size = new Size(100, 25);
+            tstxtItems.KeyDown += tstxt_KeyDown;
             // 
             // toolStripLabel4
             // 
@@ -113,6 +115,7 @@
             // 
             tstxtBeginRange.Name = "tstxtBeginRange";
             tstxtBeginRange.Size = new Size(100, 25);
+            tstxtBeginRange.KeyDown += tstxt_KeyDown;
             // 
             // toolStripLabel5
             // 
@@ -130,6 +133,7 @@
             // 
             tstxtEndRange.Name = "tstxtEndRange";
             tstxtEndRange.Size = new Size(100, 25);
+            tstxtEndRange.KeyDown += tstxt_KeyDown;
             // 
             // toolStripLabel7
             // 
@@ -244,7 +248,7 @@
             btnBubbleSort.Location = new Point(12, 409);
             btnBubbleSort.Name = "btnBubbleSort";
             btnBubbleSort.Size = new Size(140, 50);
-            btnBubbleSort.TabIndex = 5;
+            btnBubbleSort.TabIndex = 2;
             btnBubbleSort.Text = "Bubble Sort";
             btnBubbleSort.UseVisualStyleBackColor = true;
             btnBubbleSort.Click += btnBubbleSort_Click;
@@ -255,7 +259,7 @@
             btnMergeSort.Location = new Point(158, 409);
             btnMergeSort.Name = "btnMergeSort";
             btnMergeSort.Size = new Size(140, 50);
-            btnMergeSort.TabIndex = 6;
+            btnMergeSort.TabIndex = 3;
             btnMergeSort.Text = "Top-Down Merge Sort";
             btnMergeSort.UseVisualStyleBackColor = true;
             btnMergeSort.Click += btnMergeSort_Click;
@@ -266,7 +270,7 @@
             btnQuickSort.Location = new Point(304, 409);
             btnQuickSort.Name = "btnQuickSort";
             btnQuickSort.Size = new Size(140, 50);
-            btnQuickSort.TabIndex = 7;
+            btnQuickSort.TabIndex = 4;
             btnQuickSort.Text = "Quick Sort";
             btnQuickSort.UseVisualStyleBackColor = true;
             btnQuickSort.Click += btnQuickSort_Click;
@@ -277,7 +281,7 @@
             btnInsertionSort.Location = new Point(12, 465);
             btnInsertionSort.Name = "btnInsertionSort";
             btnInsertionSort.Size = new Size(140, 50);
-            btnInsertionSort.TabIndex = 8;
+            btnInsertionSort.TabIndex = 5;
             btnInsertionSort.Text = "Insertion Sort";
             btnInsertionSort.UseVisualStyleBackColor = true;
             btnInsertionSort.Click += btnInsertionSort_Click;
@@ -288,7 +292,7 @@
             btnSelectionSort.Location = new Point(158, 465);
             btnSelectionSort.Name = "btnSelectionSort";
             btnSelectionSort.Size = new Size(140, 50);
-            btnSelectionSort.TabIndex = 9;
+            btnSelectionSort.TabIndex = 6;
             btnSelectionSort.Text = "Selection Sort";
             btnSelectionSort.UseVisualStyleBackColor = true;
             btnSelectionSort.Click += btnSelectionSort_Click;
@@ -299,7 +303,7 @@
             btnHeapSort.Location = new Point(304, 465);
             btnHeapSort.Name = "btnHeapSort";
             btnHeapSort.Size = new Size(140, 50);
-            btnHeapSort.TabIndex = 10;
+            btnHeapSort.TabIndex = 7;
             btnHeapSort.Text = "Heap Sort";
             btnHeapSort.UseVisualStyleBackColor = true;
             btnHeapSort.Click += btnHeapSort_Click;
@@ -310,7 +314,7 @@
             btnCombSort.Location = new Point(12, 521);
             btnCombSort.Name = "btnCombSort";
             btnCombSort.Size = new Size(140, 50);
-            btnCombSort.TabIndex = 11;
+            btnCombSort.TabIndex = 8;
             btnCombSort.Text = "Insertion Sort";
             btnCombSort.UseVisualStyleBackColor = true;
             btnCombSort.Click += btnInsertionSort_Click;
@@ -321,7 +325,7 @@
             btnStoogeSort.Location = new Point(158, 521);
             btnStoogeSort.Name = "btnStoogeSort";
             btnStoogeSort.Size = new Size(140, 50);
-            btnStoogeSort.TabIndex = 12;
+            btnStoogeSort.TabIndex = 9;
             btnStoogeSort.Text = "Stooge Sort";
             btnStoogeSort.UseVisualStyleBackColor = true;
             btnStoogeSort.Click += btnStoogeSort_Click;
@@ -332,7 +336,7 @@
             btnStupidSort.Location = new Point(304, 521);
             btnStupidSort.Name = "btnStupidSort";
             btnStupidSort.Size = new Size(140, 50);
-            btnStupidSort.TabIndex = 13;
+            btnStupidSort.TabIndex = 10;
             btnStupidSort.Text = "Stupid Sort";
             btnStupidSort.UseVisualStyleBackColor = true;
             btnStupidSort.Click += btnStupidSort_Click;
@@ -341,7 +345,7 @@
             // 
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(450, 409);
+            label3.Location = new Point(450, 417);
             label3.Name = "label3";
             label3.Size = new Size(67, 15);
             label3.TabIndex = 14;
@@ -350,13 +354,13 @@
             // txtResults
             // 
             txtResults.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtResults.Location = new Point(450, 427);
+            txtResults.Location = new Point(450, 438);
             txtResults.Multiline = true;
             txtResults.Name = "txtResults";
             txtResults.ReadOnly = true;
             txtResults.ScrollBars = ScrollBars.Vertical;
-            txtResults.Size = new Size(589, 144);
-            txtResults.TabIndex = 15;
+            txtResults.Size = new Size(589, 133);
+            txtResults.TabIndex = 11;
             // 
             // splitContainer1
             // 
@@ -378,11 +382,26 @@
             splitContainer1.SplitterDistance = 186;
             splitContainer1.TabIndex = 16;
             // 
+            // btnClearLog
+            // 
+            btnClearLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearLog.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
+            btnClearLog.ImageAlign = ContentAlignment.MiddleRight;
+            btnClearLog.Location = new Point(951, 412);
+            btnClearLog.Name = "btnClearLog";
+            btnClearLog.Size = new Size(88, 23);
+            btnClearLog.TabIndex = 17;
+            btnClearLog.Text = "Clear Log";
+            btnClearLog.TextAlign = ContentAlignment.MiddleLeft;
+            btnClearLog.UseVisualStyleBackColor = true;
+            btnClearLog.Click += btnClearLog_Click;
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1051, 582);
+            Controls.Add(btnClearLog);
             Controls.Add(txtResults);
             Controls.Add(label3);
             Controls.Add(btnStupidSort);
@@ -399,6 +418,8 @@
             MinimumSize = new Size(1067, 621);
             Name = "MainView";
             Text = "Algorithm Comparison";
+            Load += MainView_Load;
+            Shown += MainView_Shown;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
@@ -447,5 +468,6 @@
         private Label label3;
         private TextBox txtResults;
         private SplitContainer splitContainer1;
+        private Button btnClearLog;
     }
 }
