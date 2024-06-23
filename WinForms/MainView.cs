@@ -248,8 +248,6 @@ namespace WinForms
             tstxtItems.Text = DEFAULT_ITEMS.ToString();
             tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
             tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
-            tsbtnCancelSort.Enabled = false;
-            btnCancelSort.Enabled = false;
 
             await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
         }
@@ -355,8 +353,6 @@ namespace WinForms
             }
 
             _sortWasCancelled = false;
-            tsbtnCancelSort.Enabled = false;
-            btnCancelSort.Enabled = false;
         }
 
         private string GetSortName(SortType sort)
