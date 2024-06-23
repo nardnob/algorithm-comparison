@@ -215,6 +215,7 @@ namespace WinForms
             tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
             tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
             tsbtnCancelSort.Enabled = false;
+            btnCancelSort.Enabled = false;
 
             await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
         }
@@ -242,6 +243,7 @@ namespace WinForms
 
             var startTime = DateTime.Now;
             tsbtnCancelSort.Enabled = true;
+            btnCancelSort.Enabled = true;
 
             switch (sort)
             {
@@ -315,6 +317,7 @@ namespace WinForms
 
             _sortWasCancelled = false;
             tsbtnCancelSort.Enabled = false;
+            btnCancelSort.Enabled = false;
         }
 
         private string GetSortName(SortType sort)
@@ -731,14 +734,33 @@ namespace WinForms
 
         private async Task DoStoogeSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = StoogeSort(_sortedNums, 0, _sortedNums.Count - 1);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = StoogeSort(sortedNums, 0, sortedNums.Count - 1);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> StoogeSort(List<int> nums, int i, int j)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             if (nums[j] < nums[i])
             {
                 var temp = nums[i];
@@ -859,9 +881,18 @@ namespace WinForms
 
         #endregion
 
+        #region " Cancel Sort "
+
         private void tsbtnCancelSort_Click(object sender, EventArgs e)
         {
             _cancellationTokenSource.Cancel();
         }
+
+        private void btnCancelSort_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        #endregion
     }
 }

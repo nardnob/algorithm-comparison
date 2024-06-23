@@ -65,6 +65,7 @@
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
             btnClearLog = new Button();
+            btnCancelSort = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -206,7 +207,7 @@
             // tsbtnCancelSort
             // 
             tsbtnCancelSort.Alignment = ToolStripItemAlignment.Right;
-            tsbtnCancelSort.Image = (Image)resources.GetObject("tsbtnCancelSort.Image");
+            tsbtnCancelSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             tsbtnCancelSort.ImageTransparentColor = Color.Magenta;
             tsbtnCancelSort.Name = "tsbtnCancelSort";
             tsbtnCancelSort.Size = new Size(87, 22);
@@ -407,11 +408,26 @@
             btnClearLog.UseVisualStyleBackColor = true;
             btnClearLog.Click += btnClearLog_Click;
             // 
+            // btnCancelSort
+            // 
+            btnCancelSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancelSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
+            btnCancelSort.ImageAlign = ContentAlignment.MiddleRight;
+            btnCancelSort.Location = new Point(850, 412);
+            btnCancelSort.Name = "btnCancelSort";
+            btnCancelSort.Size = new Size(95, 23);
+            btnCancelSort.TabIndex = 18;
+            btnCancelSort.Text = "Cancel Sort";
+            btnCancelSort.TextAlign = ContentAlignment.MiddleLeft;
+            btnCancelSort.UseVisualStyleBackColor = true;
+            btnCancelSort.Click += btnCancelSort_Click;
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1051, 582);
+            Controls.Add(btnCancelSort);
             Controls.Add(btnClearLog);
             Controls.Add(txtResults);
             Controls.Add(label3);
@@ -481,5 +497,6 @@
         private SplitContainer splitContainer1;
         private Button btnClearLog;
         private ToolStripButton tsbtnVerifySort;
+        private Button btnCancelSort;
     }
 }
