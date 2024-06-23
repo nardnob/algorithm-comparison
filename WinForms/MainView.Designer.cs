@@ -47,6 +47,7 @@
             tsbtnClearSortedList = new ToolStripButton();
             toolStripLabel9 = new ToolStripLabel();
             tsbtnVerifySort = new ToolStripButton();
+            tsbtnCancelSort = new ToolStripButton();
             txtUnsortedNums = new TextBox();
             label1 = new Label();
             label2 = new Label();
@@ -74,7 +75,7 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel6, toolStripLabel1, tstxtItems, toolStripLabel4, toolStripLabel2, tstxtBeginRange, toolStripLabel5, toolStripLabel3, tstxtEndRange, toolStripLabel7, tsbtnGetList, toolStripLabel10, tsbtnClearLog, toolStripLabel8, tsbtnClearSortedList, toolStripLabel9, tsbtnVerifySort });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel6, toolStripLabel1, tstxtItems, toolStripLabel4, toolStripLabel2, tstxtBeginRange, toolStripLabel5, toolStripLabel3, tstxtEndRange, toolStripLabel7, tsbtnGetList, toolStripLabel10, tsbtnClearLog, toolStripLabel8, tsbtnClearSortedList, toolStripLabel9, tsbtnVerifySort, tsbtnCancelSort });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1051, 25);
@@ -201,6 +202,16 @@
             tsbtnVerifySort.Size = new Size(80, 22);
             tsbtnVerifySort.Text = "Verify Sort";
             tsbtnVerifySort.Click += tsbtnVerifySort_Click;
+            // 
+            // tsbtnCancelSort
+            // 
+            tsbtnCancelSort.Alignment = ToolStripItemAlignment.Right;
+            tsbtnCancelSort.Image = (Image)resources.GetObject("tsbtnCancelSort.Image");
+            tsbtnCancelSort.ImageTransparentColor = Color.Magenta;
+            tsbtnCancelSort.Name = "tsbtnCancelSort";
+            tsbtnCancelSort.Size = new Size(87, 22);
+            tsbtnCancelSort.Text = "Cancel Sort";
+            tsbtnCancelSort.Click += tsbtnCancelSort_Click;
             // 
             // txtUnsortedNums
             // 
@@ -448,7 +459,7 @@
         private ToolStripLabel toolStripLabel7;
         private ToolStripButton tsbtnClearLog;
         private ToolStripButton tsbtnClearSortedList;
-        private ToolStripButton tsbtnVerifySort;
+        private ToolStripButton tsbtnCancelSort;
         private ToolStripLabel toolStripLabel10;
         private ToolStripLabel toolStripLabel8;
         private ToolStripLabel toolStripLabel9;
@@ -469,5 +480,6 @@
         private TextBox txtResults;
         private SplitContainer splitContainer1;
         private Button btnClearLog;
+        private ToolStripButton tsbtnVerifySort;
     }
 }
