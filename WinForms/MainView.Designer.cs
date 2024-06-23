@@ -257,9 +257,9 @@
             // btnBubbleSort
             // 
             btnBubbleSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnBubbleSort.Location = new Point(12, 409);
+            btnBubbleSort.Location = new Point(15, 409);
             btnBubbleSort.Name = "btnBubbleSort";
-            btnBubbleSort.Size = new Size(94, 26);
+            btnBubbleSort.Size = new Size(91, 26);
             btnBubbleSort.TabIndex = 2;
             btnBubbleSort.Text = "Bubble Sort";
             btnBubbleSort.UseVisualStyleBackColor = true;
