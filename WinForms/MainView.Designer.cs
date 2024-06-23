@@ -42,9 +42,8 @@
             toolStripLabel7 = new ToolStripLabel();
             tsbtnGetList = new ToolStripButton();
             toolStripLabel10 = new ToolStripLabel();
-            tsbtnClearSortedList = new ToolStripButton();
-            toolStripLabel9 = new ToolStripLabel();
             tsbtnVerifySort = new ToolStripButton();
+            toolStripLabel8 = new ToolStripLabel();
             tsbtnCancelSort = new ToolStripButton();
             txtUnsortedNums = new TextBox();
             label1 = new Label();
@@ -62,9 +61,9 @@
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
+            btnClearSortedList = new Button();
             btnClearLog = new Button();
             btnCancelSort = new Button();
-            toolStripLabel8 = new ToolStripLabel();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -75,7 +74,7 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel6, toolStripLabel1, tstxtItems, toolStripLabel4, toolStripLabel2, tstxtBeginRange, toolStripLabel5, toolStripLabel3, tstxtEndRange, toolStripLabel7, tsbtnGetList, toolStripLabel10, tsbtnClearSortedList, toolStripLabel9, tsbtnVerifySort, toolStripLabel8, tsbtnCancelSort });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel6, toolStripLabel1, tstxtItems, toolStripLabel4, toolStripLabel2, tstxtBeginRange, toolStripLabel5, toolStripLabel3, tstxtEndRange, toolStripLabel7, tsbtnGetList, toolStripLabel10, tsbtnVerifySort, toolStripLabel8, tsbtnCancelSort });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1051, 25);
@@ -162,23 +161,6 @@
             toolStripLabel10.Size = new Size(10, 22);
             toolStripLabel10.Text = " ";
             // 
-            // tsbtnClearSortedList
-            // 
-            tsbtnClearSortedList.Alignment = ToolStripItemAlignment.Right;
-            tsbtnClearSortedList.Image = (Image)resources.GetObject("tsbtnClearSortedList.Image");
-            tsbtnClearSortedList.ImageTransparentColor = Color.Magenta;
-            tsbtnClearSortedList.Name = "tsbtnClearSortedList";
-            tsbtnClearSortedList.Size = new Size(112, 22);
-            tsbtnClearSortedList.Text = "Clear Sorted List";
-            tsbtnClearSortedList.Click += tsbtnClearSortedList_Click;
-            // 
-            // toolStripLabel9
-            // 
-            toolStripLabel9.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel9.Name = "toolStripLabel9";
-            toolStripLabel9.Size = new Size(13, 22);
-            toolStripLabel9.Text = "  ";
-            // 
             // tsbtnVerifySort
             // 
             tsbtnVerifySort.Alignment = ToolStripItemAlignment.Right;
@@ -188,6 +170,13 @@
             tsbtnVerifySort.Size = new Size(80, 22);
             tsbtnVerifySort.Text = "Verify Sort";
             tsbtnVerifySort.Click += tsbtnVerifySort_Click;
+            // 
+            // toolStripLabel8
+            // 
+            toolStripLabel8.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel8.Name = "toolStripLabel8";
+            toolStripLabel8.Size = new Size(13, 22);
+            toolStripLabel8.Text = "  ";
             // 
             // tsbtnCancelSort
             // 
@@ -222,7 +211,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(3, 0);
+            label2.Location = new Point(3, 7);
             label2.Name = "label2";
             label2.Size = new Size(62, 15);
             label2.TabIndex = 4;
@@ -231,12 +220,12 @@
             // txtSortedNums
             // 
             txtSortedNums.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtSortedNums.Location = new Point(3, 18);
+            txtSortedNums.Location = new Point(3, 29);
             txtSortedNums.Multiline = true;
             txtSortedNums.Name = "txtSortedNums";
             txtSortedNums.ReadOnly = true;
             txtSortedNums.ScrollBars = ScrollBars.Vertical;
-            txtSortedNums.Size = new Size(1021, 164);
+            txtSortedNums.Size = new Size(1021, 153);
             txtSortedNums.TabIndex = 3;
             // 
             // btnBubbleSort
@@ -373,11 +362,26 @@
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(btnClearSortedList);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(txtSortedNums);
             splitContainer1.Size = new Size(1027, 375);
             splitContainer1.SplitterDistance = 186;
             splitContainer1.TabIndex = 16;
+            // 
+            // btnClearSortedList
+            // 
+            btnClearSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
+            btnClearSortedList.ImageAlign = ContentAlignment.MiddleRight;
+            btnClearSortedList.Location = new Point(906, 2);
+            btnClearSortedList.Name = "btnClearSortedList";
+            btnClearSortedList.Size = new Size(121, 23);
+            btnClearSortedList.TabIndex = 18;
+            btnClearSortedList.Text = "Clear Sorted List";
+            btnClearSortedList.TextAlign = ContentAlignment.MiddleLeft;
+            btnClearSortedList.UseVisualStyleBackColor = true;
+            btnClearSortedList.Click += btnClearSortedList_Click;
             // 
             // btnClearLog
             // 
@@ -406,13 +410,6 @@
             btnCancelSort.TextAlign = ContentAlignment.MiddleLeft;
             btnCancelSort.UseVisualStyleBackColor = true;
             btnCancelSort.Click += btnCancelSort_Click;
-            // 
-            // toolStripLabel8
-            // 
-            toolStripLabel8.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel8.Name = "toolStripLabel8";
-            toolStripLabel8.Size = new Size(13, 22);
-            toolStripLabel8.Text = "  ";
             // 
             // MainView
             // 
@@ -465,10 +462,8 @@
         private ToolStripLabel toolStripLabel4;
         private ToolStripLabel toolStripLabel5;
         private ToolStripLabel toolStripLabel7;
-        private ToolStripButton tsbtnClearSortedList;
         private ToolStripButton tsbtnCancelSort;
         private ToolStripLabel toolStripLabel10;
-        private ToolStripLabel toolStripLabel9;
         private TextBox txtUnsortedNums;
         private Label label1;
         private Label label2;
@@ -489,5 +484,6 @@
         private ToolStripButton tsbtnVerifySort;
         private Button btnCancelSort;
         private ToolStripLabel toolStripLabel8;
+        private Button btnClearSortedList;
     }
 }
