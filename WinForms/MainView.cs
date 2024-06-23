@@ -458,19 +458,43 @@ namespace WinForms
 
         private async Task DoHeapSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = HeapSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = HeapSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> HeapSort(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             nums = Heapify(nums);
 
             var end = nums.Count - 1;
             while (end > 0)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var temp = nums[end];
                 nums[end] = nums[0];
                 nums[0] = temp;
@@ -485,10 +509,20 @@ namespace WinForms
 
         private List<int> Heapify(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             int start = (int)Math.Floor((nums.Count - 2) / 2.0);
 
             while (start >= 0)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 SiftDown(nums, start, nums.Count - 1);
                 start--;
             }
@@ -498,21 +532,37 @@ namespace WinForms
 
         private List<int> SiftDown(List<int> nums, int start, int end)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             int root = start;
 
             while (root * 2 + 1 <= end)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var child = root * 2 + 1;
                 var swap = root;
 
                 if (nums[swap] < nums[child])
+                {
                     swap = child;
+                }
 
                 if (child + 1 <= end && nums[swap] < nums[child + 1])
+                { 
                     swap = child + 1;
+                }
 
                 if (swap == root)
+                {
                     return nums;
+                }
 
                 var temp = nums[root];
                 nums[root] = nums[swap];
