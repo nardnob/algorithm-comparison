@@ -32,7 +32,7 @@ namespace WinForms
             {
                 switch (value)
                 {
-                    case Mode.Loading:
+                    case Mode.LoadingList:
                         btnBubbleSort.Enabled = false;
                         btnCombSort.Enabled = false;
                         btnHeapSort.Enabled = false;
@@ -52,6 +52,35 @@ namespace WinForms
                         tsbtnVerifySort.Enabled = false;
 
                         btnClearLog.Enabled = false;
+
+                        tsbtnCancelSort.Enabled = false;
+                        btnCancelSort.Enabled = false;
+
+                        break;
+
+                    case Mode.Sorting:
+                        btnBubbleSort.Enabled = false;
+                        btnCombSort.Enabled = false;
+                        btnHeapSort.Enabled = false;
+                        btnInsertionSort.Enabled = false;
+                        btnMergeSort.Enabled = false;
+                        btnQuickSort.Enabled = false;
+                        btnSelectionSort.Enabled = false;
+                        btnStoogeSort.Enabled = false;
+                        btnStupidSort.Enabled = false;
+
+                        tstxtItems.Enabled = false;
+                        tstxtBeginRange.Enabled = false;
+                        tstxtEndRange.Enabled = false;
+                        tsbtnGetList.Enabled = false;
+                        tsbtnClearLog.Enabled = false;
+                        tsbtnClearSortedList.Enabled = false;
+                        tsbtnVerifySort.Enabled = false;
+
+                        btnClearLog.Enabled = false;
+
+                        tsbtnCancelSort.Enabled = true;
+                        btnCancelSort.Enabled = true;
 
                         break;
 
@@ -76,6 +105,9 @@ namespace WinForms
 
                         btnClearLog.Enabled = true;
 
+                        tsbtnCancelSort.Enabled = false;
+                        btnCancelSort.Enabled = false;
+
                         break;
                 }
 
@@ -86,7 +118,8 @@ namespace WinForms
         private enum Mode
         {
             Ready,
-            Loading
+            LoadingList,
+            Sorting
         }
 
         private enum SortType
@@ -170,7 +203,7 @@ namespace WinForms
 
         private async Task GetAndPopulateList(int items, int beginRange, int endRange)
         {
-            _mode = Mode.Loading;
+            _mode = Mode.LoadingList;
 
             var sb = new StringBuilder();
 
@@ -236,15 +269,13 @@ namespace WinForms
 
         private async Task Sort(SortType sort)
         {
-            _mode = Mode.Loading;
+            _mode = Mode.Sorting;
 
             txtSortedNums.Text = String.Empty;
             _sortedNums.Clear();
             _unsortedNums.ForEach(num => _sortedNums.Add(num));
 
             var startTime = DateTime.Now;
-            tsbtnCancelSort.Enabled = true;
-            btnCancelSort.Enabled = true;
 
             List<int>? sortedNums = null;
             switch (sort)
