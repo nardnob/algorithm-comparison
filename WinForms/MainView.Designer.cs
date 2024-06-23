@@ -275,7 +275,7 @@
             btnMergeSort.Name = "btnMergeSort";
             btnMergeSort.Size = new Size(94, 26);
             btnMergeSort.TabIndex = 3;
-            btnMergeSort.Text = "Top-Down Merge Sort";
+            btnMergeSort.Text = "Merge Sort";
             btnMergeSort.UseVisualStyleBackColor = true;
             btnMergeSort.Click += btnMergeSort_Click;
             // 
