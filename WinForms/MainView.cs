@@ -645,40 +645,86 @@ namespace WinForms
 
         private async Task DoQuickSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = QuickSort(_sortedNums, 0, _sortedNums.Count - 1);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = QuickSort(sortedNums, 0, sortedNums.Count - 1);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> QuickSort(List<int> nums, int left, int right)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             int pivot = nums[left],
                         lhold = left,
                         rhold = right;
 
             while (left < right)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 while (nums[right] >= pivot && left < right)
+                {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     --right;
+                }
 
                 if (left != right)
+                {
                     nums[left++] = nums[right];
+                }
 
                 while (nums[left] <= pivot && left < right)
+                {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     ++left;
+                }
 
                 if (left != right)
+                { 
                     nums[right--] = nums[left];
+                }
             }
 
             nums[left] = pivot;
 
             if (lhold < left - 1)
+            { 
                 QuickSort(nums, lhold, left - 1);
+            }
 
             if (rhold > left + 1)
+            { 
                 QuickSort(nums, left + 1, rhold);
+            }
 
             return nums;
         }
