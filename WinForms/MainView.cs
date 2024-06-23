@@ -265,7 +265,7 @@ namespace WinForms
 
         #region " Sort "
 
-        private async Task Sort(SortType sort)
+        private async Task Sort(SortType sortType)
         {
             _mode = Mode.Sorting;
 
@@ -276,7 +276,7 @@ namespace WinForms
             var startTime = DateTime.Now;
 
             List<int>? sortedNums = null;
-            switch (sort)
+            switch (sortType)
             {
                 case SortType.BubbleSort:
                     sortedNums = await DoBubbleSort();
@@ -309,47 +309,17 @@ namespace WinForms
                     throw new Exception("Unexpected SortType in Sort().");
             }
 
-            var endTime = DateTime.Now;
-            var resultsSb = new StringBuilder();
-
             if (_sortWasCancelled)
             {
-                resultsSb.AppendLine("== " + GetSortName(sort) + " ==");
-                resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-                resultsSb.AppendLine("The sort was cancelled.");
-                resultsSb.AppendLine("");
-
-                txtResults.Text = resultsSb.ToString() + txtResults.Text;
-
-                _cancellationTokenSource = new CancellationTokenSource();
-                _mode = Mode.Ready;
-                tstxtItems.Focus();
+                HandleCancelledSort(sortType, startTime);
             }
             else if (sortedNums is not null)
             {
-                _sortedNums = sortedNums;
-                var sortedSb = new StringBuilder();
-
-                _sortedNums.ForEach(num => sortedSb.Append(num + "; "));
-
-                resultsSb.AppendLine("== " + GetSortName(sort) + " ==");
-                resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-                resultsSb.AppendLine("Items Sorted: " + _items);
-                resultsSb.AppendLine("Begin Range: " + _beginRange);
-                resultsSb.AppendLine("End Range: " + _endRange);
-                resultsSb.AppendLine("");
-
-                txtResults.Text = resultsSb.ToString() + txtResults.Text;
-                txtSortedNums.Text = sortedSb.ToString();
-
-                _mode = Mode.Ready;
-                tstxtItems.Focus();
+                HandleSuccessfulSort(sortType, startTime, sortedNums);
             }
             else
             {
-                MessageBox.Show("An unexpected error occurred while sorting.", "Unexpected Error");
-                _mode = Mode.Ready;
-                tstxtItems.Focus();
+                HandleUnsuccessfulSort();
             }
 
             _sortWasCancelled = false;
@@ -371,6 +341,53 @@ namespace WinForms
                 default:
                     throw new Exception("Unexpected SortType in GetSortName().");
             }
+        }
+
+        private void HandleCancelledSort(SortType sortType, DateTime startTime)
+        {
+            var endTime = DateTime.Now;
+            var resultsSb = new StringBuilder();
+
+            resultsSb.AppendLine("== " + GetSortName(sortType) + " ==");
+            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
+            resultsSb.AppendLine("The sort was cancelled.");
+            resultsSb.AppendLine("");
+
+            txtResults.Text = resultsSb.ToString() + txtResults.Text;
+
+            _cancellationTokenSource = new CancellationTokenSource();
+            _mode = Mode.Ready;
+            tstxtItems.Focus();
+        }
+
+        private void HandleSuccessfulSort(SortType sortType, DateTime startTime, List<int> sortedNums)
+        {
+            var endTime = DateTime.Now;
+            var resultsSb = new StringBuilder();
+            var sortedSb = new StringBuilder();
+
+            sortedNums.ForEach(num => sortedSb.Append(num + "; "));
+
+            resultsSb.AppendLine("== " + GetSortName(sortType) + " ==");
+            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
+            resultsSb.AppendLine("Items Sorted: " + _items);
+            resultsSb.AppendLine("Begin Range: " + _beginRange);
+            resultsSb.AppendLine("End Range: " + _endRange);
+            resultsSb.AppendLine("");
+
+            _sortedNums = sortedNums;
+            txtResults.Text = resultsSb.ToString() + txtResults.Text;
+            txtSortedNums.Text = sortedSb.ToString();
+
+            _mode = Mode.Ready;
+            tstxtItems.Focus();
+        }
+
+        private void HandleUnsuccessfulSort()
+        {
+            MessageBox.Show("An unexpected error occurred while sorting.", "Unexpected Error");
+            _mode = Mode.Ready;
+            tstxtItems.Focus();
         }
 
         #region " Bubble Sort "
