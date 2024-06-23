@@ -694,22 +694,48 @@ namespace WinForms
 
         private async Task DoSelectionSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = SelectionSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = SelectionSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> SelectionSort(List<int> nums)
         {
             for (int j = 0; j < nums.Count - 1; j++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var iMin = j;
 
                 for (int i = j + 1; i < nums.Count; i++)
                 {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     if (nums[i] < nums[iMin])
+                    { 
                         iMin = i;
+                    }
                 }
 
                 if (iMin != j)
