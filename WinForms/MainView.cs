@@ -408,29 +408,60 @@ namespace WinForms
 
         private async Task DoCombSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = CombSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = CombSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> CombSort(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var gap = nums.Count;
             var shrink = 1.3;
             bool swapped = false;
 
             while (!(gap == 1 && !swapped))
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 gap = (int)(gap / shrink);
                 if (gap < 1)
+                {
                     gap = 1;
+                }
 
                 int i = 0;
                 swapped = false;
 
                 while (!(i + gap >= nums.Count))
                 {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     if (nums[i] > nums[i + gap])
                     {
                         var temp = nums[i];

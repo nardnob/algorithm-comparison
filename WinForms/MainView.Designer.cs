@@ -259,7 +259,7 @@
             btnBubbleSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnBubbleSort.Location = new Point(12, 409);
             btnBubbleSort.Name = "btnBubbleSort";
-            btnBubbleSort.Size = new Size(140, 50);
+            btnBubbleSort.Size = new Size(94, 26);
             btnBubbleSort.TabIndex = 2;
             btnBubbleSort.Text = "Bubble Sort";
             btnBubbleSort.UseVisualStyleBackColor = true;
@@ -268,9 +268,9 @@
             // btnMergeSort
             // 
             btnMergeSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnMergeSort.Location = new Point(158, 409);
+            btnMergeSort.Location = new Point(112, 409);
             btnMergeSort.Name = "btnMergeSort";
-            btnMergeSort.Size = new Size(140, 50);
+            btnMergeSort.Size = new Size(94, 26);
             btnMergeSort.TabIndex = 3;
             btnMergeSort.Text = "Top-Down Merge Sort";
             btnMergeSort.UseVisualStyleBackColor = true;
@@ -279,9 +279,9 @@
             // btnQuickSort
             // 
             btnQuickSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnQuickSort.Location = new Point(304, 409);
+            btnQuickSort.Location = new Point(212, 409);
             btnQuickSort.Name = "btnQuickSort";
-            btnQuickSort.Size = new Size(140, 50);
+            btnQuickSort.Size = new Size(94, 26);
             btnQuickSort.TabIndex = 4;
             btnQuickSort.Text = "Quick Sort";
             btnQuickSort.UseVisualStyleBackColor = true;
@@ -290,9 +290,9 @@
             // btnInsertionSort
             // 
             btnInsertionSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnInsertionSort.Location = new Point(12, 465);
+            btnInsertionSort.Location = new Point(312, 409);
             btnInsertionSort.Name = "btnInsertionSort";
-            btnInsertionSort.Size = new Size(140, 50);
+            btnInsertionSort.Size = new Size(94, 26);
             btnInsertionSort.TabIndex = 5;
             btnInsertionSort.Text = "Insertion Sort";
             btnInsertionSort.UseVisualStyleBackColor = true;
@@ -301,9 +301,9 @@
             // btnSelectionSort
             // 
             btnSelectionSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnSelectionSort.Location = new Point(158, 465);
+            btnSelectionSort.Location = new Point(15, 441);
             btnSelectionSort.Name = "btnSelectionSort";
-            btnSelectionSort.Size = new Size(140, 50);
+            btnSelectionSort.Size = new Size(91, 26);
             btnSelectionSort.TabIndex = 6;
             btnSelectionSort.Text = "Selection Sort";
             btnSelectionSort.UseVisualStyleBackColor = true;
@@ -312,9 +312,9 @@
             // btnHeapSort
             // 
             btnHeapSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnHeapSort.Location = new Point(304, 465);
+            btnHeapSort.Location = new Point(112, 441);
             btnHeapSort.Name = "btnHeapSort";
-            btnHeapSort.Size = new Size(140, 50);
+            btnHeapSort.Size = new Size(94, 26);
             btnHeapSort.TabIndex = 7;
             btnHeapSort.Text = "Heap Sort";
             btnHeapSort.UseVisualStyleBackColor = true;
@@ -323,20 +323,20 @@
             // btnCombSort
             // 
             btnCombSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCombSort.Location = new Point(12, 521);
+            btnCombSort.Location = new Point(212, 441);
             btnCombSort.Name = "btnCombSort";
-            btnCombSort.Size = new Size(140, 50);
+            btnCombSort.Size = new Size(94, 26);
             btnCombSort.TabIndex = 8;
-            btnCombSort.Text = "Insertion Sort";
+            btnCombSort.Text = "Comb Sort";
             btnCombSort.UseVisualStyleBackColor = true;
-            btnCombSort.Click += btnInsertionSort_Click;
+            btnCombSort.Click += btnCombSort_Click;
             // 
             // btnStoogeSort
             // 
             btnStoogeSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnStoogeSort.Location = new Point(158, 521);
+            btnStoogeSort.Location = new Point(312, 441);
             btnStoogeSort.Name = "btnStoogeSort";
-            btnStoogeSort.Size = new Size(140, 50);
+            btnStoogeSort.Size = new Size(94, 26);
             btnStoogeSort.TabIndex = 9;
             btnStoogeSort.Text = "Stooge Sort";
             btnStoogeSort.UseVisualStyleBackColor = true;
@@ -345,9 +345,9 @@
             // btnStupidSort
             // 
             btnStupidSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnStupidSort.Location = new Point(304, 521);
+            btnStupidSort.Location = new Point(15, 473);
             btnStupidSort.Name = "btnStupidSort";
-            btnStupidSort.Size = new Size(140, 50);
+            btnStupidSort.Size = new Size(91, 26);
             btnStupidSort.TabIndex = 10;
             btnStupidSort.Text = "Stupid Sort";
             btnStupidSort.UseVisualStyleBackColor = true;
