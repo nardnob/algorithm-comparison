@@ -97,6 +97,7 @@
             // 
             // tstxtItems
             // 
+            tstxtItems.MaxLength = 6;
             tstxtItems.Name = "tstxtItems";
             tstxtItems.Size = new Size(100, 25);
             tstxtItems.KeyDown += tstxt_KeyDown;
