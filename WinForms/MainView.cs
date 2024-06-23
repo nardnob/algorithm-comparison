@@ -8,12 +8,17 @@ namespace WinForms
         private List<int> _unsortedNums = new List<int>();
         private List<int> _sortedNums = new List<int>();
         private bool _initialFocusSet = false;
+        private bool _sortWasCancelled = false;
+        private bool _isSorting = false;
 
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
         private const int DEFAULT_END_RANGE = 1000;
 
         private int _beginRange, _endRange, _items;
+
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private CancellationToken _cancellationToken => _cancellationTokenSource.Token;
 
         private Mode _modeValue;
         private Mode _mode
@@ -45,6 +50,8 @@ namespace WinForms
                         tsbtnClearSortedList.Enabled = false;
                         tsbtnVerifySort.Enabled = false;
 
+                        btnClearLog.Enabled = false;
+
                         break;
 
                     case Mode.Ready:
@@ -65,6 +72,8 @@ namespace WinForms
                         tsbtnClearLog.Enabled = true;
                         tsbtnClearSortedList.Enabled = true;
                         tsbtnVerifySort.Enabled = true;
+
+                        btnClearLog.Enabled = true;
 
                         break;
                 }
@@ -205,6 +214,8 @@ namespace WinForms
             tstxtItems.Text = DEFAULT_ITEMS.ToString();
             tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
             tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
+            tsbtnCancelSort.Enabled = false;
+            btnCancelSort.Enabled = false;
 
             await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
         }
@@ -231,6 +242,8 @@ namespace WinForms
             _unsortedNums.ForEach(num => _sortedNums.Add(num));
 
             var startTime = DateTime.Now;
+            tsbtnCancelSort.Enabled = true;
+            btnCancelSort.Enabled = true;
 
             switch (sort)
             {
@@ -266,24 +279,45 @@ namespace WinForms
             }
 
             var endTime = DateTime.Now;
-
-            var sortedSb = new StringBuilder();
-
-            _sortedNums.ForEach(num => sortedSb.Append(num + "; "));
-
             var resultsSb = new StringBuilder();
 
-            resultsSb.AppendLine("== " + GetSortName(sort) + " ==");
-            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-            resultsSb.AppendLine("Items Sorted: " + _items);
-            resultsSb.AppendLine("Begin Range: " + _beginRange);
-            resultsSb.AppendLine("End Range: " + _endRange);
-            resultsSb.AppendLine("");
+            if (_sortWasCancelled)
+            {
+                resultsSb.AppendLine("== " + GetSortName(sort) + " ==");
+                resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
+                resultsSb.AppendLine("The sort was cancelled.");
+                resultsSb.AppendLine("");
 
-            txtResults.Text = resultsSb.ToString() + txtResults.Text;
-            txtSortedNums.Text = sortedSb.ToString();
+                txtResults.Text = resultsSb.ToString() + txtResults.Text;
 
-            _mode = Mode.Ready;
+                _cancellationTokenSource = new CancellationTokenSource();
+                _mode = Mode.Ready;
+                tstxtItems.Focus();
+            }
+            else
+            {
+
+                var sortedSb = new StringBuilder();
+
+                _sortedNums.ForEach(num => sortedSb.Append(num + "; "));
+
+                resultsSb.AppendLine("== " + GetSortName(sort) + " ==");
+                resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
+                resultsSb.AppendLine("Items Sorted: " + _items);
+                resultsSb.AppendLine("Begin Range: " + _beginRange);
+                resultsSb.AppendLine("End Range: " + _endRange);
+                resultsSb.AppendLine("");
+
+                txtResults.Text = resultsSb.ToString() + txtResults.Text;
+                txtSortedNums.Text = sortedSb.ToString();
+
+                _mode = Mode.Ready;
+                tstxtItems.Focus();
+            }
+
+            _sortWasCancelled = false;
+            tsbtnCancelSort.Enabled = false;
+            btnCancelSort.Enabled = false;
         }
 
         private string GetSortName(SortType sort)
@@ -313,10 +347,26 @@ namespace WinForms
 
         private async Task DoBubbleSort()
         {
-            await Task.Factory.StartNew(f =>
+            _isSorting = true;
+
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = BubbleSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = BubbleSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> BubbleSort(List<int> nums)
@@ -324,6 +374,11 @@ namespace WinForms
             bool swapped = true;
             while (swapped)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 swapped = false;
 
                 for (int i = 1; i < nums.Count; i++)
@@ -353,29 +408,60 @@ namespace WinForms
 
         private async Task DoCombSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = CombSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = CombSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> CombSort(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var gap = nums.Count;
             var shrink = 1.3;
             bool swapped = false;
 
             while (!(gap == 1 && !swapped))
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 gap = (int)(gap / shrink);
                 if (gap < 1)
+                {
                     gap = 1;
+                }
 
                 int i = 0;
                 swapped = false;
 
                 while (!(i + gap >= nums.Count))
                 {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     if (nums[i] > nums[i + gap])
                     {
                         var temp = nums[i];
@@ -403,19 +489,43 @@ namespace WinForms
 
         private async Task DoHeapSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = HeapSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = HeapSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> HeapSort(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             nums = Heapify(nums);
 
             var end = nums.Count - 1;
             while (end > 0)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var temp = nums[end];
                 nums[end] = nums[0];
                 nums[0] = temp;
@@ -430,10 +540,20 @@ namespace WinForms
 
         private List<int> Heapify(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             int start = (int)Math.Floor((nums.Count - 2) / 2.0);
 
             while (start >= 0)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 SiftDown(nums, start, nums.Count - 1);
                 start--;
             }
@@ -443,21 +563,37 @@ namespace WinForms
 
         private List<int> SiftDown(List<int> nums, int start, int end)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             int root = start;
 
             while (root * 2 + 1 <= end)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var child = root * 2 + 1;
                 var swap = root;
 
                 if (nums[swap] < nums[child])
+                {
                     swap = child;
+                }
 
                 if (child + 1 <= end && nums[swap] < nums[child + 1])
+                { 
                     swap = child + 1;
+                }
 
                 if (swap == root)
+                {
                     return nums;
+                }
 
                 var temp = nums[root];
                 nums[root] = nums[swap];
@@ -480,18 +616,47 @@ namespace WinForms
 
         private async Task DoInsertionSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = InsertionSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = InsertionSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> InsertionSort(List<int> inputArray)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             for (int i = 0; i < inputArray.Count - 1; i++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 for (int j = i + 1; j > 0; j--)
                 {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     if (inputArray[j - 1] > inputArray[j])
                     {
                         int temp = inputArray[j - 1];
@@ -514,16 +679,37 @@ namespace WinForms
 
         private async Task DoMergeSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = MergeSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = MergeSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> MergeSort(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             if (nums.Count <= 1)
+            { 
                 return nums;
+            }
 
             var left = new List<int>();
             var right = new List<int>();
@@ -532,11 +718,21 @@ namespace WinForms
 
             for (int i = 0; i < middle; i++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 left.Add(nums[i]);
             }
 
             for (int i = middle; i < nums.Count; i++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 right.Add(nums[i]);
             }
 
@@ -548,10 +744,20 @@ namespace WinForms
 
         private List<int> Merge(List<int> left, List<int> right)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var result = new List<int>();
 
             while (left.Any() && right.Any())
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 if (left.First() <= right.First())
                 {
                     result.Add(left.First());
@@ -566,12 +772,22 @@ namespace WinForms
 
             while (left.Any())
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 result.Add(left.First());
                 left.Remove(left.First());
             }
 
             while (right.Any())
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 result.Add(right.First());
                 right.Remove(right.First());
             }
@@ -590,40 +806,86 @@ namespace WinForms
 
         private async Task DoQuickSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = QuickSort(_sortedNums, 0, _sortedNums.Count - 1);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = QuickSort(sortedNums, 0, sortedNums.Count - 1);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> QuickSort(List<int> nums, int left, int right)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             int pivot = nums[left],
                         lhold = left,
                         rhold = right;
 
             while (left < right)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 while (nums[right] >= pivot && left < right)
+                {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     --right;
+                }
 
                 if (left != right)
+                {
                     nums[left++] = nums[right];
+                }
 
                 while (nums[left] <= pivot && left < right)
+                {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     ++left;
+                }
 
                 if (left != right)
+                { 
                     nums[right--] = nums[left];
+                }
             }
 
             nums[left] = pivot;
 
             if (lhold < left - 1)
+            { 
                 QuickSort(nums, lhold, left - 1);
+            }
 
             if (rhold > left + 1)
+            { 
                 QuickSort(nums, left + 1, rhold);
+            }
 
             return nums;
         }
@@ -639,22 +901,48 @@ namespace WinForms
 
         private async Task DoSelectionSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = SelectionSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = SelectionSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> SelectionSort(List<int> nums)
         {
             for (int j = 0; j < nums.Count - 1; j++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 var iMin = j;
 
                 for (int i = j + 1; i < nums.Count; i++)
                 {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     if (nums[i] < nums[iMin])
+                    { 
                         iMin = i;
+                    }
                 }
 
                 if (iMin != j)
@@ -679,14 +967,33 @@ namespace WinForms
 
         private async Task DoStoogeSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = StoogeSort(_sortedNums, 0, _sortedNums.Count - 1);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = StoogeSort(sortedNums, 0, sortedNums.Count - 1);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> StoogeSort(List<int> nums, int i, int j)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             if (nums[j] < nums[i])
             {
                 var temp = nums[i];
@@ -717,16 +1024,35 @@ namespace WinForms
 
         private async Task DoStupidSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = StupidSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = StupidSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> StupidSort(List<int> nums)
         {
             while (!VerifySorted(nums))
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 for (var i = 0; i < nums.Count; i++)
                 {
                     var rand = _rand.Next(i, nums.Count);
@@ -754,21 +1080,50 @@ namespace WinForms
             }
 
             if (VerifySorted(_sortedNums))
+            {
                 MessageBox.Show("Items are sorted correctly.", "Valid Sort");
+            }
             else
+            {
                 MessageBox.Show("Items are not sorted correctly.", "Invalid Sort");
+            }
         }
 
         private bool VerifySorted(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             if (nums.Count < 2)
+            {
                 return true;
+            }
 
             for (int i = 0; i < nums.Count - 1; i++)
+            {
                 if (nums[i + 1] < nums[i])
+                {
                     return false;
+                }
+            }
 
             return true;
+        }
+
+        #endregion
+
+        #region " Cancel Sort "
+
+        private void tsbtnCancelSort_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        private void btnCancelSort_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource.Cancel();
         }
 
         #endregion
