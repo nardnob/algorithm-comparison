@@ -9,6 +9,7 @@ namespace WinForms
         private List<int> _sortedNums = new List<int>();
         private bool _initialFocusSet = false;
         private bool _sortWasCancelled = false;
+        private bool _isSorting = false;
 
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
@@ -213,6 +214,7 @@ namespace WinForms
             tstxtItems.Text = DEFAULT_ITEMS.ToString();
             tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
             tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
+            tsbtnCancelSort.Enabled = false;
 
             await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
         }
@@ -239,6 +241,7 @@ namespace WinForms
             _unsortedNums.ForEach(num => _sortedNums.Add(num));
 
             var startTime = DateTime.Now;
+            tsbtnCancelSort.Enabled = true;
 
             switch (sort)
             {
@@ -311,6 +314,7 @@ namespace WinForms
             }
 
             _sortWasCancelled = false;
+            tsbtnCancelSort.Enabled = false;
         }
 
         private string GetSortName(SortType sort)
@@ -340,10 +344,26 @@ namespace WinForms
 
         private async Task DoBubbleSort()
         {
-            await Task.Factory.StartNew(f =>
+            _isSorting = true;
+
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = BubbleSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = BubbleSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> BubbleSort(List<int> nums)
@@ -351,6 +371,11 @@ namespace WinForms
             bool swapped = true;
             while (swapped)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 swapped = false;
 
                 for (int i = 1; i < nums.Count; i++)
