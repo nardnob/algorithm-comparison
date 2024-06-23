@@ -47,7 +47,6 @@ namespace WinForms
                         tstxtBeginRange.Enabled = false;
                         tstxtEndRange.Enabled = false;
                         tsbtnGetList.Enabled = false;
-                        tsbtnClearLog.Enabled = false;
                         tsbtnClearSortedList.Enabled = false;
                         tsbtnVerifySort.Enabled = false;
 
@@ -73,7 +72,6 @@ namespace WinForms
                         tstxtBeginRange.Enabled = false;
                         tstxtEndRange.Enabled = false;
                         tsbtnGetList.Enabled = false;
-                        tsbtnClearLog.Enabled = false;
                         tsbtnClearSortedList.Enabled = false;
                         tsbtnVerifySort.Enabled = false;
 
@@ -99,7 +97,6 @@ namespace WinForms
                         tstxtBeginRange.Enabled = true;
                         tstxtEndRange.Enabled = true;
                         tsbtnGetList.Enabled = true;
-                        tsbtnClearLog.Enabled = true;
                         tsbtnClearSortedList.Enabled = true;
                         tsbtnVerifySort.Enabled = true;
 
@@ -145,10 +142,6 @@ namespace WinForms
         }
 
         private void btnClearLog_Click(object sender, EventArgs e)
-        {
-            ClearLog();
-        }
-        private void tsbtnClearLog_Click(object sender, EventArgs e)
         {
             ClearLog();
         }

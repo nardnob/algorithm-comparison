@@ -42,8 +42,6 @@
             toolStripLabel7 = new ToolStripLabel();
             tsbtnGetList = new ToolStripButton();
             toolStripLabel10 = new ToolStripLabel();
-            tsbtnClearLog = new ToolStripButton();
-            toolStripLabel8 = new ToolStripLabel();
             tsbtnClearSortedList = new ToolStripButton();
             toolStripLabel9 = new ToolStripLabel();
             tsbtnVerifySort = new ToolStripButton();
@@ -66,6 +64,7 @@
             splitContainer1 = new SplitContainer();
             btnClearLog = new Button();
             btnCancelSort = new Button();
+            toolStripLabel8 = new ToolStripLabel();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -76,7 +75,7 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel6, toolStripLabel1, tstxtItems, toolStripLabel4, toolStripLabel2, tstxtBeginRange, toolStripLabel5, toolStripLabel3, tstxtEndRange, toolStripLabel7, tsbtnGetList, toolStripLabel10, tsbtnClearLog, toolStripLabel8, tsbtnClearSortedList, toolStripLabel9, tsbtnVerifySort, tsbtnCancelSort });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel6, toolStripLabel1, tstxtItems, toolStripLabel4, toolStripLabel2, tstxtBeginRange, toolStripLabel5, toolStripLabel3, tstxtEndRange, toolStripLabel7, tsbtnGetList, toolStripLabel10, tsbtnClearSortedList, toolStripLabel9, tsbtnVerifySort, toolStripLabel8, tsbtnCancelSort });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1051, 25);
@@ -162,23 +161,6 @@
             toolStripLabel10.Name = "toolStripLabel10";
             toolStripLabel10.Size = new Size(10, 22);
             toolStripLabel10.Text = " ";
-            // 
-            // tsbtnClearLog
-            // 
-            tsbtnClearLog.Alignment = ToolStripItemAlignment.Right;
-            tsbtnClearLog.Image = (Image)resources.GetObject("tsbtnClearLog.Image");
-            tsbtnClearLog.ImageTransparentColor = Color.Magenta;
-            tsbtnClearLog.Name = "tsbtnClearLog";
-            tsbtnClearLog.Size = new Size(77, 22);
-            tsbtnClearLog.Text = "Clear Log";
-            tsbtnClearLog.Click += tsbtnClearLog_Click;
-            // 
-            // toolStripLabel8
-            // 
-            toolStripLabel8.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel8.Name = "toolStripLabel8";
-            toolStripLabel8.Size = new Size(13, 22);
-            toolStripLabel8.Text = "  ";
             // 
             // tsbtnClearSortedList
             // 
@@ -425,6 +407,13 @@
             btnCancelSort.UseVisualStyleBackColor = true;
             btnCancelSort.Click += btnCancelSort_Click;
             // 
+            // toolStripLabel8
+            // 
+            toolStripLabel8.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel8.Name = "toolStripLabel8";
+            toolStripLabel8.Size = new Size(13, 22);
+            toolStripLabel8.Text = "  ";
+            // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -476,11 +465,9 @@
         private ToolStripLabel toolStripLabel4;
         private ToolStripLabel toolStripLabel5;
         private ToolStripLabel toolStripLabel7;
-        private ToolStripButton tsbtnClearLog;
         private ToolStripButton tsbtnClearSortedList;
         private ToolStripButton tsbtnCancelSort;
         private ToolStripLabel toolStripLabel10;
-        private ToolStripLabel toolStripLabel8;
         private ToolStripLabel toolStripLabel9;
         private TextBox txtUnsortedNums;
         private Label label1;
@@ -501,5 +488,6 @@
         private Button btnClearLog;
         private ToolStripButton tsbtnVerifySort;
         private Button btnCancelSort;
+        private ToolStripLabel toolStripLabel8;
     }
 }
