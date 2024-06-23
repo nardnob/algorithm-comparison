@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nardnob.AlgorithmComparison.WinForms", "WinForms\nardnob.AlgorithmComparison.WinForms.csproj", "{CC5E3A58-8F83-4746-AF29-AAF082E349E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nardnob.AlgorithmComparison.Sorts", "Sorts\nardnob.AlgorithmComparison.Sorts.csproj", "{FAD5172D-17C4-4A1E-96BF-50BAB614A638}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nardnob.AlgorithmComparison.Sorting", "Sorts\nardnob.AlgorithmComparison.Sorting.csproj", "{FAD5172D-17C4-4A1E-96BF-50BAB614A638}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
