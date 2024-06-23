@@ -569,16 +569,37 @@ namespace WinForms
 
         private async Task DoMergeSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = MergeSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = MergeSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> MergeSort(List<int> nums)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             if (nums.Count <= 1)
+            { 
                 return nums;
+            }
 
             var left = new List<int>();
             var right = new List<int>();
@@ -587,11 +608,21 @@ namespace WinForms
 
             for (int i = 0; i < middle; i++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 left.Add(nums[i]);
             }
 
             for (int i = middle; i < nums.Count; i++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 right.Add(nums[i]);
             }
 
@@ -603,10 +634,20 @@ namespace WinForms
 
         private List<int> Merge(List<int> left, List<int> right)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             var result = new List<int>();
 
             while (left.Any() && right.Any())
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 if (left.First() <= right.First())
                 {
                     result.Add(left.First());
@@ -621,12 +662,22 @@ namespace WinForms
 
             while (left.Any())
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 result.Add(left.First());
                 left.Remove(left.First());
             }
 
             while (right.Any())
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 result.Add(right.First());
                 right.Remove(right.First());
             }
