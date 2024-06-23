@@ -535,18 +535,47 @@ namespace WinForms
 
         private async Task DoInsertionSort()
         {
-            await Task.Factory.StartNew(f =>
+            var sortedNums = _sortedNums;
+            var task = Task.Factory.StartNew(f =>
             {
-                _sortedNums = InsertionSort(_sortedNums);
-            }, null);
+                _cancellationToken.ThrowIfCancellationRequested();
+
+                var result = InsertionSort(sortedNums);
+                return result;
+            }, _cancellationToken);
+
+            try
+            {
+                var sortedResult = await task;
+                _sortedNums = sortedResult;
+            }
+            catch (OperationCanceledException ex)
+            {
+                _sortWasCancelled = true;
+            }
         }
 
         private List<int> InsertionSort(List<int> inputArray)
         {
+            if (_cancellationToken.IsCancellationRequested)
+            {
+                _cancellationToken.ThrowIfCancellationRequested();
+            }
+
             for (int i = 0; i < inputArray.Count - 1; i++)
             {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    _cancellationToken.ThrowIfCancellationRequested();
+                }
+
                 for (int j = i + 1; j > 0; j--)
                 {
+                    if (_cancellationToken.IsCancellationRequested)
+                    {
+                        _cancellationToken.ThrowIfCancellationRequested();
+                    }
+
                     if (inputArray[j - 1] > inputArray[j])
                     {
                         int temp = inputArray[j - 1];
