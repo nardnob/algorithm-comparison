@@ -345,6 +345,11 @@ namespace WinForms
             ImportUnsortedList();
         }
 
+        private void btnExportSortedList_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void ImportUnsortedList()
         {
             var fileContent = string.Empty;
@@ -381,7 +386,7 @@ namespace WinForms
             var importedStringBuilder = new StringBuilder();
 
             int i;
-            for (i = 0; i < fileEntries.Count() && isValid; i++) 
+            for (i = 0; i < fileEntries.Count() && isValid; i++)
             {
                 try
                 {
@@ -393,7 +398,7 @@ namespace WinForms
                     {
                         throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
                     }
-                    
+
                     importedItems.Add(importedItem);
                     importedStringBuilder.Append(importedItem.ToString() + "; ");
                 }

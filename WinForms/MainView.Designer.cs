@@ -64,12 +64,13 @@ namespace WinForms
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
+            btnImportUnsortedList = new Button();
             btnClearUnsortedList = new Button();
+            btnExportSortedList = new Button();
             btnClearSortedList = new Button();
             btnClearLog = new Button();
             btnCancelSort = new Button();
             groupBox1 = new GroupBox();
-            btnImportUnsortedList = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -371,12 +372,27 @@ namespace WinForms
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(btnExportSortedList);
             splitContainer1.Panel2.Controls.Add(btnClearSortedList);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(txtSortedNums);
             splitContainer1.Size = new Size(1027, 375);
             splitContainer1.SplitterDistance = 186;
             splitContainer1.TabIndex = 16;
+            // 
+            // btnImportUnsortedList
+            // 
+            btnImportUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnImportUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
+            btnImportUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
+            btnImportUnsortedList.Location = new Point(736, 3);
+            btnImportUnsortedList.Name = "btnImportUnsortedList";
+            btnImportUnsortedList.Size = new Size(145, 23);
+            btnImportUnsortedList.TabIndex = 20;
+            btnImportUnsortedList.Text = "Import Unsorted List";
+            btnImportUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
+            btnImportUnsortedList.UseVisualStyleBackColor = true;
+            btnImportUnsortedList.Click += btnImportUnsortedList_Click;
             // 
             // btnClearUnsortedList
             // 
@@ -391,6 +407,20 @@ namespace WinForms
             btnClearUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
             btnClearUnsortedList.UseVisualStyleBackColor = true;
             btnClearUnsortedList.Click += btnClearUnsortedList_Click;
+            // 
+            // btnExportSortedList
+            // 
+            btnExportSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnExportSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
+            btnExportSortedList.ImageAlign = ContentAlignment.MiddleRight;
+            btnExportSortedList.Location = new Point(785, 2);
+            btnExportSortedList.Name = "btnExportSortedList";
+            btnExportSortedList.Size = new Size(115, 23);
+            btnExportSortedList.TabIndex = 21;
+            btnExportSortedList.Text = "Save Sorted List";
+            btnExportSortedList.TextAlign = ContentAlignment.MiddleLeft;
+            btnExportSortedList.UseVisualStyleBackColor = true;
+            btnExportSortedList.Click += btnExportSortedList_Click;
             // 
             // btnClearSortedList
             // 
@@ -451,20 +481,6 @@ namespace WinForms
             groupBox1.TabIndex = 20;
             groupBox1.TabStop = false;
             groupBox1.Text = "Sorting Methods";
-            // 
-            // btnImportUnsortedList
-            // 
-            btnImportUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnImportUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
-            btnImportUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
-            btnImportUnsortedList.Location = new Point(736, 3);
-            btnImportUnsortedList.Name = "btnImportUnsortedList";
-            btnImportUnsortedList.Size = new Size(145, 23);
-            btnImportUnsortedList.TabIndex = 20;
-            btnImportUnsortedList.Text = "Import Unsorted List";
-            btnImportUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
-            btnImportUnsortedList.UseVisualStyleBackColor = true;
-            btnImportUnsortedList.Click += btnImportUnsortedList_Click;
             // 
             // MainView
             // 
@@ -537,5 +553,6 @@ namespace WinForms
         private Button btnClearUnsortedList;
         private GroupBox groupBox1;
         private Button btnImportUnsortedList;
+        private Button btnExportSortedList;
     }
 }
