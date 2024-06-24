@@ -1,4 +1,7 @@
-﻿namespace nardnob.AlgorithmComparison.Sorting
+﻿using System.Collections.Generic;
+using System.Threading;
+
+namespace nardnob.AlgorithmComparison.Sorting
 {
     public static class Verification
     {
