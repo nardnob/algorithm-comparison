@@ -117,7 +117,7 @@
             // 
             // tstxtBeginRange
             // 
-            tstxtBeginRange.MaxLength = 6;
+            tstxtBeginRange.MaxLength = 7;
             tstxtBeginRange.Name = "tstxtBeginRange";
             tstxtBeginRange.Size = new Size(100, 25);
             tstxtBeginRange.KeyDown += tstxt_KeyDown;
