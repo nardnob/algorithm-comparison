@@ -251,8 +251,6 @@ namespace WinForms
         {
             _mode = Mode.LoadingList;
 
-            var sb = new StringBuilder();
-
             _items = items;
             _beginRange = beginRange;
             _endRange = endRange;
@@ -260,6 +258,7 @@ namespace WinForms
             ClearSortedItems();
             ClearUnsortedItems();
 
+            var sb = new StringBuilder();
             await Task.Factory.StartNew(f =>
             {
                 for (int i = 0; i < items; i++)
@@ -273,8 +272,7 @@ namespace WinForms
 
             txtUnsortedNums.Text = sb.ToString();
 
-            _mode = Mode.Ready;
-            tstxtItems.Focus();
+            SetIsReady();
         }
 
         #endregion
@@ -379,8 +377,7 @@ namespace WinForms
             txtResults.Text = resultsSb.ToString() + txtResults.Text;
 
             _cancellationTokenSource = new CancellationTokenSource();
-            _mode = Mode.Ready;
-            tstxtItems.Focus();
+            SetIsReady();
         }
 
         private void HandleSuccessfulSort(SortType sortType, DateTime startTime, List<int> sortedNums)
@@ -402,15 +399,13 @@ namespace WinForms
             txtResults.Text = resultsSb.ToString() + txtResults.Text;
             txtSortedNums.Text = sortedSb.ToString();
 
-            _mode = Mode.Ready;
-            tstxtItems.Focus();
+            SetIsReady();
         }
 
         private void HandleUnsuccessfulSort()
         {
             MessageBox.Show("An unexpected error occurred while sorting.", "Unexpected Error");
-            _mode = Mode.Ready;
-            tstxtItems.Focus();
+            SetIsReady();
         }
 
         #region " Bubble Sort "
@@ -682,6 +677,16 @@ namespace WinForms
         }
 
         #endregion
+
+        #endregion
+
+        #region " Setting Mode "
+
+        public void SetIsReady()
+        {
+            _mode = Mode.Ready;
+            tstxtItems.Focus();
+        }
 
         #endregion
 
