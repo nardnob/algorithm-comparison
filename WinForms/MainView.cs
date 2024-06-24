@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using nardnob.AlgorithmComparison.Sorting;
 using nardnob.AlgorithmComparison.Sorting.Sorts;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace WinForms
 {
@@ -18,6 +20,8 @@ namespace WinForms
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
         private const int DEFAULT_END_RANGE = 1000;
+        private const int MAX_ITEM = 999999;
+        private const int MIN_ITEM = -999999;
 
         private int _beginRange;
         private int _endRange;
@@ -363,10 +367,75 @@ namespace WinForms
                         fileContent = reader.ReadToEnd();
                     }
 
-                    MessageBox.Show(fileContent, "File content at path: " + filePath, MessageBoxButtons.OK);
+                    var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    AttemptImportUnsortedFileEntries(fileEntries.ToList());
                 }
             }
         }
+
+        private void AttemptImportUnsortedFileEntries(List<string> fileEntries)
+        {
+            var isValid = true;
+            var containsInvalidInteger = false;
+            var importedItems = new List<int>();
+            var importedStringBuilder = new StringBuilder();
+
+            int i;
+            for (i = 0; i < fileEntries.Count() && isValid; i++) 
+            {
+                try
+                {
+                    var entry = fileEntries[i];
+                    entry = entry.Replace(",", "");
+                    var importedItem = Convert.ToInt32(entry);
+
+                    if (importedItem < -999999 || importedItem > 999999)
+                    {
+                        throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
+                    }
+                    
+                    importedItems.Add(importedItem);
+                    importedStringBuilder.Append(importedItem.ToString() + "; ");
+                }
+                catch (FormatException)
+                {
+                    isValid = false;
+                    containsInvalidInteger = true;
+                }
+                catch (Exception)
+                {
+                    isValid = false;
+                }
+            }
+
+            if (isValid)
+            {
+                _unsortedNums = importedItems;
+                txtUnsortedNums.Text = importedStringBuilder.ToString();
+            }
+            else
+            {
+                if (containsInvalidInteger)
+                {
+                    var invalidIntegerSb = new StringBuilder();
+
+                    invalidIntegerSb.AppendLine("Failed to import.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {i}.");
+
+                    MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
+                }
+            }
+        }
+
 
         #endregion
 
