@@ -24,19 +24,6 @@ namespace WinForms
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private CancellationToken _cancellationToken => _cancellationTokenSource.Token;
 
-        private enum SortType
-        {
-            BubbleSort,
-            CombSort,
-            HeapSort,
-            InsertionSort,
-            MergeSort,
-            QuickSort,
-            SelectionSort,
-            StoogeSort,
-            StupidSort
-        }
-
         #region " Mode "
 
         private Mode _modeValue;
@@ -279,7 +266,7 @@ namespace WinForms
 
         #region " Sort "
 
-        private async Task Sort(SortType sortType)
+        private async Task Sort(Enums.SortType sortType)
         {
             if (_unsortedNums.Count == 0)
             {
@@ -299,31 +286,31 @@ namespace WinForms
             List<int>? sortedNums = null;
             switch (sortType)
             {
-                case SortType.BubbleSort:
+                case Enums.SortType.BubbleSort:
                     sortedNums = await DoBubbleSort();
                     break;
-                case SortType.CombSort:
+                case Enums.SortType.CombSort:
                     sortedNums = await DoCombSort();
                     break;
-                case SortType.HeapSort:
+                case Enums.SortType.HeapSort:
                     sortedNums = await DoHeapSort();
                     break;
-                case SortType.InsertionSort:
+                case Enums.SortType.InsertionSort:
                     sortedNums = await DoInsertionSort();
                     break;
-                case SortType.MergeSort:
+                case Enums.SortType.MergeSort:
                     sortedNums = await DoMergeSort();
                     break;
-                case SortType.QuickSort:
+                case Enums.SortType.QuickSort:
                     sortedNums = await DoQuickSort();
                     break;
-                case SortType.SelectionSort:
+                case Enums.SortType.SelectionSort:
                     sortedNums = await DoSelectionSort();
                     break;
-                case SortType.StoogeSort:
+                case Enums.SortType.StoogeSort:
                     sortedNums = await DoStoogeSort();
                     break;
-                case SortType.StupidSort:
+                case Enums.SortType.StupidSort:
                     sortedNums = await DoStupidSort();
                     break;
                 default:
@@ -346,25 +333,25 @@ namespace WinForms
             _sortWasCancelled = false;
         }
 
-        private string GetSortName(SortType sort)
+        private string GetSortName(Enums.SortType sort)
         {
             switch (sort)
             {
-                case SortType.BubbleSort: return "Bubble Sort";
-                case SortType.CombSort: return "Comb Sort";
-                case SortType.HeapSort: return "Heap Sort";
-                case SortType.InsertionSort: return "Insertion Sort";
-                case SortType.MergeSort: return "Top-down Merge Sort";
-                case SortType.QuickSort: return "Quick Sort";
-                case SortType.SelectionSort: return "Selection Sort";
-                case SortType.StoogeSort: return "Stooge Sort";
-                case SortType.StupidSort: return "Stupid Sort";
+                case Enums.SortType.BubbleSort: return "Bubble Sort";
+                case Enums.SortType.CombSort: return "Comb Sort";
+                case Enums.SortType.HeapSort: return "Heap Sort";
+                case Enums.SortType.InsertionSort: return "Insertion Sort";
+                case Enums.SortType.MergeSort: return "Top-down Merge Sort";
+                case Enums.SortType.QuickSort: return "Quick Sort";
+                case Enums.SortType.SelectionSort: return "Selection Sort";
+                case Enums.SortType.StoogeSort: return "Stooge Sort";
+                case Enums.SortType.StupidSort: return "Stupid Sort";
                 default:
                     throw new Exception("Unexpected SortType in GetSortName().");
             }
         }
 
-        private void HandleCancelledSort(SortType sortType, DateTime startTime)
+        private void HandleCancelledSort(Enums.SortType sortType, DateTime startTime)
         {
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
@@ -380,7 +367,7 @@ namespace WinForms
             SetIsReady();
         }
 
-        private void HandleSuccessfulSort(SortType sortType, DateTime startTime, List<int> sortedNums)
+        private void HandleSuccessfulSort(Enums.SortType sortType, DateTime startTime, List<int> sortedNums)
         {
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
@@ -412,7 +399,7 @@ namespace WinForms
 
         private async void btnBubbleSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.BubbleSort);
+            await Sort(Enums.SortType.BubbleSort);
         }
 
         private async Task<List<int>?> DoBubbleSort()
@@ -442,7 +429,7 @@ namespace WinForms
 
         private async void btnCombSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.CombSort);
+            await Sort(Enums.SortType.CombSort);
         }
 
         private async Task<List<int>?> DoCombSort()
@@ -472,7 +459,7 @@ namespace WinForms
 
         private async void btnHeapSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.HeapSort);
+            await Sort(Enums.SortType.HeapSort);
         }
 
         private async Task<List<int>?> DoHeapSort()
@@ -502,7 +489,7 @@ namespace WinForms
 
         private async void btnInsertionSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.InsertionSort);
+            await Sort(Enums.SortType.InsertionSort);
         }
 
         private async Task<List<int>?> DoInsertionSort()
@@ -532,7 +519,7 @@ namespace WinForms
 
         private async void btnMergeSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.MergeSort);
+            await Sort(Enums.SortType.MergeSort);
         }
 
         private async Task<List<int>?> DoMergeSort()
@@ -562,7 +549,7 @@ namespace WinForms
 
         private async void btnQuickSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.QuickSort);
+            await Sort(Enums.SortType.QuickSort);
         }
 
         private async Task<List<int>?> DoQuickSort()
@@ -592,7 +579,7 @@ namespace WinForms
 
         private async void btnSelectionSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.SelectionSort);
+            await Sort(Enums.SortType.SelectionSort);
         }
 
         private async Task<List<int>?> DoSelectionSort()
@@ -622,7 +609,7 @@ namespace WinForms
 
         private async void btnStoogeSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.StoogeSort);
+            await Sort(Enums.SortType.StoogeSort);
         }
 
         private async Task<List<int>?> DoStoogeSort()
@@ -652,7 +639,7 @@ namespace WinForms
 
         private async void btnStupidSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortType.StupidSort);
+            await Sort(Enums.SortType.StupidSort);
         }
 
         private async Task<List<int>?> DoStupidSort()
