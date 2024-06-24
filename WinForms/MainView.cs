@@ -264,6 +264,52 @@ namespace WinForms
 
         #endregion
 
+        #region " Setting Mode "
+
+        public void SetIsReady()
+        {
+            _mode = Mode.Ready;
+            tstxtItems.Focus();
+        }
+
+        #endregion
+
+        #region " Verify Sort "
+
+        private void tsbtnVerifySort_Click(object sender, EventArgs e)
+        {
+            if (txtSortedNums.Text == String.Empty || !_sortedNums.Any())
+            {
+                MessageBox.Show("No sorted items to verify.", "Invalid Request");
+                return;
+            }
+
+            if (Verification.VerifySorted(_sortedNums))
+            {
+                MessageBox.Show("Items are sorted correctly.", "Valid Sort");
+            }
+            else
+            {
+                MessageBox.Show("Items are not sorted correctly.", "Invalid Sort");
+            }
+        }
+
+        #endregion
+
+        #region " Cancel Sort "
+
+        private void tsbtnCancelSort_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        private void btnCancelSort_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        #endregion
+
         #region " Sort "
 
         private async Task Sort(Enums.SortType sortType)
@@ -664,52 +710,6 @@ namespace WinForms
         }
 
         #endregion
-
-        #endregion
-
-        #region " Setting Mode "
-
-        public void SetIsReady()
-        {
-            _mode = Mode.Ready;
-            tstxtItems.Focus();
-        }
-
-        #endregion
-
-        #region " Verify Sort "
-
-        private void tsbtnVerifySort_Click(object sender, EventArgs e)
-        {
-            if (txtSortedNums.Text == String.Empty || !_sortedNums.Any())
-            {
-                MessageBox.Show("No sorted items to verify.", "Invalid Request");
-                return;
-            }
-
-            if (Verification.VerifySorted(_sortedNums))
-            {
-                MessageBox.Show("Items are sorted correctly.", "Valid Sort");
-            }
-            else
-            {
-                MessageBox.Show("Items are not sorted correctly.", "Invalid Sort");
-            }
-        }
-
-        #endregion
-
-        #region " Cancel Sort "
-
-        private void tsbtnCancelSort_Click(object sender, EventArgs e)
-        {
-            _cancellationTokenSource.Cancel();
-        }
-
-        private void btnCancelSort_Click(object sender, EventArgs e)
-        {
-            _cancellationTokenSource.Cancel();
-        }
 
         #endregion
     }
