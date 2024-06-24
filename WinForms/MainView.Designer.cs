@@ -1,4 +1,7 @@
-﻿namespace WinForms
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace WinForms
 {
     partial class MainView
     {
