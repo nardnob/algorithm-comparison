@@ -8,3 +8,4 @@ Attributions:
 * [Confirm icon created by hqrloveq - Flaticon](https://www.flaticon.com/free-icons/confirm)
 * [Start icon created by hqrloveq - Flaticon](https://www.flaticon.com/free-icons/start)
 * [Close icon created by hqrloveq - Flaticon](https://www.flaticon.com/free-icons/close)
+* [Stopwatch icon created by Laura Reen - icon-icons.com](https://icon-icons.com/icon/Activity-productivity-progress-resolutions-stopwatch-time-timer/51080)
