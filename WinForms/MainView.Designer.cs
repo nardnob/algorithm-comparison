@@ -61,6 +61,7 @@
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
+            btnClearUnsortedList = new Button();
             btnClearSortedList = new Button();
             btnClearLog = new Button();
             btnCancelSort = new Button();
@@ -191,18 +192,18 @@
             // txtUnsortedNums
             // 
             txtUnsortedNums.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtUnsortedNums.Location = new Point(3, 18);
+            txtUnsortedNums.Location = new Point(3, 30);
             txtUnsortedNums.Multiline = true;
             txtUnsortedNums.Name = "txtUnsortedNums";
             txtUnsortedNums.ReadOnly = true;
             txtUnsortedNums.ScrollBars = ScrollBars.Vertical;
-            txtUnsortedNums.Size = new Size(1021, 165);
+            txtUnsortedNums.Size = new Size(1021, 153);
             txtUnsortedNums.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(3, 0);
+            label1.Location = new Point(3, 8);
             label1.Name = "label1";
             label1.Size = new Size(76, 15);
             label1.TabIndex = 2;
@@ -357,6 +358,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            splitContainer1.Panel1.Controls.Add(btnClearUnsortedList);
             splitContainer1.Panel1.Controls.Add(label1);
             splitContainer1.Panel1.Controls.Add(txtUnsortedNums);
             // 
@@ -368,6 +370,20 @@
             splitContainer1.Size = new Size(1027, 375);
             splitContainer1.SplitterDistance = 186;
             splitContainer1.TabIndex = 16;
+            // 
+            // btnClearUnsortedList
+            // 
+            btnClearUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
+            btnClearUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
+            btnClearUnsortedList.Location = new Point(891, 3);
+            btnClearUnsortedList.Name = "btnClearUnsortedList";
+            btnClearUnsortedList.Size = new Size(133, 23);
+            btnClearUnsortedList.TabIndex = 19;
+            btnClearUnsortedList.Text = "Clear Unsorted List";
+            btnClearUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
+            btnClearUnsortedList.UseVisualStyleBackColor = true;
+            btnClearUnsortedList.Click += btnClearUnsortedList_Click;
             // 
             // btnClearSortedList
             // 
@@ -485,5 +501,6 @@
         private Button btnCancelSort;
         private ToolStripLabel toolStripLabel8;
         private Button btnClearSortedList;
+        private Button btnClearUnsortedList;
     }
 }

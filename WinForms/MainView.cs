@@ -177,6 +177,12 @@ namespace WinForms
             ClearLog();
         }
 
+        private void btnClearUnsortedList_Click(object sender, EventArgs e)
+        {
+            txtUnsortedNums.Text = String.Empty;
+            _unsortedNums.Clear();
+        }
+
         private void btnClearSortedList_Click(object sender, EventArgs e)
         {
             txtSortedNums.Text = String.Empty;
