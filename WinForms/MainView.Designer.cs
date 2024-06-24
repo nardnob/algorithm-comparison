@@ -378,9 +378,9 @@
             btnClearUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnClearUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             btnClearUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
-            btnClearUnsortedList.Location = new Point(891, 3);
+            btnClearUnsortedList.Location = new Point(887, 3);
             btnClearUnsortedList.Name = "btnClearUnsortedList";
-            btnClearUnsortedList.Size = new Size(133, 23);
+            btnClearUnsortedList.Size = new Size(137, 23);
             btnClearUnsortedList.TabIndex = 19;
             btnClearUnsortedList.Text = "Clear Unsorted List";
             btnClearUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
