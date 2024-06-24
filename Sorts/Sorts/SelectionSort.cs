@@ -19,19 +19,13 @@
         {
             for (int j = 0; j < nums.Count - 1; j++)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 var iMin = j;
 
                 for (int i = j + 1; i < nums.Count; i++)
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                    }
+                    cancellationToken.ThrowIfCancellationRequested();
 
                     if (nums[i] < nums[iMin])
                     {

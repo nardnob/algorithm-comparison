@@ -17,10 +17,7 @@
 
         private static List<int> DoCombSort(List<int> nums, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             var gap = nums.Count;
             var shrink = 1.3;
@@ -28,10 +25,7 @@
 
             while (!(gap == 1 && !swapped))
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 gap = (int)(gap / shrink);
                 if (gap < 1)
@@ -44,10 +38,7 @@
 
                 while (!(i + gap >= nums.Count))
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                    }
+                    cancellationToken.ThrowIfCancellationRequested();
 
                     if (nums[i] > nums[i + gap])
                     {

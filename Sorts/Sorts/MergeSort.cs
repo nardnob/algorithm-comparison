@@ -17,10 +17,7 @@
 
         private static List<int> DoMergeSort(List<int> nums, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (nums.Count <= 1)
             {
@@ -34,20 +31,14 @@
 
             for (int i = 0; i < middle; i++)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 left.Add(nums[i]);
             }
 
             for (int i = middle; i < nums.Count; i++)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 right.Add(nums[i]);
             }
@@ -60,19 +51,13 @@
 
         private static List<int> Merge(List<int> left, List<int> right, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             var result = new List<int>();
 
             while (left.Any() && right.Any())
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 if (left.First() <= right.First())
                 {
@@ -88,10 +73,7 @@
 
             while (left.Any())
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 result.Add(left.First());
                 left.Remove(left.First());
@@ -99,10 +81,7 @@
 
             while (right.Any())
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 result.Add(right.First());
                 right.Remove(right.First());

@@ -17,20 +17,14 @@
 
         private static List<int> DoHeapSort(List<int> nums, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             nums = Heapify(nums, cancellationToken);
 
             var end = nums.Count - 1;
             while (end > 0)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 var temp = nums[end];
                 nums[end] = nums[0];
@@ -46,19 +40,13 @@
 
         private static List<int> Heapify(List<int> nums, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             int start = (int)Math.Floor((nums.Count - 2) / 2.0);
 
             while (start >= 0)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 SiftDown(nums, start, nums.Count - 1, cancellationToken);
                 start--;
@@ -69,19 +57,13 @@
 
         private static List<int> SiftDown(List<int> nums, int start, int end, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             int root = start;
 
             while (root * 2 + 1 <= end)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 var child = root * 2 + 1;
                 var swap = root;

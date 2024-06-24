@@ -6,17 +6,21 @@ namespace WinForms
 {
     public partial class MainView : Form
     {
-        private Random _rand = new Random();
-        private List<int> _unsortedNums = new List<int>();
-        private List<int> _sortedNums = new List<int>();
-        private bool _initialFocusSet = false;
-        private bool _sortWasCancelled = false;
+        #region " Private Members "
 
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
         private const int DEFAULT_END_RANGE = 1000;
 
-        private int _beginRange, _endRange, _items;
+        private int _beginRange;
+        private int _endRange;
+        private int _items;
+
+        private Random _rand = new Random();
+        private List<int> _unsortedNums = new List<int>();
+        private List<int> _sortedNums = new List<int>();
+        private bool _initialFocusSet = false;
+        private bool _sortWasCancelled = false;
 
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private CancellationToken _cancellationToken => _cancellationTokenSource.Token;
@@ -132,7 +136,34 @@ namespace WinForms
             StupidSort
         }
 
+        #endregion
 
+        #region " MainView "
+
+        public MainView()
+        {
+            InitializeComponent();
+        }
+
+        private async void MainView_Load(object sender, EventArgs e)
+        {
+            tstxtItems.Text = DEFAULT_ITEMS.ToString();
+            tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
+            tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
+
+            await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
+        }
+
+        private void MainView_Shown(object sender, EventArgs e)
+        {
+            if (!_initialFocusSet)
+            {
+                tstxtItems.Focus();
+                _initialFocusSet = true;
+            }
+        }
+
+        #endregion
 
         #region " Clear "
 
@@ -225,33 +256,6 @@ namespace WinForms
 
             _mode = Mode.Ready;
             tstxtItems.Focus();
-        }
-
-        #endregion
-
-        #region " MainView "
-
-        public MainView()
-        {
-            InitializeComponent();
-        }
-
-        private async void MainView_Load(object sender, EventArgs e)
-        {
-            tstxtItems.Text = DEFAULT_ITEMS.ToString();
-            tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
-            tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
-
-            await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
-        }
-
-        private void MainView_Shown(object sender, EventArgs e)
-        {
-            if (!_initialFocusSet)
-            {
-                tstxtItems.Focus();
-                _initialFocusSet = true;
-            }
         }
 
         #endregion
