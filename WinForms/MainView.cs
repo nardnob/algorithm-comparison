@@ -403,8 +403,8 @@ namespace WinForms
 
         private void HandleNoItemsToSort()
         {
-                MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
-                tstxtItems.Focus();
+            MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
+            tstxtItems.Focus();
         }
 
         private void HandleCancelledSort(SortTypes.SortType sortType, DateTime startTime)
