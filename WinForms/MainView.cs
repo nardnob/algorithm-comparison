@@ -53,6 +53,7 @@ namespace WinForms
                         tsbtnGetList.Enabled = false;
                         tsbtnVerifySort.Enabled = false;
                         btnClearSortedList.Enabled = false;
+                        btnClearUnsortedList.Enabled = false;
 
                         btnClearLog.Enabled = false;
 
@@ -78,6 +79,7 @@ namespace WinForms
                         tsbtnGetList.Enabled = false;
                         tsbtnVerifySort.Enabled = false;
                         btnClearSortedList.Enabled = false;
+                        btnClearUnsortedList.Enabled = false;
 
                         btnClearLog.Enabled = false;
 
@@ -103,6 +105,7 @@ namespace WinForms
                         tsbtnGetList.Enabled = true;
                         tsbtnVerifySort.Enabled = true;
                         btnClearSortedList.Enabled = true;
+                        btnClearUnsortedList.Enabled = true;
 
                         btnClearLog.Enabled = true;
 
