@@ -65,12 +65,13 @@
             btnClearSortedList = new Button();
             btnClearLog = new Button();
             btnCancelSort = new Button();
-            label4 = new Label();
+            groupBox1 = new GroupBox();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // toolStrip1
@@ -233,7 +234,7 @@
             // btnBubbleSort
             // 
             btnBubbleSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnBubbleSort.Location = new Point(15, 438);
+            btnBubbleSort.Location = new Point(6, 22);
             btnBubbleSort.Name = "btnBubbleSort";
             btnBubbleSort.Size = new Size(91, 26);
             btnBubbleSort.TabIndex = 2;
@@ -244,7 +245,7 @@
             // btnMergeSort
             // 
             btnMergeSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnMergeSort.Location = new Point(112, 438);
+            btnMergeSort.Location = new Point(103, 22);
             btnMergeSort.Name = "btnMergeSort";
             btnMergeSort.Size = new Size(94, 26);
             btnMergeSort.TabIndex = 3;
@@ -255,7 +256,7 @@
             // btnQuickSort
             // 
             btnQuickSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnQuickSort.Location = new Point(212, 438);
+            btnQuickSort.Location = new Point(203, 22);
             btnQuickSort.Name = "btnQuickSort";
             btnQuickSort.Size = new Size(94, 26);
             btnQuickSort.TabIndex = 4;
@@ -266,7 +267,7 @@
             // btnInsertionSort
             // 
             btnInsertionSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnInsertionSort.Location = new Point(312, 438);
+            btnInsertionSort.Location = new Point(303, 22);
             btnInsertionSort.Name = "btnInsertionSort";
             btnInsertionSort.Size = new Size(94, 26);
             btnInsertionSort.TabIndex = 5;
@@ -277,7 +278,7 @@
             // btnSelectionSort
             // 
             btnSelectionSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnSelectionSort.Location = new Point(15, 470);
+            btnSelectionSort.Location = new Point(6, 54);
             btnSelectionSort.Name = "btnSelectionSort";
             btnSelectionSort.Size = new Size(91, 26);
             btnSelectionSort.TabIndex = 6;
@@ -288,7 +289,7 @@
             // btnHeapSort
             // 
             btnHeapSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnHeapSort.Location = new Point(112, 470);
+            btnHeapSort.Location = new Point(103, 54);
             btnHeapSort.Name = "btnHeapSort";
             btnHeapSort.Size = new Size(94, 26);
             btnHeapSort.TabIndex = 7;
@@ -299,7 +300,7 @@
             // btnCombSort
             // 
             btnCombSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCombSort.Location = new Point(212, 470);
+            btnCombSort.Location = new Point(203, 54);
             btnCombSort.Name = "btnCombSort";
             btnCombSort.Size = new Size(94, 26);
             btnCombSort.TabIndex = 8;
@@ -310,7 +311,7 @@
             // btnStoogeSort
             // 
             btnStoogeSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnStoogeSort.Location = new Point(312, 470);
+            btnStoogeSort.Location = new Point(303, 54);
             btnStoogeSort.Name = "btnStoogeSort";
             btnStoogeSort.Size = new Size(94, 26);
             btnStoogeSort.TabIndex = 9;
@@ -321,7 +322,7 @@
             // btnStupidSort
             // 
             btnStupidSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnStupidSort.Location = new Point(15, 502);
+            btnStupidSort.Location = new Point(6, 86);
             btnStupidSort.Name = "btnStupidSort";
             btnStupidSort.Size = new Size(91, 26);
             btnStupidSort.TabIndex = 10;
@@ -428,35 +429,34 @@
             btnCancelSort.UseVisualStyleBackColor = true;
             btnCancelSort.Click += btnCancelSort_Click;
             // 
-            // label4
+            // groupBox1
             // 
-            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Location = new Point(15, 416);
-            label4.Name = "label4";
-            label4.Size = new Size(73, 15);
-            label4.TabIndex = 19;
-            label4.Text = "Sort Options";
+            groupBox1.Controls.Add(btnBubbleSort);
+            groupBox1.Controls.Add(btnMergeSort);
+            groupBox1.Controls.Add(btnQuickSort);
+            groupBox1.Controls.Add(btnInsertionSort);
+            groupBox1.Controls.Add(btnSelectionSort);
+            groupBox1.Controls.Add(btnHeapSort);
+            groupBox1.Controls.Add(btnStupidSort);
+            groupBox1.Controls.Add(btnCombSort);
+            groupBox1.Controls.Add(btnStoogeSort);
+            groupBox1.Location = new Point(12, 417);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(432, 154);
+            groupBox1.TabIndex = 20;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Sorting Methods";
             // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1051, 582);
-            Controls.Add(label4);
+            Controls.Add(groupBox1);
             Controls.Add(btnCancelSort);
             Controls.Add(btnClearLog);
             Controls.Add(txtResults);
             Controls.Add(label3);
-            Controls.Add(btnStupidSort);
-            Controls.Add(btnStoogeSort);
-            Controls.Add(btnCombSort);
-            Controls.Add(btnHeapSort);
-            Controls.Add(btnSelectionSort);
-            Controls.Add(btnInsertionSort);
-            Controls.Add(btnQuickSort);
-            Controls.Add(btnMergeSort);
-            Controls.Add(btnBubbleSort);
             Controls.Add(toolStrip1);
             Controls.Add(splitContainer1);
             MinimumSize = new Size(1067, 621);
@@ -472,6 +472,7 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -514,6 +515,6 @@
         private ToolStripLabel toolStripLabel8;
         private Button btnClearSortedList;
         private Button btnClearUnsortedList;
-        private Label label4;
+        private GroupBox groupBox1;
     }
 }
