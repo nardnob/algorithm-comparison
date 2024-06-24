@@ -367,7 +367,7 @@ namespace WinForms
                         fileContent = reader.ReadToEnd();
                     }
 
-                    var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.TrimEntries);
                     AttemptImportUnsortedFileEntries(fileEntries.ToList());
                 }
             }
@@ -389,7 +389,7 @@ namespace WinForms
                     entry = entry.Replace(",", "");
                     var importedItem = Convert.ToInt32(entry);
 
-                    if (importedItem < -999999 || importedItem > 999999)
+                    if (importedItem < MIN_ITEM || importedItem > MAX_ITEM)
                     {
                         throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
                     }
