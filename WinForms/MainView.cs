@@ -312,10 +312,15 @@ namespace WinForms
 
         private void tsbtnCancelSort_Click(object sender, EventArgs e)
         {
-            _cancellationTokenSource.Cancel();
+            CancelSort();
         }
 
         private void btnCancelSort_Click(object sender, EventArgs e)
+        {
+            CancelSort();
+        }
+
+        private void CancelSort()
         {
             _cancellationTokenSource.Cancel();
         }
