@@ -19,9 +19,9 @@
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            int pivot = nums[left],
-                        lhold = left,
-                        rhold = right;
+            int pivot = nums[left];
+            int lhold = left;
+            int rhold = right;
 
             while (left < right)
             {
