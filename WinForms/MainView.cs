@@ -333,8 +333,7 @@ namespace WinForms
         {
             if (_unsortedNums.Count == 0)
             {
-                MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
-                tstxtItems.Focus();
+                HandleNoItemsToSort();
                 return;
             }
 
@@ -394,6 +393,12 @@ namespace WinForms
             }
 
             _sortWasCancelled = false;
+        }
+
+        private void HandleNoItemsToSort()
+        {
+                MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
+                tstxtItems.Focus();
         }
 
         private void HandleCancelledSort(SortTypes.SortType sortType, DateTime startTime)

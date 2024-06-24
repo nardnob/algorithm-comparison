@@ -1,4 +1,6 @@
-﻿namespace nardnob.AlgorithmComparison.Sorting
+﻿using System;
+
+namespace nardnob.AlgorithmComparison.Sorting
 {
     public static class RandomGenerator
     {

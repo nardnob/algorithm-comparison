@@ -1,4 +1,9 @@
-﻿namespace nardnob.AlgorithmComparison.Sorting.Sorts
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public static class MergeSort
     {
