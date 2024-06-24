@@ -21,10 +21,7 @@
         {
             while (!Verification.VerifySorted(nums, cancellationToken))
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 for (var i = 0; i < nums.Count; i++)
                 {

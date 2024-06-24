@@ -17,10 +17,7 @@
 
         private static List<int> DoStoogeSort(List<int> nums, int i, int j, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (nums[j] < nums[i])
             {

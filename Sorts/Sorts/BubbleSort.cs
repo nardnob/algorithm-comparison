@@ -20,10 +20,7 @@
             bool swapped = true;
             while (swapped)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 swapped = false;
 

@@ -17,10 +17,7 @@
 
         private static List<int> DoQuickSort(List<int> nums, int left, int right, CancellationToken cancellationToken)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+            cancellationToken.ThrowIfCancellationRequested();
 
             int pivot = nums[left],
                         lhold = left,
@@ -28,17 +25,11 @@
 
             while (left < right)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
+                cancellationToken.ThrowIfCancellationRequested();
 
                 while (nums[right] >= pivot && left < right)
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                    }
+                    cancellationToken.ThrowIfCancellationRequested();
 
                     --right;
                 }
@@ -50,10 +41,7 @@
 
                 while (nums[left] <= pivot && left < right)
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                    }
+                    cancellationToken.ThrowIfCancellationRequested();
 
                     ++left;
                 }
