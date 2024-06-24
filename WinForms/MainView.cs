@@ -16,7 +16,6 @@ namespace WinForms
         private int _endRange;
         private int _items;
 
-        private Random _rand = new Random();
         private List<int> _unsortedNums = new List<int>();
         private List<int> _sortedNums = new List<int>();
         private bool _initialFocusSet = false;
@@ -258,7 +257,7 @@ namespace WinForms
             {
                 for (int i = 0; i < items; i++)
                 {
-                    var rand = _rand.Next(beginRange, endRange + 1);
+                    var rand = RandomGenerator.Rand.Next(beginRange, endRange + 1);
 
                     _unsortedNums.Add(rand);
                     sb.Append(rand.ToString() + "; ");
