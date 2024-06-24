@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -337,8 +338,34 @@ namespace WinForms
 
         private void btnImportUnsortedList_Click(object sender, EventArgs e)
         {
-            //TODO: nardnob - btnImportUnsortedList_Click
-            throw new NotImplementedException();
+            ImportUnsortedList();
+        }
+
+        private void ImportUnsortedList()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt";
+                openFileDialog.FilterIndex = 0;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+
+                    MessageBox.Show(fileContent, "File content at path: " + filePath, MessageBoxButtons.OK);
+                }
+            }
         }
 
         #endregion
