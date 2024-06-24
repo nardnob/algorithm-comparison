@@ -459,6 +459,7 @@
             Controls.Add(label3);
             Controls.Add(toolStrip1);
             Controls.Add(splitContainer1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(1067, 621);
             Name = "MainView";
             Text = "Algorithm Comparison";
