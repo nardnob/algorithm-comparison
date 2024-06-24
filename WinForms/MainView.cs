@@ -270,6 +270,13 @@ namespace WinForms
 
         private async Task Sort(SortType sortType)
         {
+            if (_unsortedNums.Count == 0)
+            {
+                MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
+                tstxtItems.Focus();
+                return;
+            }
+
             _mode = Mode.Sorting;
 
             txtSortedNums.Text = String.Empty;
