@@ -25,6 +25,21 @@ namespace WinForms
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private CancellationToken _cancellationToken => _cancellationTokenSource.Token;
 
+        private enum SortType
+        {
+            BubbleSort,
+            CombSort,
+            HeapSort,
+            InsertionSort,
+            MergeSort,
+            QuickSort,
+            SelectionSort,
+            StoogeSort,
+            StupidSort
+        }
+
+        #region " Mode "
+
         private Mode _modeValue;
         private Mode _mode
         {
@@ -126,18 +141,7 @@ namespace WinForms
             Sorting
         }
 
-        private enum SortType
-        {
-            BubbleSort,
-            CombSort,
-            HeapSort,
-            InsertionSort,
-            MergeSort,
-            QuickSort,
-            SelectionSort,
-            StoogeSort,
-            StupidSort
-        }
+        #endregion
 
         #endregion
 
