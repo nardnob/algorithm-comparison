@@ -310,7 +310,7 @@ namespace WinForms
             {
                 HandleCancelledSort(sortType, startTime);
             }
-            else if (sortedNums is not null)
+            else if (sortedNums is not null && Verification.VerifySorted(sortedNums))
             {
                 HandleSuccessfulSort(sortType, startTime, sortedNums);
             }
