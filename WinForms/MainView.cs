@@ -177,6 +177,12 @@ namespace WinForms
             ClearLog();
         }
 
+        private void btnClearUnsortedList_Click(object sender, EventArgs e)
+        {
+            txtUnsortedNums.Text = String.Empty;
+            _unsortedNums.Clear();
+        }
+
         private void btnClearSortedList_Click(object sender, EventArgs e)
         {
             txtSortedNums.Text = String.Empty;
@@ -264,6 +270,13 @@ namespace WinForms
 
         private async Task Sort(SortType sortType)
         {
+            if (_unsortedNums.Count == 0)
+            {
+                MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
+                tstxtItems.Focus();
+                return;
+            }
+
             _mode = Mode.Sorting;
 
             txtSortedNums.Text = String.Empty;
