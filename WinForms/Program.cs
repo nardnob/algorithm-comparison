@@ -1,3 +1,7 @@
+using System;
+using System.Threading;
+using System.Windows.Forms;
+
 namespace WinForms
 {
     internal static class Program
