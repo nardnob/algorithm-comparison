@@ -2,6 +2,6 @@
 {
     public static class RandomGenerator
     {
-        public readonly static Random Rand = new Random();
+        public readonly static Random Rand = new();
     }
 }
