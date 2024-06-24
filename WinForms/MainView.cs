@@ -185,11 +185,21 @@ namespace WinForms
 
         private void btnClearUnsortedList_Click(object sender, EventArgs e)
         {
+            ClearUnsortedItems();
+        }
+
+        private void ClearUnsortedItems()
+        {
             txtUnsortedNums.Text = String.Empty;
             _unsortedNums.Clear();
         }
 
         private void btnClearSortedList_Click(object sender, EventArgs e)
+        {
+            ClearSortedItems();
+        }
+
+        private void ClearSortedItems()
         {
             txtSortedNums.Text = String.Empty;
             _sortedNums.Clear();
@@ -247,11 +257,8 @@ namespace WinForms
             _beginRange = beginRange;
             _endRange = endRange;
 
-            txtUnsortedNums.Text = String.Empty;
-            txtSortedNums.Text = String.Empty;
-
-            _unsortedNums.Clear();
-            _sortedNums.Clear();
+            ClearSortedItems();
+            ClearUnsortedItems();
 
             await Task.Factory.StartNew(f =>
             {
