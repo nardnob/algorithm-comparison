@@ -353,7 +353,7 @@ namespace WinForms
             {
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "txt files (*.txt)|*.txt";
-                openFileDialog.FilterIndex = 0;
+                openFileDialog.FilterIndex = 1;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
