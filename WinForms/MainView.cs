@@ -424,7 +424,7 @@ namespace WinForms
             {
                 if (containsTooManyEntries)
                 {
-                    MessageBox.Show($"There were too many entries to import. The max number of entries is: {MAX_ENTRIES}.", "Invalid Input");
+                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {MAX_ENTRIES}.", "Invalid Input");
                 }
                 else if (containsInvalidInteger)
                 {
