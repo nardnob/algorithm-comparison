@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,13 +10,13 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
     {
         #region " Public Methods "
 
-        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        public override Task<List<int>> DoSort(IEnumerable<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoHeapSort(sortedNums, cancellationToken);
+                var result = DoHeapSort(sortedNums.ToList(), cancellationToken);
                 return result;
             }, cancellationToken);
 

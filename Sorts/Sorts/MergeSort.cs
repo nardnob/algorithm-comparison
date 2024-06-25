@@ -9,13 +9,13 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
     {
         #region " Public Methods "
 
-        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        public override Task<List<int>> DoSort(IEnumerable<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoMergeSort(sortedNums, cancellationToken);
+                var result = DoMergeSort(sortedNums.ToList(), cancellationToken);
                 return result;
             }, cancellationToken);
 

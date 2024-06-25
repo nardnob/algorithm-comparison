@@ -559,14 +559,13 @@ namespace WinForms
 
             txtSortedNums.Text = string.Empty;
             _sortedNums.Clear();
-            _unsortedNums.ForEach(num => _sortedNums.Add(num));
 
             var startTime = DateTime.Now;
 
-            List<int>? sortedNums = null;
-
             var sortMethod = SortMethodFactory.GetSortMethod(sortType);
-            sortedNums = await DoSort(sortMethod);
+            var numsToSort = _unsortedNums.Select(num => num);
+
+            var sortedNums = await DoSort(sortMethod, numsToSort);
 
             if (_sortWasCancelled)
             {
@@ -584,12 +583,11 @@ namespace WinForms
             _sortWasCancelled = false;
         }
 
-        private async Task<List<int>?> DoSort(SortMethod sortMethod)
+        private async Task<List<int>?> DoSort(SortMethod sortMethod, IEnumerable<int> numsToSort)
         {
             try
             {
-                var sortedNums = _sortedNums;
-                var task = sortMethod.DoSort(sortedNums, _cancellationToken);
+                var task = sortMethod.DoSort(numsToSort, _cancellationToken);
                 var sortedResult = await task;
 
                 return sortedResult;
