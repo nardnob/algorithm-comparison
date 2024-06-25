@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,18 +7,31 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class QuickSort : SortMethod
     {
-        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        #region " Public Methods "
+
+        public override Task<List<int>> DoSort(IEnumerable<int> sortedNums, CancellationToken cancellationToken)
         {
+            var sortedNumsList = sortedNums.ToList();
+
             var task = Task.Factory.StartNew(f =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoQuickSort(sortedNums, 0, sortedNums.Count - 1, cancellationToken);
+                var result = DoQuickSort(sortedNumsList, 0, sortedNumsList.Count - 1, cancellationToken);
                 return result;
             }, cancellationToken);
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Quick Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoQuickSort(List<int> nums, int left, int right, CancellationToken cancellationToken)
         {
@@ -70,5 +84,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return nums;
         }
+
+        #endregion
     }
 }

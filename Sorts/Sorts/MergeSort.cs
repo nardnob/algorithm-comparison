@@ -7,18 +7,29 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class MergeSort : SortMethod
     {
-        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        #region " Public Methods "
+
+        public override Task<List<int>> DoSort(IEnumerable<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoMergeSort(sortedNums, cancellationToken);
+                var result = DoMergeSort(sortedNums.ToList(), cancellationToken);
                 return result;
             }, cancellationToken);
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Top-Down Merge Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoMergeSort(List<int> nums, CancellationToken cancellationToken)
         {
@@ -94,5 +105,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return result;
         }
+
+        #endregion
     }
 }

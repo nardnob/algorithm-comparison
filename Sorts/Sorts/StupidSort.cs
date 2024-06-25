@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,18 +7,29 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class StupidSort : SortMethod
     {
-        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        #region " Public Methods "
+
+        public override Task<List<int>> DoSort(IEnumerable<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoStupidSort(sortedNums, cancellationToken);
+                var result = DoStupidSort(sortedNums.ToList(), cancellationToken);
                 return result;
             }, cancellationToken);
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Stupid Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoStupidSort(List<int> nums, CancellationToken cancellationToken)
         {
@@ -36,5 +48,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return nums;
         }
+
+        #endregion
     }
 }

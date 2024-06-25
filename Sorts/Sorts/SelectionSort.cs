@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,18 +7,29 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class SelectionSort : SortMethod
     {
-        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        #region " Public Methods "
+
+        public override Task<List<int>> DoSort(IEnumerable<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoSelectionSort(sortedNums, cancellationToken);
+                var result = DoSelectionSort(sortedNums.ToList(), cancellationToken);
                 return result;
             }, cancellationToken);
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Selection Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoSelectionSort(List<int> nums, CancellationToken cancellationToken)
         {
@@ -47,5 +59,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return nums;
         }
+
+        #endregion
     }
 }

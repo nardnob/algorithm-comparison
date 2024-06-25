@@ -284,7 +284,7 @@ namespace WinForms
                     var rand = RandomGenerator.Rand.Next(beginRange, endRange + 1);
 
                     _unsortedNums.Add(rand);
-                    sb.Append(rand.ToString() + "; ");
+                    sb.Append($"{rand}; ");
                 }
             }, null);
 
@@ -410,7 +410,7 @@ namespace WinForms
                         }
 
                         importedItems.Add(importedItem);
-                        importedStringBuilder.Append(importedItem.ToString() + "; ");
+                        importedStringBuilder.Append($"{importedItem.ToString()}; ");
                     }
                     catch (FormatException)
                     {
@@ -559,51 +559,21 @@ namespace WinForms
 
             txtSortedNums.Text = string.Empty;
             _sortedNums.Clear();
-            _unsortedNums.ForEach(num => _sortedNums.Add(num));
 
             var startTime = DateTime.Now;
 
-            List<int>? sortedNums = null;
-            switch (sortType)
-            {
-                case SortTypes.SortType.BubbleSort:
-                    sortedNums = await DoSort(new BubbleSort());
-                    break;
-                case SortTypes.SortType.CombSort:
-                    sortedNums = await DoSort(new CombSort());
-                    break;
-                case SortTypes.SortType.HeapSort:
-                    sortedNums = await DoSort(new HeapSort());
-                    break;
-                case SortTypes.SortType.InsertionSort:
-                    sortedNums = await DoSort(new InsertionSort());
-                    break;
-                case SortTypes.SortType.MergeSort:
-                    sortedNums = await DoSort(new MergeSort());
-                    break;
-                case SortTypes.SortType.QuickSort:
-                    sortedNums = await DoSort(new QuickSort());
-                    break;
-                case SortTypes.SortType.SelectionSort:
-                    sortedNums = await DoSort(new SelectionSort());
-                    break;
-                case SortTypes.SortType.StoogeSort:
-                    sortedNums = await DoSort(new StoogeSort());
-                    break;
-                case SortTypes.SortType.StupidSort:
-                    sortedNums = await DoSort(new StupidSort());
-                    break;
-                default:
-                    throw new Exception("Unexpected SortType in Sort().");
-            }
+            var sortMethod = SortMethodFactory.GetSortMethod(sortType);
+            var numsToSort = _unsortedNums.Select(num => num);
+
+            var sortedNums = await DoSort(sortMethod, numsToSort);
 
             if (_sortWasCancelled)
             {
-                HandleCancelledSort(sortType, startTime);
+                HandleCancelledSort(sortMethod, startTime);
             }
             else if (sortedNums is not null && Verification.VerifySorted(sortedNums))
             {
-                HandleSuccessfulSort(sortType, startTime, sortedNums);
+                HandleSuccessfulSort(sortMethod, startTime, sortedNums);
             }
             else
             {
@@ -613,12 +583,11 @@ namespace WinForms
             _sortWasCancelled = false;
         }
 
-        private async Task<List<int>?> DoSort(SortMethod sortMethod)
+        private async Task<List<int>?> DoSort(SortMethod sortMethod, IEnumerable<int> numsToSort)
         {
             try
             {
-                var sortedNums = _sortedNums;
-                var task = sortMethod.DoSort(sortedNums, _cancellationToken);
+                var task = sortMethod.DoSort(numsToSort, _cancellationToken);
                 var sortedResult = await task;
 
                 return sortedResult;
@@ -640,15 +609,15 @@ namespace WinForms
             tstxtItems.Focus();
         }
 
-        private void HandleCancelledSort(SortTypes.SortType sortType, DateTime startTime)
+        private void HandleCancelledSort(SortMethod sortMethod, DateTime startTime)
         {
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
 
-            resultsSb.AppendLine("== " + SortTypes.GetSortName(sortType) + " ==");
-            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-            resultsSb.AppendLine("The sort was cancelled.");
-            resultsSb.AppendLine("");
+            resultsSb.AppendLine($"== {sortMethod.GetName()} ==");
+            resultsSb.AppendLine($"Sort Time: {endTime - startTime}");
+            resultsSb.AppendLine($"The sort was cancelled.");
+            resultsSb.AppendLine();
 
             txtResults.Text = resultsSb.ToString() + txtResults.Text;
 
@@ -656,20 +625,20 @@ namespace WinForms
             SetIsReady();
         }
 
-        private void HandleSuccessfulSort(SortTypes.SortType sortType, DateTime startTime, List<int> sortedNums)
+        private void HandleSuccessfulSort(SortMethod sortMethod, DateTime startTime, List<int> sortedNums)
         {
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
             var sortedSb = new StringBuilder();
 
-            sortedNums.ForEach(num => sortedSb.Append(num + "; "));
+            sortedNums.ForEach(num => sortedSb.Append($"{num}; "));
 
-            resultsSb.AppendLine("== " + SortTypes.GetSortName(sortType) + " ==");
-            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-            resultsSb.AppendLine("Items Sorted: " + _items);
-            resultsSb.AppendLine("Begin Range: " + _beginRange);
-            resultsSb.AppendLine("End Range: " + _endRange);
-            resultsSb.AppendLine("");
+            resultsSb.AppendLine($"== {sortMethod.GetName()} ==");
+            resultsSb.AppendLine($"Sort Time: {endTime - startTime}");
+            resultsSb.AppendLine($"Items Sorted: {_items}");
+            resultsSb.AppendLine($"Begin Range: {_beginRange}");
+            resultsSb.AppendLine($"End Range: {_endRange}");
+            resultsSb.AppendLine();
 
             _sortedNums = sortedNums;
             txtResults.Text = resultsSb.ToString() + txtResults.Text;
