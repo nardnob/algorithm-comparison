@@ -284,7 +284,7 @@ namespace WinForms
                     var rand = RandomGenerator.Rand.Next(beginRange, endRange + 1);
 
                     _unsortedNums.Add(rand);
-                    sb.Append(rand.ToString() + "; ");
+                    sb.Append($"{rand}; ");
                 }
             }, null);
 
@@ -410,7 +410,7 @@ namespace WinForms
                         }
 
                         importedItems.Add(importedItem);
-                        importedStringBuilder.Append(importedItem.ToString() + "; ");
+                        importedStringBuilder.Append($"{importedItem.ToString()}; ");
                     }
                     catch (FormatException)
                     {
@@ -649,10 +649,10 @@ namespace WinForms
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
 
-            resultsSb.AppendLine("== " + sortMethod.GetName() + " ==");
-            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-            resultsSb.AppendLine("The sort was cancelled.");
-            resultsSb.AppendLine("");
+            resultsSb.AppendLine($"== {sortMethod.GetName()} ==");
+            resultsSb.AppendLine($"Sort Time: {endTime - startTime}");
+            resultsSb.AppendLine($"The sort was cancelled.");
+            resultsSb.AppendLine();
 
             txtResults.Text = resultsSb.ToString() + txtResults.Text;
 
@@ -666,14 +666,14 @@ namespace WinForms
             var resultsSb = new StringBuilder();
             var sortedSb = new StringBuilder();
 
-            sortedNums.ForEach(num => sortedSb.Append(num + "; "));
+            sortedNums.ForEach(num => sortedSb.Append($"{num}; "));
 
-            resultsSb.AppendLine("== " + sortMethod.GetName() + " ==");
-            resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
-            resultsSb.AppendLine("Items Sorted: " + _items);
-            resultsSb.AppendLine("Begin Range: " + _beginRange);
-            resultsSb.AppendLine("End Range: " + _endRange);
-            resultsSb.AppendLine("");
+            resultsSb.AppendLine($"== {sortMethod.GetName()} ==");
+            resultsSb.AppendLine($"Sort Time: {endTime - startTime}");
+            resultsSb.AppendLine($"Items Sorted: {_items}");
+            resultsSb.AppendLine($"Begin Range: {_beginRange}");
+            resultsSb.AppendLine($"End Range: {_endRange}");
+            resultsSb.AppendLine();
 
             _sortedNums = sortedNums;
             txtResults.Text = resultsSb.ToString() + txtResults.Text;
