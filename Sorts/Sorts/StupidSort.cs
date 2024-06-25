@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
-    public class StupidSort : ISortMethod
+    public class StupidSort : SortMethod
     {
-        public static Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {

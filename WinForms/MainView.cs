@@ -193,7 +193,7 @@ namespace WinForms
 
         private void ClearLog()
         {
-            txtResults.Text = String.Empty;
+            txtResults.Text = string.Empty;
         }
 
         private void btnClearLog_Click(object sender, EventArgs e)
@@ -208,7 +208,7 @@ namespace WinForms
 
         private void ClearUnsortedItems()
         {
-            txtUnsortedNums.Text = String.Empty;
+            txtUnsortedNums.Text = string.Empty;
             _unsortedNums.Clear();
         }
 
@@ -219,7 +219,7 @@ namespace WinForms
 
         private void ClearSortedItems()
         {
-            txtSortedNums.Text = String.Empty;
+            txtSortedNums.Text = string.Empty;
             _sortedNums.Clear();
         }
 
@@ -309,7 +309,7 @@ namespace WinForms
 
         private void tsbtnVerifySort_Click(object sender, EventArgs e)
         {
-            if (txtSortedNums.Text == String.Empty || !_sortedNums.Any())
+            if (txtSortedNums.Text == string.Empty || !_sortedNums.Any())
             {
                 MessageBox.Show("No sorted items to verify.", "Invalid Request");
                 return;
@@ -545,7 +545,7 @@ namespace WinForms
 
         #endregion
 
-        #region " Sort "
+        #region " Sorts "
 
         private async Task Sort(SortTypes.SortType sortType)
         {
@@ -557,7 +557,7 @@ namespace WinForms
 
             _mode = Mode.Sorting;
 
-            txtSortedNums.Text = String.Empty;
+            txtSortedNums.Text = string.Empty;
             _sortedNums.Clear();
             _unsortedNums.ForEach(num => _sortedNums.Add(num));
 
@@ -567,31 +567,31 @@ namespace WinForms
             switch (sortType)
             {
                 case SortTypes.SortType.BubbleSort:
-                    sortedNums = await DoBubbleSort();
+                    sortedNums = await DoSort(new BubbleSort());
                     break;
                 case SortTypes.SortType.CombSort:
-                    sortedNums = await DoCombSort();
+                    sortedNums = await DoSort(new CombSort());
                     break;
                 case SortTypes.SortType.HeapSort:
-                    sortedNums = await DoHeapSort();
+                    sortedNums = await DoSort(new HeapSort());
                     break;
                 case SortTypes.SortType.InsertionSort:
-                    sortedNums = await DoInsertionSort();
+                    sortedNums = await DoSort(new InsertionSort());
                     break;
                 case SortTypes.SortType.MergeSort:
-                    sortedNums = await DoMergeSort();
+                    sortedNums = await DoSort(new MergeSort());
                     break;
                 case SortTypes.SortType.QuickSort:
-                    sortedNums = await DoQuickSort();
+                    sortedNums = await DoSort(new QuickSort());
                     break;
                 case SortTypes.SortType.SelectionSort:
-                    sortedNums = await DoSelectionSort();
+                    sortedNums = await DoSort(new SelectionSort());
                     break;
                 case SortTypes.SortType.StoogeSort:
-                    sortedNums = await DoStoogeSort();
+                    sortedNums = await DoSort(new StoogeSort());
                     break;
                 case SortTypes.SortType.StupidSort:
-                    sortedNums = await DoStupidSort();
+                    sortedNums = await DoSort(new StupidSort());
                     break;
                 default:
                     throw new Exception("Unexpected SortType in Sort().");
@@ -611,6 +611,27 @@ namespace WinForms
             }
 
             _sortWasCancelled = false;
+        }
+
+        private async Task<List<int>?> DoSort(SortMethod sortMethod)
+        {
+            try
+            {
+                var sortedNums = _sortedNums;
+                var task = sortMethod.DoSort(sortedNums, _cancellationToken);
+                var sortedResult = await task;
+
+                return sortedResult;
+            }
+            catch (OperationCanceledException)
+            {
+                _sortWasCancelled = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return null;
         }
 
         private void HandleNoItemsToSort()
@@ -663,275 +684,50 @@ namespace WinForms
             SetIsReady();
         }
 
-        #region " Bubble Sort "
-
         private async void btnBubbleSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.BubbleSort);
         }
-
-        private async Task<List<int>?> DoBubbleSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = BubbleSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Comb Sort "
 
         private async void btnCombSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.CombSort);
         }
 
-        private async Task<List<int>?> DoCombSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = CombSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Heap Sort "
-
         private async void btnHeapSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.HeapSort);
         }
-
-        private async Task<List<int>?> DoHeapSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = HeapSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Insertion Sort "
 
         private async void btnInsertionSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.InsertionSort);
         }
 
-        private async Task<List<int>?> DoInsertionSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = InsertionSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Merge Sort "
-
         private async void btnMergeSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.MergeSort);
         }
-
-        private async Task<List<int>?> DoMergeSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = InsertionSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Quick Sort "
 
         private async void btnQuickSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.QuickSort);
         }
 
-        private async Task<List<int>?> DoQuickSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = QuickSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Selection Sort "
-
         private async void btnSelectionSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.SelectionSort);
         }
-
-        private async Task<List<int>?> DoSelectionSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = SelectionSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Stooge Sort "
 
         private async void btnStoogeSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.StoogeSort);
         }
 
-        private async Task<List<int>?> DoStoogeSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = StoogeSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #region " Stupid Sort "
-
         private async void btnStupidSort_Click(object sender, EventArgs e)
         {
             await Sort(SortTypes.SortType.StupidSort);
         }
-
-        private async Task<List<int>?> DoStupidSort()
-        {
-            try
-            {
-                var sortedNums = _sortedNums;
-                var task = StupidSort.DoSort(sortedNums, _cancellationToken);
-                var sortedResult = await task;
-
-                return sortedResult;
-            }
-            catch (OperationCanceledException)
-            {
-                _sortWasCancelled = true;
-            }
-            catch (Exception)
-            {
-            }
-
-            return null;
-        }
-
-        #endregion
 
         #endregion
     }
