@@ -8,19 +8,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using nardnob.AlgorithmComparison.Sorting;
 using nardnob.AlgorithmComparison.Sorting.Sorts;
+using nardnob.AlgorithmComparison.WinForms.Utilities;
 
 namespace WinForms
 {
     public partial class MainView : Form
     {
         #region " Private Members "
-
-        private const int DEFAULT_ITEMS = 1000;
-        private const int DEFAULT_BEGIN_RANGE = 0;
-        private const int DEFAULT_END_RANGE = 1000;
-        private const int MAX_ENTRIES = 999999;
-        private const int MAX_ITEM = 999999;
-        private const int MIN_ITEM = -999999;
 
         private int _beginRange;
         private int _endRange;
@@ -177,11 +171,11 @@ namespace WinForms
 
         private async void MainView_Load(object sender, EventArgs e)
         {
-            tstxtItems.Text = DEFAULT_ITEMS.ToString();
-            tstxtBeginRange.Text = DEFAULT_BEGIN_RANGE.ToString();
-            tstxtEndRange.Text = DEFAULT_END_RANGE.ToString();
+            tstxtItems.Text = Constants.DEFAULT_ITEMS.ToString();
+            tstxtBeginRange.Text = Constants.DEFAULT_BEGIN_RANGE.ToString();
+            tstxtEndRange.Text = Constants.DEFAULT_END_RANGE.ToString();
 
-            await GetAndPopulateList(DEFAULT_ITEMS, DEFAULT_BEGIN_RANGE, DEFAULT_END_RANGE);
+            await GetAndPopulateList(Constants.DEFAULT_ITEMS, Constants.DEFAULT_BEGIN_RANGE, Constants.DEFAULT_END_RANGE);
         }
 
         private void MainView_Shown(object sender, EventArgs e)
@@ -395,7 +389,7 @@ namespace WinForms
             var importedStringBuilder = new StringBuilder();
             int i = 0;
 
-            if (fileEntries.Count > MAX_ENTRIES)
+            if (fileEntries.Count > Constants.MAX_ENTRIES)
             {
                 containsTooManyEntries = true;
                 isValid = false;
@@ -410,9 +404,9 @@ namespace WinForms
                         entry = entry.Replace(",", "");
                         var importedItem = Convert.ToInt32(entry);
 
-                        if (importedItem < MIN_ITEM || importedItem > MAX_ITEM)
+                        if (importedItem < Constants.MIN_ITEM || importedItem > Constants.MAX_ITEM)
                         {
-                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
+                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({Constants.MIN_ITEM} - {Constants.MAX_ITEM}.");
                         }
 
                         importedItems.Add(importedItem);
@@ -439,7 +433,7 @@ namespace WinForms
             {
                 if (containsTooManyEntries)
                 {
-                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {MAX_ENTRIES}.", "Invalid Input");
+                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
                 }
                 else if (containsInvalidInteger)
                 {
@@ -490,9 +484,9 @@ namespace WinForms
                     MessageBox.Show("There were no items to save.", "No Items to Save");
                     return;
                 }
-                else if (listToSave.Count > MAX_ENTRIES)
+                else if (listToSave.Count > Constants.MAX_ENTRIES)
                 {
-                    MessageBox.Show($"There were too many items to save.{Environment.NewLine + Environment.NewLine}Max number of items allowed: {MAX_ENTRIES}.", "Too Many Items to Save");
+                    MessageBox.Show($"There were too many items to save.{Environment.NewLine + Environment.NewLine}Max number of items allowed: {Constants.MAX_ENTRIES}.", "Too Many Items to Save");
                     return;
                 }
 
