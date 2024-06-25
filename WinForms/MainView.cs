@@ -1,4 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using nardnob.AlgorithmComparison.Sorting;
 using nardnob.AlgorithmComparison.Sorting.Sorts;
 
@@ -11,6 +18,9 @@ namespace WinForms
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
         private const int DEFAULT_END_RANGE = 1000;
+        private const int MAX_ENTRIES = 999999;
+        private const int MAX_ITEM = 999999;
+        private const int MIN_ITEM = -999999;
 
         private int _beginRange;
         private int _endRange;
@@ -85,6 +95,11 @@ namespace WinForms
 
             tsbtnCancelSort.Enabled = false;
             btnCancelSort.Enabled = false;
+
+            btnImportUnsortedList.Enabled = false;
+            btnSaveLog.Enabled = false;
+            btnSaveSortedList.Enabled = false;
+            btnSaveUnsortedList.Enabled = false;
         }
 
         private void ToggleControls_Sorting()
@@ -111,6 +126,11 @@ namespace WinForms
 
             tsbtnCancelSort.Enabled = true;
             btnCancelSort.Enabled = true;
+
+            btnImportUnsortedList.Enabled = false;
+            btnSaveLog.Enabled = false;
+            btnSaveSortedList.Enabled = false;
+            btnSaveUnsortedList.Enabled = false;
         }
 
         private void ToggleControls_Ready()
@@ -137,6 +157,11 @@ namespace WinForms
 
             tsbtnCancelSort.Enabled = false;
             btnCancelSort.Enabled = false;
+
+            btnImportUnsortedList.Enabled = true;
+            btnSaveLog.Enabled = true;
+            btnSaveSortedList.Enabled = true;
+            btnSaveUnsortedList.Enabled = true;
         }
 
         #endregion
@@ -327,6 +352,205 @@ namespace WinForms
 
         #endregion
 
+        #region " Import "
+
+        private void btnImportUnsortedList_Click(object sender, EventArgs e)
+        {
+            ImportUnsortedList();
+        }
+
+        private void ImportUnsortedList()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt";
+                openFileDialog.FilterIndex = 1;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+
+                    var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.TrimEntries);
+                    AttemptImportUnsortedFileEntries(fileEntries.ToList());
+                }
+            }
+        }
+
+        private void AttemptImportUnsortedFileEntries(List<string> fileEntries)
+        {
+            var isValid = true;
+            var containsInvalidInteger = false;
+            var containsTooManyEntries = false;
+            var importedItems = new List<int>();
+            var importedStringBuilder = new StringBuilder();
+            int i = 0;
+
+            if (fileEntries.Count > MAX_ENTRIES)
+            {
+                containsTooManyEntries = true;
+                isValid = false;
+            }
+            else
+            {
+                for (i = 0; i < fileEntries.Count() && isValid; i++)
+                {
+                    try
+                    {
+                        var entry = fileEntries[i];
+                        entry = entry.Replace(",", "");
+                        var importedItem = Convert.ToInt32(entry);
+
+                        if (importedItem < MIN_ITEM || importedItem > MAX_ITEM)
+                        {
+                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
+                        }
+
+                        importedItems.Add(importedItem);
+                        importedStringBuilder.Append(importedItem.ToString() + "; ");
+                    }
+                    catch (FormatException)
+                    {
+                        isValid = false;
+                        containsInvalidInteger = true;
+                    }
+                    catch (Exception)
+                    {
+                        isValid = false;
+                    }
+                }
+            }
+
+            if (isValid)
+            {
+                _unsortedNums = importedItems;
+                txtUnsortedNums.Text = importedStringBuilder.ToString();
+            }
+            else
+            {
+                if (containsTooManyEntries)
+                {
+                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {MAX_ENTRIES}.", "Invalid Input");
+                }
+                else if (containsInvalidInteger)
+                {
+                    var invalidIntegerSb = new StringBuilder();
+
+                    invalidIntegerSb.AppendLine("Failed to import.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {i}.");
+
+                    MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
+                }
+            }
+        }
+
+        #endregion
+
+        #region " Export "
+
+        private void btnSaveSortedList_Click(object sender, EventArgs e)
+        {
+            ExportItemsList(_sortedNums);
+        }
+
+        private void btnSaveUnsortedList_Click(object sender, EventArgs e)
+        {
+            ExportItemsList(_unsortedNums);
+        }
+
+        private void btnSaveLog_Click(object sender, EventArgs e)
+        {
+            ExportLog();
+        }
+
+        private void ExportItemsList(List<int> listToSave)
+        {
+            try
+            {
+                if (listToSave is null || listToSave.Count == 0)
+                {
+                    MessageBox.Show("There were no items to save.", "No Items to Save");
+                    return;
+                }
+                else if (listToSave.Count > MAX_ENTRIES)
+                {
+                    MessageBox.Show($"There were too many items to save.{Environment.NewLine + Environment.NewLine}Max number of items allowed: {MAX_ENTRIES}.", "Too Many Items to Save");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog.FilterIndex = 1;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var listStringBuilder = new StringBuilder();
+
+                    foreach (var item in listToSave)
+                    {
+                        listStringBuilder.AppendLine(item.ToString());
+                    }
+
+                    File.WriteAllText(saveFileDialog.FileName, listStringBuilder.ToString().Trim());
+                }
+
+                MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An unexpected error occurred while saving. Please try again.", "Unexpected Error");
+            }
+        }
+
+        private void ExportLog()
+        {
+            try
+            {
+                if (txtResults.Text.Trim() == string.Empty)
+                {
+                    MessageBox.Show("There were no results to save.", "No Results to Save");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog.FilterIndex = 1;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, txtResults.Text.Trim());
+                }
+
+                MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An unexpected error occurred while saving. Please try again.", "Unexpected Error");
+            }
+        }
+
+        #endregion
+
         #region " Sort "
 
         private async Task Sort(SortTypes.SortType sortType)
@@ -397,8 +621,8 @@ namespace WinForms
 
         private void HandleNoItemsToSort()
         {
-                MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
-                tstxtItems.Focus();
+            MessageBox.Show("There were no items to sort. Please Get List before sorting.", "No Items to Sort");
+            tstxtItems.Focus();
         }
 
         private void HandleCancelledSort(SortTypes.SortType sortType, DateTime startTime)

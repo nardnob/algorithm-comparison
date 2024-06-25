@@ -1,3 +1,7 @@
+using System;
+using System.Threading;
+using System.Windows.Forms;
+
 namespace WinForms
 {
     internal static class Program
@@ -22,11 +26,13 @@ namespace WinForms
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             MessageBox.Show(e.Exception.Message, "Unhandled Thread Exception");
+            Application.Exit();
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             MessageBox.Show((e.ExceptionObject as Exception)?.Message ?? "Unhandled Exception Occurred", "Unhandled UI Exception");
+            Application.Exit();
         }
     }
 }
