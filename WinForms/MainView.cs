@@ -565,40 +565,7 @@ namespace WinForms
 
             List<int>? sortedNums = null;
 
-            SortMethod sortMethod;
-            switch (sortType)
-            {
-                case SortTypes.SortType.BubbleSort:
-                    sortMethod = new BubbleSort();
-                    break;
-                case SortTypes.SortType.CombSort:
-                    sortMethod = new CombSort();
-                    break;
-                case SortTypes.SortType.HeapSort:
-                    sortMethod = new HeapSort();
-                    break;
-                case SortTypes.SortType.InsertionSort:
-                    sortMethod = new InsertionSort();
-                    break;
-                case SortTypes.SortType.MergeSort:
-                    sortMethod = new MergeSort();
-                    break;
-                case SortTypes.SortType.QuickSort:
-                    sortMethod = new QuickSort();
-                    break;
-                case SortTypes.SortType.SelectionSort:
-                    sortMethod = new SelectionSort();
-                    break;
-                case SortTypes.SortType.StoogeSort:
-                    sortMethod = new StoogeSort();
-                    break;
-                case SortTypes.SortType.StupidSort:
-                    sortMethod = new StupidSort();
-                    break;
-                default:
-                    throw new Exception("Unexpected SortType in Sort().");
-            }
-
+            var sortMethod = SortMethodFactory.GetSortMethod(sortType);
             sortedNums = await DoSort(sortMethod);
 
             if (_sortWasCancelled)
