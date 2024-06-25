@@ -64,6 +64,7 @@ namespace WinForms
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
+            btnSaveUnsortedList = new Button();
             btnImportUnsortedList = new Button();
             btnClearUnsortedList = new Button();
             btnSaveSortedList = new Button();
@@ -71,7 +72,7 @@ namespace WinForms
             btnClearLog = new Button();
             btnCancelSort = new Button();
             groupBox1 = new GroupBox();
-            btnSaveUnsortedList = new Button();
+            btnSaveLog = new Button();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -382,6 +383,20 @@ namespace WinForms
             splitContainer1.SplitterDistance = 186;
             splitContainer1.TabIndex = 16;
             // 
+            // btnSaveUnsortedList
+            // 
+            btnSaveUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSaveUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
+            btnSaveUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
+            btnSaveUnsortedList.Location = new Point(752, 3);
+            btnSaveUnsortedList.Name = "btnSaveUnsortedList";
+            btnSaveUnsortedList.Size = new Size(129, 23);
+            btnSaveUnsortedList.TabIndex = 22;
+            btnSaveUnsortedList.Text = "Save Unsorted List";
+            btnSaveUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
+            btnSaveUnsortedList.UseVisualStyleBackColor = true;
+            btnSaveUnsortedList.Click += btnSaveUnsortedList_Click;
+            // 
             // btnImportUnsortedList
             // 
             btnImportUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -410,13 +425,13 @@ namespace WinForms
             btnClearUnsortedList.UseVisualStyleBackColor = true;
             btnClearUnsortedList.Click += btnClearUnsortedList_Click;
             // 
-            // btnExportSortedList
+            // btnSaveSortedList
             // 
             btnSaveSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSaveSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
             btnSaveSortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnSaveSortedList.Location = new Point(785, 2);
-            btnSaveSortedList.Name = "btnExportSortedList";
+            btnSaveSortedList.Name = "btnSaveSortedList";
             btnSaveSortedList.Size = new Size(115, 23);
             btnSaveSortedList.TabIndex = 21;
             btnSaveSortedList.Text = "Save Sorted List";
@@ -457,7 +472,7 @@ namespace WinForms
             btnCancelSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnCancelSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             btnCancelSort.ImageAlign = ContentAlignment.MiddleRight;
-            btnCancelSort.Location = new Point(850, 412);
+            btnCancelSort.Location = new Point(764, 412);
             btnCancelSort.Name = "btnCancelSort";
             btnCancelSort.Size = new Size(95, 23);
             btnCancelSort.TabIndex = 18;
@@ -484,25 +499,26 @@ namespace WinForms
             groupBox1.TabStop = false;
             groupBox1.Text = "Sorting Methods";
             // 
-            // btnExportUnsortedList
+            // btnSaveLog
             // 
-            btnSaveUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSaveUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
-            btnSaveUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
-            btnSaveUnsortedList.Location = new Point(752, 3);
-            btnSaveUnsortedList.Name = "btnExportUnsortedList";
-            btnSaveUnsortedList.Size = new Size(129, 23);
-            btnSaveUnsortedList.TabIndex = 22;
-            btnSaveUnsortedList.Text = "Save Unsorted List";
-            btnSaveUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
-            btnSaveUnsortedList.UseVisualStyleBackColor = true;
-            btnSaveUnsortedList.Click += btnSaveUnsortedList_Click;
+            btnSaveLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSaveLog.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
+            btnSaveLog.ImageAlign = ContentAlignment.MiddleRight;
+            btnSaveLog.Location = new Point(864, 412);
+            btnSaveLog.Name = "btnSaveLog";
+            btnSaveLog.Size = new Size(81, 23);
+            btnSaveLog.TabIndex = 22;
+            btnSaveLog.Text = "Save Log";
+            btnSaveLog.TextAlign = ContentAlignment.MiddleLeft;
+            btnSaveLog.UseVisualStyleBackColor = true;
+            btnSaveLog.Click += btnSaveLog_Click;
             // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1051, 582);
+            Controls.Add(btnSaveLog);
             Controls.Add(groupBox1);
             Controls.Add(btnCancelSort);
             Controls.Add(btnClearLog);
@@ -571,5 +587,6 @@ namespace WinForms
         private Button btnImportUnsortedList;
         private Button btnSaveSortedList;
         private Button btnSaveUnsortedList;
+        private Button btnSaveLog;
     }
 }

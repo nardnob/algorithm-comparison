@@ -461,6 +461,11 @@ namespace WinForms
             ExportItemsList(_unsortedNums);
         }
 
+        private void btnSaveLog_Click(object sender, EventArgs e)
+        {
+            ExportLog();
+        }
+
         private void ExportItemsList(List<int> listToSave)
         {
             try
@@ -491,6 +496,34 @@ namespace WinForms
                     }
 
                     File.WriteAllText(saveFileDialog.FileName, listStringBuilder.ToString().Trim());
+                }
+
+                MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An unexpected error occurred while saving. Please try again.", "Unexpected Error");
+            }
+        }
+
+        private void ExportLog()
+        {
+            try
+            {
+                if (txtResults.Text.Trim() == string.Empty)
+                {
+                    MessageBox.Show("There were no results to save.", "No Results to Save");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog.FilterIndex = 1;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, txtResults.Text.Trim());
                 }
 
                 MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
