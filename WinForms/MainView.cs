@@ -95,6 +95,11 @@ namespace WinForms
 
             tsbtnCancelSort.Enabled = false;
             btnCancelSort.Enabled = false;
+
+            btnImportUnsortedList.Enabled = false;
+            btnSaveLog.Enabled = false;
+            btnSaveSortedList.Enabled = false;
+            btnSaveUnsortedList.Enabled = false;
         }
 
         private void ToggleControls_Sorting()
@@ -121,6 +126,11 @@ namespace WinForms
 
             tsbtnCancelSort.Enabled = true;
             btnCancelSort.Enabled = true;
+
+            btnImportUnsortedList.Enabled = false;
+            btnSaveLog.Enabled = false;
+            btnSaveSortedList.Enabled = false;
+            btnSaveUnsortedList.Enabled = false;
         }
 
         private void ToggleControls_Ready()
@@ -147,6 +157,11 @@ namespace WinForms
 
             tsbtnCancelSort.Enabled = false;
             btnCancelSort.Enabled = false;
+
+            btnImportUnsortedList.Enabled = true;
+            btnSaveLog.Enabled = true;
+            btnSaveSortedList.Enabled = true;
+            btnSaveUnsortedList.Enabled = true;
         }
 
         #endregion
