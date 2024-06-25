@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
-    public static class BubbleSort
+    public class BubbleSort : ISortMethod
     {
         public static Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {

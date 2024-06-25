@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
-    public static class MergeSort
+    public class MergeSort : ISortMethod
     {
         public static Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {
