@@ -447,19 +447,58 @@ namespace WinForms
             }
         }
 
-
         #endregion
 
         #region " Export "
 
-        private void btnExportSortedList_Click(object sender, EventArgs e)
+        private void btnSaveSortedList_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ExportItemsList(_sortedNums);
         }
 
-        private void btnExportUnsortedList_Click(object sender, EventArgs e)
+        private void btnSaveUnsortedList_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ExportItemsList(_unsortedNums);
+        }
+
+        private void ExportItemsList(List<int> listToSave)
+        {
+            try
+            {
+                if (listToSave is null || listToSave.Count == 0)
+                {
+                    MessageBox.Show("There were no items to save.", "No Items to Save");
+                    return;
+                }
+                else if (listToSave.Count > MAX_ENTRIES)
+                {
+                    MessageBox.Show($"There were too many items to save.{Environment.NewLine + Environment.NewLine}Max number of items allowed: {MAX_ENTRIES}.", "Too Many Items to Save");
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog.FilterIndex = 1;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var listStringBuilder = new StringBuilder();
+
+                    foreach (var item in listToSave)
+                    {
+                        listStringBuilder.AppendLine(item.ToString());
+                    }
+
+                    File.WriteAllText(saveFileDialog.FileName, listStringBuilder.ToString().Trim());
+                }
+
+                MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An unexpected error occurred while saving. Please try again.", "Unexpected Error");
+            }
         }
 
         #endregion
