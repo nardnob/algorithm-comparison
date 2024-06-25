@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
-    public static class MergeSort
+    public class MergeSort : SortMethod
     {
-        public static Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
+        public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
             {
