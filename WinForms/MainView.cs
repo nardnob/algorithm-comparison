@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using nardnob.AlgorithmComparison.Sorting;
 using nardnob.AlgorithmComparison.Sorting.Sorts;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace WinForms
 {
@@ -20,6 +18,7 @@ namespace WinForms
         private const int DEFAULT_ITEMS = 1000;
         private const int DEFAULT_BEGIN_RANGE = 0;
         private const int DEFAULT_END_RANGE = 1000;
+        private const int MAX_ENTRIES = 999999;
         private const int MAX_ITEM = 999999;
         private const int MIN_ITEM = -999999;
 
@@ -338,16 +337,11 @@ namespace WinForms
 
         #endregion
 
-        #region " Import / Export "
+        #region " Import "
 
         private void btnImportUnsortedList_Click(object sender, EventArgs e)
         {
             ImportUnsortedList();
-        }
-
-        private void btnExportSortedList_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void ImportUnsortedList()
@@ -360,7 +354,6 @@ namespace WinForms
                 openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "txt files (*.txt)|*.txt";
                 openFileDialog.FilterIndex = 0;
-                openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -382,34 +375,43 @@ namespace WinForms
         {
             var isValid = true;
             var containsInvalidInteger = false;
+            var containsTooManyEntries = false;
             var importedItems = new List<int>();
             var importedStringBuilder = new StringBuilder();
+            int i = 0;
 
-            int i;
-            for (i = 0; i < fileEntries.Count() && isValid; i++)
+            if (fileEntries.Count > MAX_ENTRIES)
             {
-                try
+                containsTooManyEntries = true;
+                isValid = false;
+            }
+            else
+            {
+                for (i = 0; i < fileEntries.Count() && isValid; i++)
                 {
-                    var entry = fileEntries[i];
-                    entry = entry.Replace(",", "");
-                    var importedItem = Convert.ToInt32(entry);
-
-                    if (importedItem < MIN_ITEM || importedItem > MAX_ITEM)
+                    try
                     {
-                        throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
-                    }
+                        var entry = fileEntries[i];
+                        entry = entry.Replace(",", "");
+                        var importedItem = Convert.ToInt32(entry);
 
-                    importedItems.Add(importedItem);
-                    importedStringBuilder.Append(importedItem.ToString() + "; ");
-                }
-                catch (FormatException)
-                {
-                    isValid = false;
-                    containsInvalidInteger = true;
-                }
-                catch (Exception)
-                {
-                    isValid = false;
+                        if (importedItem < MIN_ITEM || importedItem > MAX_ITEM)
+                        {
+                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({MIN_ITEM} - {MAX_ITEM}.");
+                        }
+
+                        importedItems.Add(importedItem);
+                        importedStringBuilder.Append(importedItem.ToString() + "; ");
+                    }
+                    catch (FormatException)
+                    {
+                        isValid = false;
+                        containsInvalidInteger = true;
+                    }
+                    catch (Exception)
+                    {
+                        isValid = false;
+                    }
                 }
             }
 
@@ -420,7 +422,11 @@ namespace WinForms
             }
             else
             {
-                if (containsInvalidInteger)
+                if (containsTooManyEntries)
+                {
+                    MessageBox.Show($"There were too many entries to import. The max number of entries is: {MAX_ENTRIES}.", "Invalid Input");
+                }
+                else if (containsInvalidInteger)
                 {
                     var invalidIntegerSb = new StringBuilder();
 
@@ -441,6 +447,15 @@ namespace WinForms
             }
         }
 
+
+        #endregion
+
+        #region " Export "
+
+        private void btnExportSortedList_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
