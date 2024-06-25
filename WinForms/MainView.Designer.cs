@@ -88,7 +88,7 @@ namespace WinForms
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1051, 25);
-            toolStrip1.TabIndex = 1;
+            toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel6
@@ -207,7 +207,7 @@ namespace WinForms
             txtUnsortedNums.ReadOnly = true;
             txtUnsortedNums.ScrollBars = ScrollBars.Vertical;
             txtUnsortedNums.Size = new Size(1021, 153);
-            txtUnsortedNums.TabIndex = 1;
+            txtUnsortedNums.TabIndex = 3;
             // 
             // label1
             // 
@@ -236,7 +236,7 @@ namespace WinForms
             txtSortedNums.ReadOnly = true;
             txtSortedNums.ScrollBars = ScrollBars.Vertical;
             txtSortedNums.Size = new Size(1021, 153);
-            txtSortedNums.TabIndex = 3;
+            txtSortedNums.TabIndex = 2;
             // 
             // btnBubbleSort
             // 
@@ -356,7 +356,7 @@ namespace WinForms
             txtResults.ReadOnly = true;
             txtResults.ScrollBars = ScrollBars.Vertical;
             txtResults.Size = new Size(589, 133);
-            txtResults.TabIndex = 11;
+            txtResults.TabIndex = 7;
             // 
             // splitContainer1
             // 
@@ -381,7 +381,7 @@ namespace WinForms
             splitContainer1.Panel2.Controls.Add(txtSortedNums);
             splitContainer1.Size = new Size(1027, 375);
             splitContainer1.SplitterDistance = 186;
-            splitContainer1.TabIndex = 16;
+            splitContainer1.TabIndex = 2;
             // 
             // btnSaveUnsortedList
             // 
@@ -391,7 +391,7 @@ namespace WinForms
             btnSaveUnsortedList.Location = new Point(752, 3);
             btnSaveUnsortedList.Name = "btnSaveUnsortedList";
             btnSaveUnsortedList.Size = new Size(129, 23);
-            btnSaveUnsortedList.TabIndex = 22;
+            btnSaveUnsortedList.TabIndex = 1;
             btnSaveUnsortedList.Text = "Save Unsorted List";
             btnSaveUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
             btnSaveUnsortedList.UseVisualStyleBackColor = true;
@@ -405,7 +405,7 @@ namespace WinForms
             btnImportUnsortedList.Location = new Point(601, 3);
             btnImportUnsortedList.Name = "btnImportUnsortedList";
             btnImportUnsortedList.Size = new Size(145, 23);
-            btnImportUnsortedList.TabIndex = 20;
+            btnImportUnsortedList.TabIndex = 0;
             btnImportUnsortedList.Text = "Import Unsorted List";
             btnImportUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
             btnImportUnsortedList.UseVisualStyleBackColor = true;
@@ -419,7 +419,7 @@ namespace WinForms
             btnClearUnsortedList.Location = new Point(887, 3);
             btnClearUnsortedList.Name = "btnClearUnsortedList";
             btnClearUnsortedList.Size = new Size(137, 23);
-            btnClearUnsortedList.TabIndex = 19;
+            btnClearUnsortedList.TabIndex = 2;
             btnClearUnsortedList.Text = "Clear Unsorted List";
             btnClearUnsortedList.TextAlign = ContentAlignment.MiddleLeft;
             btnClearUnsortedList.UseVisualStyleBackColor = true;
@@ -433,7 +433,7 @@ namespace WinForms
             btnSaveSortedList.Location = new Point(785, 2);
             btnSaveSortedList.Name = "btnSaveSortedList";
             btnSaveSortedList.Size = new Size(115, 23);
-            btnSaveSortedList.TabIndex = 21;
+            btnSaveSortedList.TabIndex = 0;
             btnSaveSortedList.Text = "Save Sorted List";
             btnSaveSortedList.TextAlign = ContentAlignment.MiddleLeft;
             btnSaveSortedList.UseVisualStyleBackColor = true;
@@ -447,7 +447,7 @@ namespace WinForms
             btnClearSortedList.Location = new Point(906, 2);
             btnClearSortedList.Name = "btnClearSortedList";
             btnClearSortedList.Size = new Size(121, 23);
-            btnClearSortedList.TabIndex = 18;
+            btnClearSortedList.TabIndex = 1;
             btnClearSortedList.Text = "Clear Sorted List";
             btnClearSortedList.TextAlign = ContentAlignment.MiddleLeft;
             btnClearSortedList.UseVisualStyleBackColor = true;
@@ -461,7 +461,7 @@ namespace WinForms
             btnClearLog.Location = new Point(951, 412);
             btnClearLog.Name = "btnClearLog";
             btnClearLog.Size = new Size(88, 23);
-            btnClearLog.TabIndex = 17;
+            btnClearLog.TabIndex = 6;
             btnClearLog.Text = "Clear Log";
             btnClearLog.TextAlign = ContentAlignment.MiddleLeft;
             btnClearLog.UseVisualStyleBackColor = true;
@@ -475,7 +475,7 @@ namespace WinForms
             btnCancelSort.Location = new Point(764, 412);
             btnCancelSort.Name = "btnCancelSort";
             btnCancelSort.Size = new Size(95, 23);
-            btnCancelSort.TabIndex = 18;
+            btnCancelSort.TabIndex = 4;
             btnCancelSort.Text = "Cancel Sort";
             btnCancelSort.TextAlign = ContentAlignment.MiddleLeft;
             btnCancelSort.UseVisualStyleBackColor = true;
@@ -495,7 +495,7 @@ namespace WinForms
             groupBox1.Location = new Point(12, 417);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(432, 154);
-            groupBox1.TabIndex = 20;
+            groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Sorting Methods";
             // 
@@ -507,7 +507,7 @@ namespace WinForms
             btnSaveLog.Location = new Point(864, 412);
             btnSaveLog.Name = "btnSaveLog";
             btnSaveLog.Size = new Size(81, 23);
-            btnSaveLog.TabIndex = 22;
+            btnSaveLog.TabIndex = 5;
             btnSaveLog.Text = "Save Log";
             btnSaveLog.TextAlign = ContentAlignment.MiddleLeft;
             btnSaveLog.UseVisualStyleBackColor = true;
