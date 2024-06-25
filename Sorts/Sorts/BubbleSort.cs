@@ -6,6 +6,8 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class BubbleSort : SortMethod
     {
+        #region " Public Methods "
+
         public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
@@ -18,6 +20,15 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Bubble Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoBubbleSort(List<int> nums, CancellationToken cancellationToken)
         {
@@ -43,5 +54,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return nums;
         }
+
+        #endregion
     }
 }

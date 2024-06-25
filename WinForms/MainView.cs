@@ -564,46 +564,50 @@ namespace WinForms
             var startTime = DateTime.Now;
 
             List<int>? sortedNums = null;
+
+            SortMethod sortMethod;
             switch (sortType)
             {
                 case SortTypes.SortType.BubbleSort:
-                    sortedNums = await DoSort(new BubbleSort());
+                    sortMethod = new BubbleSort();
                     break;
                 case SortTypes.SortType.CombSort:
-                    sortedNums = await DoSort(new CombSort());
+                    sortMethod = new CombSort();
                     break;
                 case SortTypes.SortType.HeapSort:
-                    sortedNums = await DoSort(new HeapSort());
+                    sortMethod = new HeapSort();
                     break;
                 case SortTypes.SortType.InsertionSort:
-                    sortedNums = await DoSort(new InsertionSort());
+                    sortMethod = new InsertionSort();
                     break;
                 case SortTypes.SortType.MergeSort:
-                    sortedNums = await DoSort(new MergeSort());
+                    sortMethod = new MergeSort();
                     break;
                 case SortTypes.SortType.QuickSort:
-                    sortedNums = await DoSort(new QuickSort());
+                    sortMethod = new QuickSort();
                     break;
                 case SortTypes.SortType.SelectionSort:
-                    sortedNums = await DoSort(new SelectionSort());
+                    sortMethod = new SelectionSort();
                     break;
                 case SortTypes.SortType.StoogeSort:
-                    sortedNums = await DoSort(new StoogeSort());
+                    sortMethod = new StoogeSort();
                     break;
                 case SortTypes.SortType.StupidSort:
-                    sortedNums = await DoSort(new StupidSort());
+                    sortMethod = new StupidSort();
                     break;
                 default:
                     throw new Exception("Unexpected SortType in Sort().");
             }
 
+            sortedNums = await DoSort(sortMethod);
+
             if (_sortWasCancelled)
             {
-                HandleCancelledSort(sortType, startTime);
+                HandleCancelledSort(sortMethod, startTime);
             }
             else if (sortedNums is not null && Verification.VerifySorted(sortedNums))
             {
-                HandleSuccessfulSort(sortType, startTime, sortedNums);
+                HandleSuccessfulSort(sortMethod, startTime, sortedNums);
             }
             else
             {
@@ -640,12 +644,12 @@ namespace WinForms
             tstxtItems.Focus();
         }
 
-        private void HandleCancelledSort(SortTypes.SortType sortType, DateTime startTime)
+        private void HandleCancelledSort(SortMethod sortMethod, DateTime startTime)
         {
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
 
-            resultsSb.AppendLine("== " + SortTypes.GetSortName(sortType) + " ==");
+            resultsSb.AppendLine("== " + sortMethod.GetName() + " ==");
             resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
             resultsSb.AppendLine("The sort was cancelled.");
             resultsSb.AppendLine("");
@@ -656,7 +660,7 @@ namespace WinForms
             SetIsReady();
         }
 
-        private void HandleSuccessfulSort(SortTypes.SortType sortType, DateTime startTime, List<int> sortedNums)
+        private void HandleSuccessfulSort(SortMethod sortMethod, DateTime startTime, List<int> sortedNums)
         {
             var endTime = DateTime.Now;
             var resultsSb = new StringBuilder();
@@ -664,7 +668,7 @@ namespace WinForms
 
             sortedNums.ForEach(num => sortedSb.Append(num + "; "));
 
-            resultsSb.AppendLine("== " + SortTypes.GetSortName(sortType) + " ==");
+            resultsSb.AppendLine("== " + sortMethod.GetName() + " ==");
             resultsSb.AppendLine("Sort Time: " + (endTime - startTime));
             resultsSb.AppendLine("Items Sorted: " + _items);
             resultsSb.AppendLine("Begin Range: " + _beginRange);

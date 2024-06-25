@@ -6,6 +6,8 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class CombSort : SortMethod
     {
+        #region " Public Methods "
+
         public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
@@ -18,6 +20,15 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Comb Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoCombSort(List<int> nums, CancellationToken cancellationToken)
         {
@@ -59,5 +70,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return nums;
         }
+
+        #endregion
     }
 }

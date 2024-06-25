@@ -6,6 +6,8 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
     public class StoogeSort : SortMethod
     {
+        #region " Public Methods "
+
         public override Task<List<int>> DoSort(List<int> sortedNums, CancellationToken cancellationToken)
         {
             var task = Task.Factory.StartNew(f =>
@@ -18,6 +20,15 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return task;
         }
+
+        public override string GetName()
+        {
+            return "Stooge Sort";
+        }
+
+        #endregion
+
+        #region " Private Methods "
 
         private static List<int> DoStoogeSort(List<int> nums, int i, int j, CancellationToken cancellationToken)
         {
@@ -41,5 +52,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
             return nums;
         }
+
+        #endregion
     }
 }
