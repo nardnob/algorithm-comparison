@@ -1,7 +1,7 @@
 # algorithm-comparison
 Comparing various sorting algorithms in .NET 8, C# 12, and Winforms.
 
-![algorithm_comparison](https://github.com/nardnob/algorithm-comparison/assets/26029755/9c4b0f80-0747-42c0-8c3a-42e025d3ca4f)
+![image](https://github.com/nardnob/algorithm-comparison/assets/26029755/0feb3777-a0bf-442f-86ae-43234b21d06a)
 
 Attributions:
 * [Confirm icon created by hqrloveq - Flaticon](https://www.flaticon.com/free-icons/confirm)
