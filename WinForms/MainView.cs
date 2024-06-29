@@ -330,7 +330,132 @@ namespace WinForms
 
         private void tsbtnVerifyFileSort_Click(object sender, EventArgs e)
         {
+            ImportFileAndVerifySort();
+        }
 
+        private void ImportFileAndVerifySort()
+        {
+            var fileEntries = AttemptImportFileEntries();
+            if (fileEntries is not null)
+            {
+                var fileIsSorted = Verification.VerifySorted(fileEntries);
+                if (fileIsSorted)
+                {
+                    MessageBox.Show("The files entries are sorted correctly.", "File is Sorted");
+                }
+                else
+                {
+                    MessageBox.Show("The files entries are not sorted correctly.", "File is not Sorted");
+                }
+            }
+        }
+
+        private List<int>? AttemptImportFileEntries()
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt";
+                openFileDialog.FilterIndex = 1;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+
+                    var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.TrimEntries);
+                    return ImportAndValidateFileEntries(fileEntries.ToList());
+                }
+            }
+
+            return null;
+        }
+
+        //TODO: nardnob - Refactor
+        private List<int>? ImportAndValidateFileEntries(List<string> fileEntries)
+        {
+            var isValid = true;
+            var containsInvalidInteger = false;
+            var containsTooManyEntries = false;
+            var importedItems = new List<int>();
+            var importedStringBuilder = new StringBuilder();
+            int i = 0;
+
+            if (fileEntries.Count > Constants.MAX_ENTRIES)
+            {
+                containsTooManyEntries = true;
+                isValid = false;
+            }
+            else
+            {
+                for (i = 0; i < fileEntries.Count() && isValid; i++)
+                {
+                    try
+                    {
+                        var entry = fileEntries[i];
+                        entry = entry.Replace(",", "");
+                        var importedItem = Convert.ToInt32(entry);
+
+                        if (importedItem < Constants.MIN_ITEM || importedItem > Constants.MAX_ITEM)
+                        {
+                            //TODO: Display validation message to user
+                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({Constants.MIN_ITEM} - {Constants.MAX_ITEM}).");
+                        }
+
+                        importedItems.Add(importedItem);
+                        importedStringBuilder.Append($"{importedItem.ToString()}; ");
+                    }
+                    catch (FormatException)
+                    {
+                        isValid = false;
+                        containsInvalidInteger = true;
+                    }
+                    catch (Exception)
+                    {
+                        isValid = false;
+                    }
+                }
+            }
+
+            if (isValid)
+            {
+                return importedItems;
+            }
+            else
+            {
+                if (containsTooManyEntries)
+                {
+                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
+                }
+                else if (containsInvalidInteger)
+                {
+                    var invalidIntegerSb = new StringBuilder();
+
+                    invalidIntegerSb.AppendLine("Failed to import.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
+                    invalidIntegerSb.AppendLine();
+                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {i}.");
+
+                    MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
+                }
+            }
+
+            return null;
         }
 
         #endregion
@@ -354,7 +479,7 @@ namespace WinForms
 
         #endregion
 
-        #region " Import "
+        #region " Import Unsorted List "
 
         private void btnImportUnsortedList_Click(object sender, EventArgs e)
         {
@@ -388,6 +513,7 @@ namespace WinForms
             }
         }
 
+        //TODO: nardnob - Refactor
         private void AttemptImportUnsortedFileEntries(List<string> fileEntries)
         {
             var isValid = true;
@@ -414,7 +540,8 @@ namespace WinForms
 
                         if (importedItem < Constants.MIN_ITEM || importedItem > Constants.MAX_ITEM)
                         {
-                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({Constants.MIN_ITEM} - {Constants.MAX_ITEM}.");
+                            //TODO: Display validation message to user
+                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({Constants.MIN_ITEM} - {Constants.MAX_ITEM}).");
                         }
 
                         importedItems.Add(importedItem);
