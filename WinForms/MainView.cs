@@ -65,99 +65,6 @@ namespace WinForms
             }
         }
 
-        private void ToggleControls_LoadingList()
-        {
-            btnBubbleSort.Enabled = false;
-            btnCombSort.Enabled = false;
-            btnHeapSort.Enabled = false;
-            btnInsertionSort.Enabled = false;
-            btnMergeSort.Enabled = false;
-            btnQuickSort.Enabled = false;
-            btnSelectionSort.Enabled = false;
-            btnStoogeSort.Enabled = false;
-            btnStupidSort.Enabled = false;
-
-            tstxtItems.Enabled = false;
-            tstxtBeginRange.Enabled = false;
-            tstxtEndRange.Enabled = false;
-            tsbtnGetList.Enabled = false;
-            tsbtnVerifySort.Enabled = false;
-            btnClearSortedList.Enabled = false;
-            btnClearUnsortedList.Enabled = false;
-
-            btnClearLog.Enabled = false;
-
-            tsbtnCancelSort.Enabled = false;
-            btnCancelSort.Enabled = false;
-
-            btnImportUnsortedList.Enabled = false;
-            btnSaveLog.Enabled = false;
-            btnSaveSortedList.Enabled = false;
-            btnSaveUnsortedList.Enabled = false;
-        }
-
-        private void ToggleControls_Sorting()
-        {
-            btnBubbleSort.Enabled = false;
-            btnCombSort.Enabled = false;
-            btnHeapSort.Enabled = false;
-            btnInsertionSort.Enabled = false;
-            btnMergeSort.Enabled = false;
-            btnQuickSort.Enabled = false;
-            btnSelectionSort.Enabled = false;
-            btnStoogeSort.Enabled = false;
-            btnStupidSort.Enabled = false;
-
-            tstxtItems.Enabled = false;
-            tstxtBeginRange.Enabled = false;
-            tstxtEndRange.Enabled = false;
-            tsbtnGetList.Enabled = false;
-            tsbtnVerifySort.Enabled = false;
-            btnClearSortedList.Enabled = false;
-            btnClearUnsortedList.Enabled = false;
-
-            btnClearLog.Enabled = false;
-
-            tsbtnCancelSort.Enabled = true;
-            btnCancelSort.Enabled = true;
-
-            btnImportUnsortedList.Enabled = false;
-            btnSaveLog.Enabled = false;
-            btnSaveSortedList.Enabled = false;
-            btnSaveUnsortedList.Enabled = false;
-        }
-
-        private void ToggleControls_Ready()
-        {
-            btnBubbleSort.Enabled = true;
-            btnCombSort.Enabled = true;
-            btnHeapSort.Enabled = true;
-            btnInsertionSort.Enabled = true;
-            btnMergeSort.Enabled = true;
-            btnQuickSort.Enabled = true;
-            btnSelectionSort.Enabled = true;
-            btnStoogeSort.Enabled = true;
-            btnStupidSort.Enabled = true;
-
-            tstxtItems.Enabled = true;
-            tstxtBeginRange.Enabled = true;
-            tstxtEndRange.Enabled = true;
-            tsbtnGetList.Enabled = true;
-            tsbtnVerifySort.Enabled = true;
-            btnClearSortedList.Enabled = true;
-            btnClearUnsortedList.Enabled = true;
-
-            btnClearLog.Enabled = true;
-
-            tsbtnCancelSort.Enabled = false;
-            btnCancelSort.Enabled = false;
-
-            btnImportUnsortedList.Enabled = true;
-            btnSaveLog.Enabled = true;
-            btnSaveSortedList.Enabled = true;
-            btnSaveUnsortedList.Enabled = true;
-        }
-
         #endregion
 
         #endregion
@@ -295,7 +202,103 @@ namespace WinForms
 
         #endregion
 
-        #region " Setting Mode "
+        #region " Mode "
+
+        private void ToggleControls_LoadingList()
+        {
+            btnBubbleSort.Enabled = false;
+            btnCombSort.Enabled = false;
+            btnHeapSort.Enabled = false;
+            btnInsertionSort.Enabled = false;
+            btnMergeSort.Enabled = false;
+            btnQuickSort.Enabled = false;
+            btnSelectionSort.Enabled = false;
+            btnStoogeSort.Enabled = false;
+            btnStupidSort.Enabled = false;
+
+            tstxtItems.Enabled = false;
+            tstxtBeginRange.Enabled = false;
+            tstxtEndRange.Enabled = false;
+            tsbtnGetList.Enabled = false;
+            tsbtnVerifySort.Enabled = false;
+            tsbtnVerifyFileSort.Enabled = false;
+            btnClearSortedList.Enabled = false;
+            btnClearUnsortedList.Enabled = false;
+
+            btnClearLog.Enabled = false;
+
+            tsbtnCancelSort.Enabled = false;
+            btnCancelSort.Enabled = false;
+
+            btnImportUnsortedList.Enabled = false;
+            btnSaveLog.Enabled = false;
+            btnSaveSortedList.Enabled = false;
+            btnSaveUnsortedList.Enabled = false;
+        }
+
+        private void ToggleControls_Sorting()
+        {
+            btnBubbleSort.Enabled = false;
+            btnCombSort.Enabled = false;
+            btnHeapSort.Enabled = false;
+            btnInsertionSort.Enabled = false;
+            btnMergeSort.Enabled = false;
+            btnQuickSort.Enabled = false;
+            btnSelectionSort.Enabled = false;
+            btnStoogeSort.Enabled = false;
+            btnStupidSort.Enabled = false;
+
+            tstxtItems.Enabled = false;
+            tstxtBeginRange.Enabled = false;
+            tstxtEndRange.Enabled = false;
+            tsbtnGetList.Enabled = false;
+            tsbtnVerifySort.Enabled = false;
+            tsbtnVerifyFileSort.Enabled = false;
+            btnClearSortedList.Enabled = false;
+            btnClearUnsortedList.Enabled = false;
+
+            btnClearLog.Enabled = false;
+
+            tsbtnCancelSort.Enabled = true;
+            btnCancelSort.Enabled = true;
+
+            btnImportUnsortedList.Enabled = false;
+            btnSaveLog.Enabled = false;
+            btnSaveSortedList.Enabled = false;
+            btnSaveUnsortedList.Enabled = false;
+        }
+
+        private void ToggleControls_Ready()
+        {
+            btnBubbleSort.Enabled = true;
+            btnCombSort.Enabled = true;
+            btnHeapSort.Enabled = true;
+            btnInsertionSort.Enabled = true;
+            btnMergeSort.Enabled = true;
+            btnQuickSort.Enabled = true;
+            btnSelectionSort.Enabled = true;
+            btnStoogeSort.Enabled = true;
+            btnStupidSort.Enabled = true;
+
+            tstxtItems.Enabled = true;
+            tstxtBeginRange.Enabled = true;
+            tstxtEndRange.Enabled = true;
+            tsbtnGetList.Enabled = true;
+            tsbtnVerifySort.Enabled = true;
+            tsbtnVerifyFileSort.Enabled = true;
+            btnClearSortedList.Enabled = true;
+            btnClearUnsortedList.Enabled = true;
+
+            btnClearLog.Enabled = true;
+
+            tsbtnCancelSort.Enabled = false;
+            btnCancelSort.Enabled = false;
+
+            btnImportUnsortedList.Enabled = true;
+            btnSaveLog.Enabled = true;
+            btnSaveSortedList.Enabled = true;
+            btnSaveUnsortedList.Enabled = true;
+        }
 
         public void SetIsReady()
         {
@@ -323,6 +326,11 @@ namespace WinForms
             {
                 MessageBox.Show("Items are not sorted correctly.", "Invalid Sort");
             }
+        }
+
+        private void tsbtnVerifyFileSort_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
