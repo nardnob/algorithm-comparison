@@ -518,92 +518,37 @@ namespace WinForms
             }
         }
 
-        //TODO: nardnob - Refactor
         private void AttemptImportUnsortedFileEntries(List<string> fileEntries)
         {
-            var isValid = true;
-            var containsInvalidInteger = false;
-            var containsTooManyEntries = false;
-            var importedItems = new List<int>();
-            var importedStringBuilder = new StringBuilder();
-            int i = 0;
+            var importResponse = new Importer().ImportFileEntries(fileEntries);
 
-            if (fileEntries.Count > Constants.MAX_ENTRIES)
+            if (importResponse.IsValid)
             {
-                containsTooManyEntries = true;
-                isValid = false;
+                _unsortedNums = importResponse.ImportedItems;
+                txtUnsortedNums.Text = importResponse.ImportedStringBuilder.ToString();
+            }
+            else if (importResponse.ContainsTooManyEntries)
+            {
+                MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
+            }
+            else if (importResponse.ContainsInvalidInteger)
+            {
+                var invalidIntegerSb = new StringBuilder();
+
+                invalidIntegerSb.AppendLine("Failed to import.");
+                invalidIntegerSb.AppendLine();
+                invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
+                invalidIntegerSb.AppendLine();
+                invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
+                invalidIntegerSb.AppendLine();
+                invalidIntegerSb.AppendLine($"The first invalid input was on line: {importResponse.ItemIndex}.");
+
+                MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
             }
             else
             {
-                for (i = 0; i < fileEntries.Count() && isValid; i++)
-                {
-                    try
-                    {
-                        var entry = fileEntries[i];
-                        entry = entry.Replace(",", "");
-                        var importedItem = Convert.ToInt32(entry);
-
-                        if (importedItem < Constants.MIN_ITEM || importedItem > Constants.MAX_ITEM)
-                        {
-                            //TODO: Display validation message to user
-                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({Constants.MIN_ITEM} - {Constants.MAX_ITEM}).");
-                        }
-
-                        importedItems.Add(importedItem);
-                        importedStringBuilder.Append($"{importedItem.ToString()}; ");
-                    }
-                    catch (FormatException)
-                    {
-                        isValid = false;
-                        containsInvalidInteger = true;
-                    }
-                    catch (OverflowException)
-                    {
-                        isValid = false;
-                        containsInvalidInteger = true;
-                    }
-                    catch (Exception)
-                    {
-                        isValid = false;
-                    }
-                }
+                MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
             }
-
-            if (isValid)
-            {
-                _unsortedNums = importedItems;
-                txtUnsortedNums.Text = importedStringBuilder.ToString();
-            }
-            else
-            {
-                if (containsTooManyEntries)
-                {
-                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
-                }
-                else if (containsInvalidInteger)
-                {
-                    var invalidIntegerSb = new StringBuilder();
-
-                    invalidIntegerSb.AppendLine("Failed to import.");
-                    invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
-                    invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
-                    invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {i}.");
-
-                    MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
-                }
-                else
-                {
-                    MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
-                }
-            }
-        }
-
-        private void AttemptImportUnsortedFileEntries2(List<string> fileEntries)
-        {
-            //TODO: nardnob
         }
 
         #endregion
