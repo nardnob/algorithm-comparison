@@ -45,6 +45,8 @@ namespace WinForms
             toolStripLabel7 = new ToolStripLabel();
             tsbtnGetList = new ToolStripButton();
             toolStripLabel10 = new ToolStripLabel();
+            tsbtnVerifyFileSort = new ToolStripButton();
+            toolStripLabel9 = new ToolStripLabel();
             tsbtnVerifySort = new ToolStripButton();
             toolStripLabel8 = new ToolStripLabel();
             tsbtnCancelSort = new ToolStripButton();
@@ -60,7 +62,7 @@ namespace WinForms
             btnHeapSort = new Button();
             btnCombSort = new Button();
             btnStoogeSort = new Button();
-            btnStupidSort = new Button();
+            btnBogoSort = new Button();
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
@@ -73,8 +75,6 @@ namespace WinForms
             btnCancelSort = new Button();
             groupBox1 = new GroupBox();
             btnSaveLog = new Button();
-            toolStripLabel9 = new ToolStripLabel();
-            tsbtnVerifyFileSort = new ToolStripButton();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -173,6 +173,23 @@ namespace WinForms
             toolStripLabel10.Size = new Size(10, 22);
             toolStripLabel10.Text = " ";
             // 
+            // tsbtnVerifyFileSort
+            // 
+            tsbtnVerifyFileSort.Alignment = ToolStripItemAlignment.Right;
+            tsbtnVerifyFileSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
+            tsbtnVerifyFileSort.ImageTransparentColor = Color.Magenta;
+            tsbtnVerifyFileSort.Name = "tsbtnVerifyFileSort";
+            tsbtnVerifyFileSort.Size = new Size(118, 22);
+            tsbtnVerifyFileSort.Text = "Verify a File's Sort";
+            tsbtnVerifyFileSort.Click += tsbtnVerifyFileSort_Click;
+            // 
+            // toolStripLabel9
+            // 
+            toolStripLabel9.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel9.Name = "toolStripLabel9";
+            toolStripLabel9.Size = new Size(13, 22);
+            toolStripLabel9.Text = "  ";
+            // 
             // tsbtnVerifySort
             // 
             tsbtnVerifySort.Alignment = ToolStripItemAlignment.Right;
@@ -181,7 +198,6 @@ namespace WinForms
             tsbtnVerifySort.Name = "tsbtnVerifySort";
             tsbtnVerifySort.Size = new Size(80, 22);
             tsbtnVerifySort.Text = "Verify Sort";
-            tsbtnVerifySort.Click += tsbtnVerifySort_Click;
             // 
             // toolStripLabel8
             // 
@@ -328,16 +344,16 @@ namespace WinForms
             btnStoogeSort.UseVisualStyleBackColor = true;
             btnStoogeSort.Click += btnStoogeSort_Click;
             // 
-            // btnStupidSort
+            // btnBogoSort
             // 
-            btnStupidSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnStupidSort.Location = new Point(6, 86);
-            btnStupidSort.Name = "btnStupidSort";
-            btnStupidSort.Size = new Size(91, 26);
-            btnStupidSort.TabIndex = 10;
-            btnStupidSort.Text = "Stupid Sort";
-            btnStupidSort.UseVisualStyleBackColor = true;
-            btnStupidSort.Click += btnStupidSort_Click;
+            btnBogoSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnBogoSort.Location = new Point(6, 86);
+            btnBogoSort.Name = "btnBogoSort";
+            btnBogoSort.Size = new Size(91, 26);
+            btnBogoSort.TabIndex = 10;
+            btnBogoSort.Text = "Bogo Sort";
+            btnBogoSort.UseVisualStyleBackColor = true;
+            btnBogoSort.Click += btnBogoSort_Click;
             // 
             // label3
             // 
@@ -387,7 +403,7 @@ namespace WinForms
             // 
             // btnSaveUnsortedList
             // 
-            btnSaveUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSaveUnsortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSaveUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
             btnSaveUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnSaveUnsortedList.Location = new Point(752, 3);
@@ -401,7 +417,7 @@ namespace WinForms
             // 
             // btnImportUnsortedList
             // 
-            btnImportUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnImportUnsortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnImportUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
             btnImportUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnImportUnsortedList.Location = new Point(601, 3);
@@ -415,7 +431,7 @@ namespace WinForms
             // 
             // btnClearUnsortedList
             // 
-            btnClearUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearUnsortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnClearUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             btnClearUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnClearUnsortedList.Location = new Point(887, 3);
@@ -429,7 +445,7 @@ namespace WinForms
             // 
             // btnSaveSortedList
             // 
-            btnSaveSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSaveSortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSaveSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
             btnSaveSortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnSaveSortedList.Location = new Point(785, 2);
@@ -443,7 +459,7 @@ namespace WinForms
             // 
             // btnClearSortedList
             // 
-            btnClearSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearSortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnClearSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             btnClearSortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnClearSortedList.Location = new Point(906, 2);
@@ -485,13 +501,14 @@ namespace WinForms
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.Controls.Add(btnBubbleSort);
             groupBox1.Controls.Add(btnMergeSort);
             groupBox1.Controls.Add(btnQuickSort);
             groupBox1.Controls.Add(btnInsertionSort);
             groupBox1.Controls.Add(btnSelectionSort);
             groupBox1.Controls.Add(btnHeapSort);
-            groupBox1.Controls.Add(btnStupidSort);
+            groupBox1.Controls.Add(btnBogoSort);
             groupBox1.Controls.Add(btnCombSort);
             groupBox1.Controls.Add(btnStoogeSort);
             groupBox1.Location = new Point(12, 417);
@@ -514,23 +531,6 @@ namespace WinForms
             btnSaveLog.TextAlign = ContentAlignment.MiddleLeft;
             btnSaveLog.UseVisualStyleBackColor = true;
             btnSaveLog.Click += btnSaveLog_Click;
-            // 
-            // toolStripLabel9
-            // 
-            toolStripLabel9.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel9.Name = "toolStripLabel9";
-            toolStripLabel9.Size = new Size(13, 22);
-            toolStripLabel9.Text = "  ";
-            // 
-            // tsbtnVerifyFileSort
-            // 
-            tsbtnVerifyFileSort.Alignment = ToolStripItemAlignment.Right;
-            tsbtnVerifyFileSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
-            tsbtnVerifyFileSort.ImageTransparentColor = Color.Magenta;
-            tsbtnVerifyFileSort.Name = "tsbtnVerifyFileSort";
-            tsbtnVerifyFileSort.Size = new Size(118, 22);
-            tsbtnVerifyFileSort.Text = "Verify a File's Sort";
-            tsbtnVerifyFileSort.Click += tsbtnVerifyFileSort_Click;
             // 
             // MainView
             // 
@@ -592,7 +592,7 @@ namespace WinForms
         private Button btnHeapSort;
         private Button btnCombSort;
         private Button btnStoogeSort;
-        private Button btnStupidSort;
+        private Button btnBogoSort;
         private Label label3;
         private TextBox txtResults;
         private SplitContainer splitContainer1;
