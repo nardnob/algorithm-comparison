@@ -62,7 +62,7 @@ namespace WinForms
             btnHeapSort = new Button();
             btnCombSort = new Button();
             btnStoogeSort = new Button();
-            btnStupidSort = new Button();
+            btnBogoSort = new Button();
             label3 = new Label();
             txtResults = new TextBox();
             splitContainer1 = new SplitContainer();
@@ -344,16 +344,16 @@ namespace WinForms
             btnStoogeSort.UseVisualStyleBackColor = true;
             btnStoogeSort.Click += btnStoogeSort_Click;
             // 
-            // btnStupidSort
+            // btnBogoSort
             // 
-            btnStupidSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnStupidSort.Location = new Point(6, 86);
-            btnStupidSort.Name = "btnStupidSort";
-            btnStupidSort.Size = new Size(91, 26);
-            btnStupidSort.TabIndex = 10;
-            btnStupidSort.Text = "Stupid Sort";
-            btnStupidSort.UseVisualStyleBackColor = true;
-            btnStupidSort.Click += btnStupidSort_Click;
+            btnBogoSort.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnBogoSort.Location = new Point(6, 86);
+            btnBogoSort.Name = "btnBogoSort";
+            btnBogoSort.Size = new Size(91, 26);
+            btnBogoSort.TabIndex = 10;
+            btnBogoSort.Text = "Bogo Sort";
+            btnBogoSort.UseVisualStyleBackColor = true;
+            btnBogoSort.Click += btnBogoSort_Click;
             // 
             // label3
             // 
@@ -507,7 +507,7 @@ namespace WinForms
             groupBox1.Controls.Add(btnInsertionSort);
             groupBox1.Controls.Add(btnSelectionSort);
             groupBox1.Controls.Add(btnHeapSort);
-            groupBox1.Controls.Add(btnStupidSort);
+            groupBox1.Controls.Add(btnBogoSort);
             groupBox1.Controls.Add(btnCombSort);
             groupBox1.Controls.Add(btnStoogeSort);
             groupBox1.Location = new Point(12, 417);
@@ -591,7 +591,7 @@ namespace WinForms
         private Button btnHeapSort;
         private Button btnCombSort;
         private Button btnStoogeSort;
-        private Button btnStupidSort;
+        private Button btnBogoSort;
         private Label label3;
         private TextBox txtResults;
         private SplitContainer splitContainer1;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace nardnob.AlgorithmComparison.Sorting.Sorts
 {
-    public class StupidSort : SortMethod
+    public class BogoSort : SortMethod
     {
         #region " Public Methods "
 
@@ -15,7 +15,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var result = DoStupidSort(sortedNums.ToList(), cancellationToken);
+                var result = DoBogoSort(sortedNums.ToList(), cancellationToken);
                 return result;
             }, cancellationToken);
 
@@ -24,14 +24,14 @@ namespace nardnob.AlgorithmComparison.Sorting.Sorts
 
         public override string GetName()
         {
-            return "Stupid Sort";
+            return "Bogo Sort";
         }
 
         #endregion
 
         #region " Private Methods "
 
-        private static List<int> DoStupidSort(List<int> nums, CancellationToken cancellationToken)
+        private static List<int> DoBogoSort(List<int> nums, CancellationToken cancellationToken)
         {
             while (!Verification.VerifySorted(nums, cancellationToken))
             {

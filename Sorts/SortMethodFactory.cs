@@ -17,7 +17,7 @@ namespace nardnob.AlgorithmComparison.Sorting
                 case SortTypes.SortType.QuickSort: return new QuickSort();
                 case SortTypes.SortType.SelectionSort: return new SelectionSort();
                 case SortTypes.SortType.StoogeSort: return new StoogeSort();
-                case SortTypes.SortType.StupidSort: return new StupidSort();
+                case SortTypes.SortType.BogoSort: return new BogoSort();
                 default:
                     throw new Exception("Unexpected SortType in Sort().");
             }

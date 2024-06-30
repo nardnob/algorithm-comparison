@@ -215,7 +215,7 @@ namespace WinForms
             btnQuickSort.Enabled = false;
             btnSelectionSort.Enabled = false;
             btnStoogeSort.Enabled = false;
-            btnStupidSort.Enabled = false;
+            btnBogoSort.Enabled = false;
 
             tstxtItems.Enabled = false;
             tstxtBeginRange.Enabled = false;
@@ -247,7 +247,7 @@ namespace WinForms
             btnQuickSort.Enabled = false;
             btnSelectionSort.Enabled = false;
             btnStoogeSort.Enabled = false;
-            btnStupidSort.Enabled = false;
+            btnBogoSort.Enabled = false;
 
             tstxtItems.Enabled = false;
             tstxtBeginRange.Enabled = false;
@@ -279,7 +279,7 @@ namespace WinForms
             btnQuickSort.Enabled = true;
             btnSelectionSort.Enabled = true;
             btnStoogeSort.Enabled = true;
-            btnStupidSort.Enabled = true;
+            btnBogoSort.Enabled = true;
 
             tstxtItems.Enabled = true;
             tstxtBeginRange.Enabled = true;
@@ -382,7 +382,15 @@ namespace WinForms
                         throw new ArgumentOutOfRangeException("Unhandled ImportType.");
                 }
             }
+            else
+            {
+                HandleInvalidImportResponse(importResponse);
+                return null;
+            }
+        }
 
+        public void HandleInvalidImportResponse(ImportFileEntriesResponse importResponse)
+        {
             if (importResponse.ContainsTooManyEntries)
             {
                 MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
@@ -409,8 +417,6 @@ namespace WinForms
             {
                 MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
             }
-
-            return null;
         }
 
         #endregion
@@ -669,9 +675,9 @@ namespace WinForms
             await Sort(SortTypes.SortType.StoogeSort);
         }
 
-        private async void btnStupidSort_Click(object sender, EventArgs e)
+        private async void btnBogoSort_Click(object sender, EventArgs e)
         {
-            await Sort(SortTypes.SortType.StupidSort);
+            await Sort(SortTypes.SortType.BogoSort);
         }
 
         #endregion

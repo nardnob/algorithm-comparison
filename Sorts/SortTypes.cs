@@ -12,7 +12,7 @@
             QuickSort,
             SelectionSort,
             StoogeSort,
-            StupidSort
+            BogoSort
         }
     }
 }
