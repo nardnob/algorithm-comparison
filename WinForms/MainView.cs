@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using nardnob.AlgorithmComparison.Sorting;
 using nardnob.AlgorithmComparison.Sorting.Imports;
 using nardnob.AlgorithmComparison.Sorting.Utilities;
+using static nardnob.AlgorithmComparison.Sorting.Imports.Importer;
 
 namespace WinForms
 {
@@ -308,34 +309,11 @@ namespace WinForms
 
         #endregion
 
-        #region " Verify Sort "
-
-        private void tsbtnVerifySort_Click(object sender, EventArgs e)
-        {
-            if (txtSortedNums.Text == string.Empty || !_sortedNums.Any())
-            {
-                MessageBox.Show("No sorted items to verify.", "Invalid Request");
-                return;
-            }
-
-            if (Verification.VerifySorted(_sortedNums))
-            {
-                MessageBox.Show("Items are sorted correctly.", "Valid Sort");
-            }
-            else
-            {
-                MessageBox.Show("Items are not sorted correctly.", "Invalid Sort");
-            }
-        }
+        #region " Import, Verify "
 
         private void tsbtnVerifyFileSort_Click(object sender, EventArgs e)
         {
-            ImportFileAndVerifySort();
-        }
-
-        private void ImportFileAndVerifySort()
-        {
-            var fileEntries = AttemptImportFileEntries();
+            var fileEntries = ImportFileEntries(ImportTypes.ToVerifySort);
             if (fileEntries is not null)
             {
                 var fileIsSorted = Verification.VerifySorted(fileEntries);
@@ -350,7 +328,12 @@ namespace WinForms
             }
         }
 
-        private List<int>? AttemptImportFileEntries()
+        private void btnImportUnsortedList_Click(object sender, EventArgs e)
+        {
+            ImportFileEntries(ImportTypes.LoadUnsorted);
+        }
+
+        private List<int>? ImportFileEntries(ImportTypes importType)
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
@@ -372,45 +355,59 @@ namespace WinForms
                     }
 
                     var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.TrimEntries);
-                    return ImportAndValidateFileEntries(fileEntries.ToList());
+                    return AttemptImportFileEntries(fileEntries.ToList(), importType);
                 }
             }
 
             return null;
         }
 
-        private List<int>? ImportAndValidateFileEntries(List<string> fileEntries)
+        private List<int>? AttemptImportFileEntries(List<string> fileEntries, ImportTypes importType)
         {
-            var importResponse = new Importer().ImportFileEntries(fileEntries);
+            var importResponse = new Importer().ImportFileEntries(fileEntries, importType);
 
             if (importResponse.IsValid)
             {
-                return importResponse.ImportedItems;
+                switch (importResponse.ImportType)
+                {
+                    case ImportTypes.ToVerifySort:
+                        return importResponse.ImportedItems;
+
+                    case ImportTypes.LoadUnsorted:
+                        _unsortedNums = importResponse.ImportedItems;
+                        txtUnsortedNums.Text = importResponse.ImportedStringBuilder.ToString();
+                        return null;
+
+                    default:
+                        throw new ArgumentOutOfRangeException("Unhandled ImportType.");
+                }
+            }
+
+            if (importResponse.ContainsTooManyEntries)
+            {
+                MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
+            }
+            else if (importResponse.ContainsNoEntries)
+            {
+                MessageBox.Show($"The file contained no entries to import.", "Invalid Input");
+            }
+            else if (importResponse.ContainsInvalidInteger)
+            {
+                var invalidIntegerSb = new StringBuilder();
+
+                invalidIntegerSb.AppendLine("Failed to import.");
+                invalidIntegerSb.AppendLine();
+                invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
+                invalidIntegerSb.AppendLine();
+                invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
+                invalidIntegerSb.AppendLine();
+                invalidIntegerSb.AppendLine($"The first invalid input was on line: {importResponse.ItemIndex}.");
+
+                MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
             }
             else
             {
-                if (importResponse.ContainsTooManyEntries)
-                {
-                    MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
-                }
-                else if (importResponse.ContainsInvalidInteger)
-                {
-                    var invalidIntegerSb = new StringBuilder();
-
-                    invalidIntegerSb.AppendLine("Failed to import.");
-                    invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
-                    invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
-                    invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {importResponse.ItemIndex}.");
-
-                    MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
-                }
-                else
-                {
-                    MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
-                }
+                MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
             }
 
             return null;
@@ -433,75 +430,6 @@ namespace WinForms
         private void CancelSort()
         {
             _cancellationTokenSource.Cancel();
-        }
-
-        #endregion
-
-        #region " Import Unsorted List "
-
-        private void btnImportUnsortedList_Click(object sender, EventArgs e)
-        {
-            ImportUnsortedList();
-        }
-
-        private void ImportUnsortedList()
-        {
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
-
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt";
-                openFileDialog.FilterIndex = 1;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    filePath = openFileDialog.FileName;
-                    var fileStream = openFileDialog.OpenFile();
-
-                    using (StreamReader reader = new(fileStream))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
-
-                    var fileEntries = fileContent.Split([Environment.NewLine], StringSplitOptions.TrimEntries);
-                    AttemptImportUnsortedFileEntries(fileEntries.ToList());
-                }
-            }
-        }
-
-        private void AttemptImportUnsortedFileEntries(List<string> fileEntries)
-        {
-            var importResponse = new Importer().ImportFileEntries(fileEntries);
-
-            if (importResponse.IsValid)
-            {
-                _unsortedNums = importResponse.ImportedItems;
-                txtUnsortedNums.Text = importResponse.ImportedStringBuilder.ToString();
-            }
-            else if (importResponse.ContainsTooManyEntries)
-            {
-                MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
-            }
-            else if (importResponse.ContainsInvalidInteger)
-            {
-                var invalidIntegerSb = new StringBuilder();
-
-                invalidIntegerSb.AppendLine("Failed to import.");
-                invalidIntegerSb.AppendLine();
-                invalidIntegerSb.AppendLine("All entries must be integers on new lines between -999,999 and 999,999.");
-                invalidIntegerSb.AppendLine();
-                invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
-                invalidIntegerSb.AppendLine();
-                invalidIntegerSb.AppendLine($"The first invalid input was on line: {importResponse.ItemIndex}.");
-
-                MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
-            }
-            else
-            {
-                MessageBox.Show("Failed to import. An unexpected error occurred.", "Unexpected Error");
-            }
         }
 
         #endregion

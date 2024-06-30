@@ -7,14 +7,24 @@ namespace nardnob.AlgorithmComparison.Sorting.Imports
 {
     public class Importer
     {
-        public ImportFileEntriesResponse ImportFileEntries(List<string> fileEntries)
+        public enum ImportTypes
         {
-            var response = new ImportFileEntriesResponse();
+            LoadUnsorted,
+            ToVerifySort
+        }
+
+        public ImportFileEntriesResponse ImportFileEntries(List<string> fileEntries, ImportTypes importType)
+        {
+            var response = new ImportFileEntriesResponse(importType);
 
             if (fileEntries.Count > Constants.MAX_ENTRIES)
             {
-                //TODO: nardnob - handle too few entries (<= 0)
                 response.ContainsTooManyEntries = true;
+                response.IsValid = false;
+            }
+            else if (fileEntries.Count == 1 && fileEntries[0].Trim() == string.Empty)
+            {
+                response.ContainsNoEntries = true;
                 response.IsValid = false;
             }
             else
@@ -24,7 +34,7 @@ namespace nardnob.AlgorithmComparison.Sorting.Imports
                     try
                     {
                         var entry = fileEntries[response.ItemIndex];
-                        entry = entry.Replace(",", "");
+                        entry = entry.Replace(",", "").Trim();
                         var importedItem = Convert.ToInt32(entry);
 
                         if (importedItem < Constants.MIN_ITEM || importedItem > Constants.MAX_ITEM)

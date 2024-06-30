@@ -45,6 +45,8 @@ namespace WinForms
             toolStripLabel7 = new ToolStripLabel();
             tsbtnGetList = new ToolStripButton();
             toolStripLabel10 = new ToolStripLabel();
+            tsbtnVerifyFileSort = new ToolStripButton();
+            toolStripLabel9 = new ToolStripLabel();
             tsbtnVerifySort = new ToolStripButton();
             toolStripLabel8 = new ToolStripLabel();
             tsbtnCancelSort = new ToolStripButton();
@@ -73,8 +75,6 @@ namespace WinForms
             btnCancelSort = new Button();
             groupBox1 = new GroupBox();
             btnSaveLog = new Button();
-            toolStripLabel9 = new ToolStripLabel();
-            tsbtnVerifyFileSort = new ToolStripButton();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -173,6 +173,23 @@ namespace WinForms
             toolStripLabel10.Size = new Size(10, 22);
             toolStripLabel10.Text = " ";
             // 
+            // tsbtnVerifyFileSort
+            // 
+            tsbtnVerifyFileSort.Alignment = ToolStripItemAlignment.Right;
+            tsbtnVerifyFileSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
+            tsbtnVerifyFileSort.ImageTransparentColor = Color.Magenta;
+            tsbtnVerifyFileSort.Name = "tsbtnVerifyFileSort";
+            tsbtnVerifyFileSort.Size = new Size(118, 22);
+            tsbtnVerifyFileSort.Text = "Verify a File's Sort";
+            tsbtnVerifyFileSort.Click += tsbtnVerifyFileSort_Click;
+            // 
+            // toolStripLabel9
+            // 
+            toolStripLabel9.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel9.Name = "toolStripLabel9";
+            toolStripLabel9.Size = new Size(13, 22);
+            toolStripLabel9.Text = "  ";
+            // 
             // tsbtnVerifySort
             // 
             tsbtnVerifySort.Alignment = ToolStripItemAlignment.Right;
@@ -181,7 +198,6 @@ namespace WinForms
             tsbtnVerifySort.Name = "tsbtnVerifySort";
             tsbtnVerifySort.Size = new Size(80, 22);
             tsbtnVerifySort.Text = "Verify Sort";
-            tsbtnVerifySort.Click += tsbtnVerifySort_Click;
             // 
             // toolStripLabel8
             // 
@@ -514,23 +530,6 @@ namespace WinForms
             btnSaveLog.TextAlign = ContentAlignment.MiddleLeft;
             btnSaveLog.UseVisualStyleBackColor = true;
             btnSaveLog.Click += btnSaveLog_Click;
-            // 
-            // toolStripLabel9
-            // 
-            toolStripLabel9.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel9.Name = "toolStripLabel9";
-            toolStripLabel9.Size = new Size(13, 22);
-            toolStripLabel9.Text = "  ";
-            // 
-            // tsbtnVerifyFileSort
-            // 
-            tsbtnVerifyFileSort.Alignment = ToolStripItemAlignment.Right;
-            tsbtnVerifyFileSort.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
-            tsbtnVerifyFileSort.ImageTransparentColor = Color.Magenta;
-            tsbtnVerifyFileSort.Name = "tsbtnVerifyFileSort";
-            tsbtnVerifyFileSort.Size = new Size(118, 22);
-            tsbtnVerifyFileSort.Text = "Verify a File's Sort";
-            tsbtnVerifyFileSort.Click += tsbtnVerifyFileSort_Click;
             // 
             // MainView
             // 
