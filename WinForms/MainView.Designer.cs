@@ -403,7 +403,7 @@ namespace WinForms
             // 
             // btnSaveUnsortedList
             // 
-            btnSaveUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSaveUnsortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSaveUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
             btnSaveUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnSaveUnsortedList.Location = new Point(752, 3);
@@ -417,7 +417,7 @@ namespace WinForms
             // 
             // btnImportUnsortedList
             // 
-            btnImportUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnImportUnsortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnImportUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.import_16;
             btnImportUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnImportUnsortedList.Location = new Point(601, 3);
@@ -431,7 +431,7 @@ namespace WinForms
             // 
             // btnClearUnsortedList
             // 
-            btnClearUnsortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearUnsortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnClearUnsortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             btnClearUnsortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnClearUnsortedList.Location = new Point(887, 3);
@@ -445,7 +445,7 @@ namespace WinForms
             // 
             // btnSaveSortedList
             // 
-            btnSaveSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSaveSortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSaveSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.download_16;
             btnSaveSortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnSaveSortedList.Location = new Point(785, 2);
@@ -459,7 +459,7 @@ namespace WinForms
             // 
             // btnClearSortedList
             // 
-            btnClearSortedList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClearSortedList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnClearSortedList.Image = nardnob.AlgorithmComparison.WinForms.Properties.Resources.delete_24;
             btnClearSortedList.ImageAlign = ContentAlignment.MiddleRight;
             btnClearSortedList.Location = new Point(906, 2);
@@ -501,6 +501,7 @@ namespace WinForms
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.Controls.Add(btnBubbleSort);
             groupBox1.Controls.Add(btnMergeSort);
             groupBox1.Controls.Add(btnQuickSort);
