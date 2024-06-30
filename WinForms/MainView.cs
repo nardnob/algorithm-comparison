@@ -418,6 +418,11 @@ namespace WinForms
                         isValid = false;
                         containsInvalidInteger = true;
                     }
+                    catch (OverflowException)
+                    {
+                        isValid = false;
+                        containsInvalidInteger = true;
+                    }
                     catch (Exception)
                     {
                         isValid = false;
@@ -548,6 +553,11 @@ namespace WinForms
                         importedStringBuilder.Append($"{importedItem.ToString()}; ");
                     }
                     catch (FormatException)
+                    {
+                        isValid = false;
+                        containsInvalidInteger = true;
+                    }
+                    catch (OverflowException)
                     {
                         isValid = false;
                         containsInvalidInteger = true;
