@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using nardnob.AlgorithmComparison.Sorting.Utilities;
 
 namespace nardnob.AlgorithmComparison.Sorting.Imports
 {
@@ -15,11 +15,11 @@ namespace nardnob.AlgorithmComparison.Sorting.Imports
         List<int> _importedItems = new List<int>();
         StringBuilder _importedStringBuilder = new StringBuilder();
         int _i = 0;
-
+        /*
         public Importer() 
         { 
         }
-        /*
+
         public void Import(List<string> fileEntries)
         {
             if (fileEntries.Count > Constants.MAX_ENTRIES)

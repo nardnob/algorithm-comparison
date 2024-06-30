@@ -1,4 +1,4 @@
-﻿namespace nardnob.AlgorithmComparison.WinForms.Utilities
+﻿namespace nardnob.AlgorithmComparison.Sorting.Utilities
 {
     public static class Constants
     {

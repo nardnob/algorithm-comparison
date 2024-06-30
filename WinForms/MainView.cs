@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using nardnob.AlgorithmComparison.Sorting;
 using nardnob.AlgorithmComparison.Sorting.Imports;
-using nardnob.AlgorithmComparison.WinForms.Utilities;
+using nardnob.AlgorithmComparison.Sorting.Utilities;
 
 namespace WinForms
 {
