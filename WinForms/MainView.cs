@@ -379,68 +379,21 @@ namespace WinForms
             return null;
         }
 
-        //TODO: nardnob - Refactor
         private List<int>? ImportAndValidateFileEntries(List<string> fileEntries)
         {
-            var isValid = true;
-            var containsInvalidInteger = false;
-            var containsTooManyEntries = false;
-            var importedItems = new List<int>();
-            var importedStringBuilder = new StringBuilder();
-            int i = 0;
+            var importResponse = new Importer().ImportFileEntries(fileEntries);
 
-            if (fileEntries.Count > Constants.MAX_ENTRIES)
+            if (importResponse.IsValid)
             {
-                containsTooManyEntries = true;
-                isValid = false;
+                return importResponse.ImportedItems;
             }
             else
             {
-                for (i = 0; i < fileEntries.Count() && isValid; i++)
-                {
-                    try
-                    {
-                        var entry = fileEntries[i];
-                        entry = entry.Replace(",", "");
-                        var importedItem = Convert.ToInt32(entry);
-
-                        if (importedItem < Constants.MIN_ITEM || importedItem > Constants.MAX_ITEM)
-                        {
-                            //TODO: Display validation message to user
-                            throw new FormatException($"Imported item ({importedItem}) was out of the valid range ({Constants.MIN_ITEM} - {Constants.MAX_ITEM}).");
-                        }
-
-                        importedItems.Add(importedItem);
-                        importedStringBuilder.Append($"{importedItem.ToString()}; ");
-                    }
-                    catch (FormatException)
-                    {
-                        isValid = false;
-                        containsInvalidInteger = true;
-                    }
-                    catch (OverflowException)
-                    {
-                        isValid = false;
-                        containsInvalidInteger = true;
-                    }
-                    catch (Exception)
-                    {
-                        isValid = false;
-                    }
-                }
-            }
-
-            if (isValid)
-            {
-                return importedItems;
-            }
-            else
-            {
-                if (containsTooManyEntries)
+                if (importResponse.ContainsTooManyEntries)
                 {
                     MessageBox.Show($"There were too many entries to import.{Environment.NewLine + Environment.NewLine}The max number of entries is: {Constants.MAX_ENTRIES}.", "Invalid Input");
                 }
-                else if (containsInvalidInteger)
+                else if (importResponse.ContainsInvalidInteger)
                 {
                     var invalidIntegerSb = new StringBuilder();
 
@@ -450,7 +403,7 @@ namespace WinForms
                     invalidIntegerSb.AppendLine();
                     invalidIntegerSb.AppendLine("The only special characters allowed are negative signs and commas.");
                     invalidIntegerSb.AppendLine();
-                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {i}.");
+                    invalidIntegerSb.AppendLine($"The first invalid input was on line: {importResponse.ItemIndex}.");
 
                     MessageBox.Show(invalidIntegerSb.ToString(), "Invalid Input");
                 }
