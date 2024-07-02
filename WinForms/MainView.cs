@@ -311,6 +311,24 @@ namespace WinForms
 
         #region " Import, Verify "
 
+        private void tsbtnVerifySort_Click(object sender, EventArgs e)
+        {
+            if (txtSortedNums.Text == String.Empty || _sortedNums.Count == 0)
+            {
+                MessageBox.Show("No sorted items to verify.", "Invalid Request");
+                return;
+            }
+
+            if (Verification.VerifySorted(_sortedNums))
+            {
+                MessageBox.Show("Items are sorted correctly.", "Valid Sort");
+            }
+            else
+            {
+                MessageBox.Show("Items are not sorted correctly.", "Invalid Sort");
+            }
+        }
+
         private void tsbtnVerifyFileSort_Click(object sender, EventArgs e)
         {
             var fileEntries = ImportFileEntries(ImportTypes.ToVerifySort);
