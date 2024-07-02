@@ -5,20 +5,24 @@ namespace nardnob.AlgorithmComparison.Sorting.Files
 {
     public static class FileHandler
     {
-        public static bool OpenWithDefaultProgram(string path)
+        public static bool OpenWithDefaultProgram(string filePath, bool waitForExit = false)
         {
-            if (!File.Exists(path))
+            if (!File.Exists(filePath))
                 return false;
 
             using Process? process = Process.Start(new ProcessStartInfo()
             {
                 FileName = "explorer",
-                Arguments = $"{path}"
+                Arguments = $"{filePath}"
             });
 
-            process?.WaitForExit();
+            if (waitForExit)
+            {
+                process?.WaitForExit();
+                return process?.ExitCode == 1;
+            }
 
-            return process?.ExitCode == 1;
+            return true;
         }
     }
 }
