@@ -1,8 +1,9 @@
+using nardnob.AlgorithmComparison.WinForms.Views;
 using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace WinForms
+namespace nardnob.AlgorithmComparison.WinForms
 {
     internal static class Program
     {

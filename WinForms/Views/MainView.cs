@@ -11,7 +11,7 @@ using nardnob.AlgorithmComparison.Sorting.Imports;
 using nardnob.AlgorithmComparison.Sorting.Utilities;
 using static nardnob.AlgorithmComparison.Sorting.Imports.Importer;
 
-namespace WinForms
+namespace nardnob.AlgorithmComparison.WinForms.Views
 {
     public partial class MainView : Form
     {

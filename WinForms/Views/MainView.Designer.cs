@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace WinForms
+namespace nardnob.AlgorithmComparison.WinForms.Views
 {
     partial class MainView
     {
