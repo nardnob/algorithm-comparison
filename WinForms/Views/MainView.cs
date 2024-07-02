@@ -341,7 +341,7 @@ namespace nardnob.AlgorithmComparison.WinForms.Views
                 }
                 else
                 {
-                    MessageBox.Show("The files entries are not sorted correctly.", "File is not Sorted");
+                    MessageBox.Show("The files entries are not sorted correctly.", "File is Not Sorted");
                 }
             }
         }
@@ -458,6 +458,15 @@ namespace nardnob.AlgorithmComparison.WinForms.Views
 
         #endregion
 
+        #region " File Handling "
+
+        public void ShowFileSuccessfullySaved(string fileName)
+        {
+            new FileExportedView(fileName).ShowDialog();
+        }
+
+        #endregion
+
         #region " Export "
 
         private void btnSaveSortedList_Click(object sender, EventArgs e)
@@ -507,7 +516,7 @@ namespace nardnob.AlgorithmComparison.WinForms.Views
                     File.WriteAllText(saveFileDialog.FileName, listStringBuilder.ToString().Trim());
                 }
 
-                MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
+                ShowFileSuccessfullySaved(saveFileDialog.FileName);
             }
             catch (Exception)
             {
@@ -535,7 +544,7 @@ namespace nardnob.AlgorithmComparison.WinForms.Views
                     File.WriteAllText(saveFileDialog.FileName, txtResults.Text.Trim());
                 }
 
-                MessageBox.Show($"The file was successfully saved.{Environment.NewLine + Environment.NewLine}{saveFileDialog.FileName}", "Successfully Saved");
+                ShowFileSuccessfullySaved(saveFileDialog.FileName);
             }
             catch (Exception)
             {
