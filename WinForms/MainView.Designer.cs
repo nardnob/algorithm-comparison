@@ -198,6 +198,7 @@ namespace WinForms
             tsbtnVerifySort.Name = "tsbtnVerifySort";
             tsbtnVerifySort.Size = new Size(80, 22);
             tsbtnVerifySort.Text = "Verify Sort";
+            tsbtnVerifySort.Click += tsbtnVerifySort_Click;
             // 
             // toolStripLabel8
             // 
